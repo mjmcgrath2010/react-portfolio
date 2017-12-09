@@ -20,6 +20,8 @@ injectGlobal`
     background-color: #fafafa;
     min-height: 100%;
     min-width: 100%;
+    margin:0;
+    padding:0;
   }
 
   p,

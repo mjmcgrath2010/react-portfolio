@@ -1,24 +1,23 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
- */
-
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+// import { FormattedMessage } from 'react-intl';
+// import messages from './messages';
+import styled from 'styled-components';
+import BackgroundImage from '../../images/background.jpg';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+const HeroContainer = styled.div`
+  height: 100vh;
+  width: 100%;
+  background: url(${BackgroundImage}) center;
+  background-size: cover;
+`;
+
+// eslint-disable-next-line react/prefer-stateless-function
+export default class HomePage extends React.PureComponent {
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <HeroContainer>
+        <h1>The Portfolio of Mike McGrath</h1>
+      </HeroContainer>
     );
   }
 }
