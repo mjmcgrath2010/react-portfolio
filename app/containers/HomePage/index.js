@@ -4,23 +4,29 @@ import React from 'react';
 import styled from 'styled-components';
 import BackgroundImage from '../../images/background.jpg';
 
-const HeroContainer = styled.div`
+const HeroContainer = styled.section`
   height: 100vh;
   width: 100%;
   background: url(${BackgroundImage}) center;
   background-size: cover;
-  position: fixed;
+  display: table;
 `;
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class HomePage extends React.PureComponent {
   render() {
     return (
-      <HeroContainer>
-        <div className="hero-text">
-          <h1>The Portfolio of Mike McGrath</h1>
-        </div>
-      </HeroContainer>
+      <div>
+        <HeroContainer>
+          <div className="hero-text">
+            <h1>The Portfolio of Mike McGrath</h1>
+            <h3>Software Engineer</h3>
+          </div>
+        </HeroContainer>
+        <section>
+          <h2>About Me</h2>
+        </section>
+      </div>
     );
   }
 }
