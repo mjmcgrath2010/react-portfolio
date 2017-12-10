@@ -51,6 +51,22 @@ const Wrapper = styled.div`
   padding: 2em 0;
 `;
 
+const Footer = styled.section`
+  height: 250px;
+  width: 100%;
+  background: #336699;
+  display: table;
+  color: #fff;
+`;
+
+const AccentSection = styled.section`
+  height: 250px;
+  width: 100%;
+  background: #9ee493;
+  display: table;
+  color: #fff;
+`;
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class Home extends React.Component {
   render() {
@@ -77,6 +93,17 @@ export class Home extends React.Component {
             <h2>About Me</h2>
           </Wrapper>
         </EvenSection>
+        <OddSection>
+          <Wrapper>
+            <h2>Playground</h2>
+          </Wrapper>
+        </OddSection>
+        <AccentSection>
+          <Wrapper>
+            <h2>Drop Me a Line</h2>
+          </Wrapper>
+        </AccentSection>
+        <Footer />
       </div>
     );
   }
