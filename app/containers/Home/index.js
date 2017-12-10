@@ -17,8 +17,9 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectHome from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { defaultAction } from './actions';
+// import { defaultAction } from './actions';
 import BackgroundImage from '../../images/background.jpg';
+import EvenBackground from '../../images/whirlpool.png';
 // import messages from './messages';
 
 const HeroContainer = styled.section`
@@ -27,6 +28,19 @@ const HeroContainer = styled.section`
   background: url(${BackgroundImage}) center;
   background-size: cover;
   display: table;
+`;
+
+const EvenSection = styled.section`
+  height: auto;
+  width: 100%;
+  background: url(${EvenBackground}) center repeat;
+  display: table;
+`;
+
+const Wrapper = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  padding: 2em 0;
 `;
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -40,16 +54,18 @@ export class Home extends React.Component {
             <h3>Software Engineer</h3>
           </div>
         </HeroContainer>
-        <section>
-          <button onClick={this.props.test}>Test Redux</button>
-        </section>
+        <EvenSection>
+          <Wrapper>
+            <h2>About Me</h2>
+          </Wrapper>
+        </EvenSection>
       </div>
     );
   }
 }
 
 Home.propTypes = {
-  test: PropTypes.func,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -58,10 +74,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    test: e => {
-      e.preventDefault();
-      dispatch(defaultAction());
-    },
+    dispatch,
   };
 }
 
