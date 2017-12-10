@@ -37,6 +37,14 @@ const EvenSection = styled.section`
   display: table;
 `;
 
+const OddSection = styled.section`
+  height: auto;
+  width: 100%;
+  background: #2f4858;
+  display: table;
+  color: #fff;
+`;
+
 const Wrapper = styled.div`
   width: 80%;
   margin: 0 auto;
@@ -54,6 +62,16 @@ export class Home extends React.Component {
             <h3>Software Engineer</h3>
           </div>
         </HeroContainer>
+        <EvenSection>
+          <Wrapper>
+            <h2>My Work</h2>
+          </Wrapper>
+        </EvenSection>
+        <OddSection>
+          <Wrapper>
+            <h2>Skills</h2>
+          </Wrapper>
+        </OddSection>
         <EvenSection>
           <Wrapper>
             <h2>About Me</h2>
