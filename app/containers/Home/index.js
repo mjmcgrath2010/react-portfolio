@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import styled from 'styled-components';
 // import { FormattedMessage } from 'react-intl';
 
 import injectSaga from 'utils/injectSaga';
@@ -18,54 +17,16 @@ import makeSelectHome from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 // import { defaultAction } from './actions';
-import BackgroundImage from '../../images/background.jpg';
-import EvenBackground from '../../images/whirlpool.png';
+
+import About from './sections/about';
+import MySkills from './sections/skills';
+import MyWork from './sections/mywork';
+import Contact from './sections/contact';
+import Playground from './sections/playground';
+
+import { EvenSection, HeroContainer, OddSection, Footer, AccentSection } from './styles';
+
 // import messages from './messages';
-
-const HeroContainer = styled.section`
-  height: 100vh;
-  width: 100%;
-  background: url(${BackgroundImage}) center;
-  background-size: cover;
-  display: table;
-`;
-
-const EvenSection = styled.section`
-  height: auto;
-  width: 100%;
-  background: url(${EvenBackground}) center repeat;
-  display: table;
-`;
-
-const OddSection = styled.section`
-  height: auto;
-  width: 100%;
-  background: #2f4858;
-  display: table;
-  color: #fff;
-`;
-
-const Wrapper = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  padding: 2em 0;
-`;
-
-const Footer = styled.section`
-  height: 250px;
-  width: 100%;
-  background: #336699;
-  display: table;
-  color: #fff;
-`;
-
-const AccentSection = styled.section`
-  height: 250px;
-  width: 100%;
-  background: #9ee493;
-  display: table;
-  color: #fff;
-`;
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class Home extends React.Component {
@@ -79,29 +40,19 @@ export class Home extends React.Component {
           </div>
         </HeroContainer>
         <EvenSection>
-          <Wrapper>
-            <h2>My Work</h2>
-          </Wrapper>
+          <MyWork />
         </EvenSection>
         <OddSection>
-          <Wrapper>
-            <h2>Skills</h2>
-          </Wrapper>
+          <MySkills />
         </OddSection>
         <EvenSection>
-          <Wrapper>
-            <h2>About Me</h2>
-          </Wrapper>
+          <About />
         </EvenSection>
         <OddSection>
-          <Wrapper>
-            <h2>Playground</h2>
-          </Wrapper>
+          <Playground />
         </OddSection>
         <AccentSection>
-          <Wrapper>
-            <h2>Drop Me a Line</h2>
-          </Wrapper>
+          <Contact />
         </AccentSection>
         <Footer />
       </div>
