@@ -18,7 +18,7 @@ class ProjectThumbnail extends React.Component {
     return (
       <div className="project-container">
         <div className="project-thumbnail">
-          <img alt="Project Description" src={this.props.thumbnail} />
+          <img alt={this.props.altTag} src={this.props.thumbnail} />
         </div>
       </div>
     );
@@ -27,6 +27,7 @@ class ProjectThumbnail extends React.Component {
 
 ProjectThumbnail.propTypes = {
   thumbnail: PropTypes.string,
+  altTag: PropTypes.string,
 };
 
 export default ProjectThumbnail;

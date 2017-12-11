@@ -16,16 +16,19 @@ function MyWork() {
       <h2>My Work</h2>
       <Row>
         <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail thumbnail={OSHome} />
+          <ProjectThumbnail altTag="OpportunitySpace Home Page" thumbnail={OSHome} />
         </Col>
         <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail thumbnail={Residential} />
+          <ProjectThumbnail altTag="OpportunitySpace Marketing Campaigns" thumbnail={Residential} />
+        </Col>
+        <Col s={12}>
+          <h3>HapYak</h3>
         </Col>
         <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail thumbnail={CoreReports} />
+          <ProjectThumbnail altTag="HapYak Core Reports" thumbnail={CoreReports} />
         </Col>
         <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail thumbnail={HapYakAcademy} />
+          <ProjectThumbnail altTag="HapYak Academy" thumbnail={HapYakAcademy} />
         </Col>
       </Row>
     </Wrapper>
