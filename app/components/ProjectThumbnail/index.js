@@ -9,18 +9,24 @@ import React from 'react';
 
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
-// import PropTypes from 'prop-types';
 
-function ProjectThumbnail() {
-  return (
-    <div>
-      <img alt="Project Description" />
-    </div>
-  );
+import PropTypes from 'prop-types';
+
+// eslint-disable-next-line react/prefer-stateless-function
+class ProjectThumbnail extends React.Component {
+  render() {
+    return (
+      <div className="project-container">
+        <div className="project-thumbnail">
+          <img alt="Project Description" src={this.props.thumbnail} />
+        </div>
+      </div>
+    );
+  }
 }
 
-// ProjectThumbnail.propTypes = {
-//  projectImage: PropTypes.func,
-// };
+ProjectThumbnail.propTypes = {
+  thumbnail: PropTypes.string,
+};
 
 export default ProjectThumbnail;
