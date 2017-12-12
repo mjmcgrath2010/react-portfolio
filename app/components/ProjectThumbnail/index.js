@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import styled from 'styled-components';
 
 // import { FormattedMessage } from 'react-intl';
@@ -18,7 +19,9 @@ class ProjectThumbnail extends React.Component {
     return (
       <div className="project-container">
         <div className="project-thumbnail">
-          <img alt={this.props.altTag} src={this.props.thumbnail} />
+          <Link to={this.props.projectPage}>
+            <img alt={this.props.altTag} src={this.props.thumbnail} />
+          </Link>
         </div>
       </div>
     );
@@ -28,6 +31,7 @@ class ProjectThumbnail extends React.Component {
 ProjectThumbnail.propTypes = {
   thumbnail: PropTypes.string,
   altTag: PropTypes.string,
+  projectPage: PropTypes.string,
 };
 
 export default ProjectThumbnail;
