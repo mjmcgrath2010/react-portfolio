@@ -31,7 +31,7 @@ class ProjectThumbnail extends React.Component {
 ProjectThumbnail.propTypes = {
   thumbnail: PropTypes.string,
   altTag: PropTypes.string,
-  projectPage: PropTypes.string,
+  projectPage: PropTypes.any,
 };
 
 export default ProjectThumbnail;

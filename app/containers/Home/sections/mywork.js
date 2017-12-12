@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-materialize';
+import { Grid } from 'semantic-ui-react';
 import { Wrapper } from '../styles';
 import ProjectThumbnail from '../../../components/ProjectThumbnail';
 // import PropTypes from 'prop-types';
@@ -13,32 +13,34 @@ import CoreReports from '../../../images/projects/hapyak/core-reports.png';
 function MyWork() {
   return (
     <Wrapper>
-      <h2>My Work</h2>
-      <Row>
-        <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail
-            projectPage="/opportunity-space-home-page"
-            altTag="OpportunitySpace Home Page"
-            thumbnail={OSHome}
-          />
-        </Col>
-        <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail
-            projectPage="/opportunity-space-marketing"
-            altTag="OpportunitySpace Marketing Campaigns"
-            thumbnail={Residential}
-          />
-        </Col>
-        <Col s={12}>
-          <h3>HapYak</h3>
-        </Col>
-        <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail projectPage="/hapyak-reporting" altTag="HapYak Core Reports" thumbnail={CoreReports} />
-        </Col>
-        <Col s={1} m={4} className="grid-example">
-          <ProjectThumbnail projectPage="/hapyak-academy" altTag="HapYak Academy" thumbnail={HapYakAcademy} />
-        </Col>
-      </Row>
+      <Grid>
+        <h2>My Work</h2>
+        <Grid.Row columns={3}>
+          <Grid.Column>
+            <ProjectThumbnail
+              projectPage="/opportunity-space-home-page"
+              altTag="OpportunitySpace Home Page"
+              thumbnail={OSHome}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <ProjectThumbnail
+              projectPage="/opportunity-space-marketing"
+              altTag="OpportunitySpace Marketing Campaigns"
+              thumbnail={Residential}
+            />
+          </Grid.Column>
+        </Grid.Row>
+        <h3>HapYak</h3>
+        <Grid.Row columns={3}>
+          <Grid.Column>
+            <ProjectThumbnail projectPage="/hapyak-reporting" altTag="HapYak Core Reports" thumbnail={CoreReports} />
+          </Grid.Column>
+          <Grid.Column>
+            <ProjectThumbnail projectPage="/hapyak-academy" altTag="HapYak Academy" thumbnail={HapYakAcademy} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Wrapper>
   );
 }
