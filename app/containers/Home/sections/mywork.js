@@ -10,6 +10,7 @@ import Residential from '../../../images/projects/oppspace/residential.png';
 import HapYakAcademy from '../../../images/projects/hapyak/hapyak-academy.png';
 import CoreReports from '../../../images/projects/hapyak/core-reports.png';
 import HapYakLogo from '../../../images/logos/hapyak_logo_color.png';
+import TolemiLogo from '../../../images/logos/tolemi-logo.png';
 
 function MyWork() {
   return (
@@ -36,6 +37,9 @@ function MyWork() {
               thumbnail={HapYakAcademy}
             />
           </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <img className="logo" alt="Tolemi-Logo" src={TolemiLogo} />
         </Grid.Row>
         <Grid.Row columns={3}>
           <Grid.Column>
