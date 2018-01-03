@@ -46,26 +46,23 @@ p, a, span, div, ul, li {
   }
 }
 
-.projects-container {
-  height: 200px;
-}
-  .project-container{
-    display: inline-block;
-    margin: 1em auto;
+.project-container{
+  display: inline-block;
+  margin: 1em auto;
 
-    .ui.medium.image {
-      img {
-        @include box-shadow;
-      }
-
+  .ui.medium.image {
+    img {
+      @include box-shadow;
     }
-  }
 
-  img.logo {
-    height: 100%;
-    width: 20em;
-    margin: 0 auto;
-    position: relative;
   }
+}
+
+img.logo {
+  height: 100%;
+  width: 20em;
+  margin: 0 auto;
+  position: relative;
+}
 
 
