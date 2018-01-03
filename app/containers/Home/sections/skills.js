@@ -20,49 +20,49 @@ function MySkills() {
     <Wrapper>
       <Image />
       <h2>Skills</h2>
-      <Grid centered columns={4}>
+      <Grid centered stackable columns={4}>
         <Grid.Row>
           <Grid.Column>
-            <Image src={JSLogo} />
+            <Image size="small" src={JSLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={ES6Logo} />
+            <Image size="small" src={ES6Logo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={ReactLogo} />
+            <Image size="small" src={ReactLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={ReduxLogo} />
+            <Image size="small" src={ReduxLogo} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <Image src={VueLogo} />
+            <Image size="small" src={VueLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={Ember} />
+            <Image size="small" src={Ember} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={MongoDBLogo} />
+            <Image size="small" src={MongoDBLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={NodeLogo} />
+            <Image size="small" src={NodeLogo} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
       <Grid columns={4}>
         <Grid.Row>
           <Grid.Column>
-            <Image src={StyledComponentsLogo} />
+            <Image size="small" src={StyledComponentsLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={SCSSLogo} />
+            <Image size="small" src={SCSSLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={HTMLLogo} />
+            <Image size="small" src={HTMLLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image src={WebPackLogo} />
+            <Image size="small" src={WebPackLogo} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
