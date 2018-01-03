@@ -46,15 +46,23 @@ p, a, span, div, ul, li {
   }
 }
 
+.projects-row{
+}
+
 .project-container{
   display: inline-block;
   margin: 1em auto;
+  @include box-shadow;
+  height: 225px;
+  overflow: hidden;
 
-  .ui.medium.image {
-    img {
-      @include box-shadow;
-    }
 
+  .ui.move.reveal {
+    white-space: pre-wrap;
+  }
+
+  .project-description{
+    text-align: center;
   }
 }
 
@@ -64,5 +72,4 @@ img.logo {
   margin: 0 auto;
   position: relative;
 }
-
 
