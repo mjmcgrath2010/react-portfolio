@@ -21,48 +21,48 @@ function MySkills() {
       <Image />
       <h2>Skills</h2>
       <Grid centered stackable columns={4}>
-        <Grid.Row>
+        <Grid.Row verticalAlign="middle">
           <Grid.Column>
-            <Image size="small" src={JSLogo} />
+            <Image centered size="small" src={JSLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={ES6Logo} />
+            <Image centered size="small" src={ES6Logo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={ReactLogo} />
+            <Image centered size="small" src={ReactLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={ReduxLogo} />
+            <Image centered size="small" src={ReduxLogo} />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
+        <Grid.Row verticalAlign="middle">
           <Grid.Column>
-            <Image size="small" src={VueLogo} />
+            <Image centered size="small" src={VueLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={Ember} />
+            <Image centered size="small" src={Ember} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={MongoDBLogo} />
+            <Image centered size="small" src={MongoDBLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={NodeLogo} />
+            <Image centered size="small" src={NodeLogo} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
       <Grid columns={4}>
-        <Grid.Row>
+        <Grid.Row verticalAlign="middle">
           <Grid.Column>
-            <Image size="small" src={StyledComponentsLogo} />
+            <Image centered size="small" src={StyledComponentsLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={SCSSLogo} />
+            <Image centered size="small" src={SCSSLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={HTMLLogo} />
+            <Image centered size="small" src={HTMLLogo} />
           </Grid.Column>
           <Grid.Column>
-            <Image size="small" src={WebPackLogo} />
+            <Image centered size="small" src={WebPackLogo} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
