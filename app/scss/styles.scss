@@ -1,5 +1,6 @@
 @import "variables";
 @import "mixins";
+@import "overrides";
 
 // Fonts
 h1, h2 ,h3 ,h4 ,h5 ,h6{
@@ -49,17 +50,11 @@ p, a, span, div, ul, li {
   display: inline-block;
   margin: 1em auto;
 
-  .project-thumbnail {
-    @include box-shadow;
-    height: 220px;
-    width: auto;
-    margin: 0 auto;
-
+  .ui.medium.image {
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
+      @include box-shadow;
     }
+
   }
 }
 
@@ -69,3 +64,4 @@ img.logo {
   margin: 0 auto;
   position: relative;
 }
+
