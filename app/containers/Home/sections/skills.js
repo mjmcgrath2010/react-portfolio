@@ -20,52 +20,52 @@ function MySkills() {
     <Wrapper>
       <Image />
       <h2>Skills</h2>
-      <Image.Group size="small">
-        <Grid columns={4}>
-          <Grid.Row>
-            <Grid.Column>
-              <Image className="image-center" src={JSLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={ES6Logo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={ReactLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={ReduxLogo} />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Image className="image-center" src={VueLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={MongoDBLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={NodeLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={StyledComponentsLogo} />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Image className="image-center" src={SCSSLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={HTMLLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={WebPackLogo} />
-            </Grid.Column>
-            <Grid.Column>
-              <Image className="image-center" src={Ember} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Image.Group>
+      <Grid centered columns={4}>
+        <Grid.Row>
+          <Grid.Column>
+            <Image src={JSLogo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={ES6Logo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={ReactLogo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={ReduxLogo} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+            <Image src={VueLogo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={Ember} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={MongoDBLogo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={NodeLogo} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+      <Grid columns={4}>
+        <Grid.Row>
+          <Grid.Column>
+            <Image src={StyledComponentsLogo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={SCSSLogo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={HTMLLogo} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src={WebPackLogo} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Wrapper>
   );
 }
