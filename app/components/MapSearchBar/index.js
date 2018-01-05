@@ -6,6 +6,10 @@
 
 import React from 'react';
 import { Search, Grid } from 'semantic-ui-react';
+
+const googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U',
+});
 // import styled from 'styled-components';
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -19,7 +23,22 @@ class MapSearchBar extends React.PureComponent {
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value });
+    this.selectAddress();
   };
+
+  selectAddress() {
+    googleMapsClient.geocode(
+      {
+        address: '1600 Amphitheatre Parkway, Mountain View, CA',
+      },
+      (err, response) => {
+        if (err) {
+          return console.log(err);
+        }
+        return console.log(response.json.results);
+      }
+    );
+  }
   render() {
     const { isLoading, value, results } = this.state;
     return (
