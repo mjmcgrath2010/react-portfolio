@@ -13,6 +13,7 @@ import { FormattedMessage } from 'react-intl';
 
 import PrimaryPin from '../../images/icons/map-localization.png';
 import messages from './messages';
+import MapSearchBar from '../MapSearchBar/index';
 // eslint-disable-next-line react/prefer-stateless-function
 class MapSearch extends React.PureComponent {
   constructor(props) {
@@ -74,7 +75,9 @@ class MapSearch extends React.PureComponent {
             <Grid.Column width={10}>
               <div id="mapid" />
             </Grid.Column>
-            <Grid.Column width={6}>Hi</Grid.Column>
+            <Grid.Column width={6}>
+              <MapSearchBar />
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>
