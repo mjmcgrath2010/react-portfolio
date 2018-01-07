@@ -51,8 +51,6 @@ class MapSearchBar extends React.PureComponent {
 
   resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title });
-
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value });
   };
@@ -72,11 +70,13 @@ class MapSearchBar extends React.PureComponent {
         autoComplete.setBounds(circle.getBounds());
       });
     }
+    this.setState({ isLoading: false });
   }
   selectAddress() {
     const place = autoComplete.getPlace();
-    this.props.submitLocation(place);
+    this.state.value = place.formatted_address;
     this.setState({ isLoading: false });
+    this.props.submitLocation(place);
   }
 
   render() {
@@ -85,11 +85,10 @@ class MapSearchBar extends React.PureComponent {
         <Grid.Column>
           <Search
             loading={this.state.isLoading}
-            onResultSelect={this.handleResultSelect}
             onSearchChange={this.handleSearchChange}
-            results={this.state.results}
             value={this.state.value}
             {...this.props}
+            showNoResults={false}
             id="autocomplete"
           />
         </Grid.Column>
@@ -105,7 +104,7 @@ class MapSearchBar extends React.PureComponent {
 }
 
 MapSearchBar.propTypes = {
-  submitLocation: PropTypes.func,
+  submitLocation: PropTypes.any,
 };
 
 export default MapSearchBar;
