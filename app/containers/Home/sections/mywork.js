@@ -15,7 +15,7 @@ import TolemiLogo from '../../../images/logos/tolemi-logo.png';
 function MyWork() {
   return (
     <Wrapper>
-      <Grid>
+      <Grid stackable>
         <Grid.Row columns={1}>
           <Grid.Column>
             <h2>My Work</h2>
