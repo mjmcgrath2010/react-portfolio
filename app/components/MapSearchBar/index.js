@@ -93,6 +93,7 @@ class MapSearchBar extends React.PureComponent {
             {...this.props}
             showNoResults={false}
             id="autocomplete"
+            fluid
           />
         </Grid.Column>
         <Script
