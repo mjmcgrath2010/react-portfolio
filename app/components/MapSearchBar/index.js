@@ -51,8 +51,11 @@ class MapSearchBar extends React.PureComponent {
 
   resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
 
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value });
+  handleSearchChange = e => {
+    this.setState({ isLoading: true, value: e.target.value });
+    if (e.target.value === '') {
+      this.setState({ isLoading: false });
+    }
   };
 
   geoLocate() {
