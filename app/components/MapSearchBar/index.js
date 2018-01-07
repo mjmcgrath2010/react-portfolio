@@ -6,14 +6,23 @@
 
 import React from 'react';
 import { Search, Grid } from 'semantic-ui-react';
-
-const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U',
-});
+import Script from 'react-load-script';
 // import styled from 'styled-components';
+
+let autoComplete;
 
 // eslint-disable-next-line react/prefer-stateless-function
 class MapSearchBar extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+      results: [],
+      isLoading: false,
+      scriptLoaded: false,
+      scriptError: false,
+    };
+  }
   componentWillMount() {
     this.resetComponent();
   }
@@ -23,36 +32,69 @@ class MapSearchBar extends React.PureComponent {
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value });
-    this.selectAddress();
+    if (this.state.scriptLoaded) {
+      // eslint-disable-next-line no-undef
+      autoComplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */ (document.getElementById('autocomplete')),
+        { types: ['geocode'] }
+      );
+      autoComplete.addListener(this.state.value, this.geoLocate());
+    }
   };
-
-  selectAddress() {
-    googleMapsClient.geocode(
-      {
-        address: '1600 Amphitheatre Parkway, Mountain View, CA',
-      },
-      (err, response) => {
-        if (err) {
-          return console.log(err);
-        }
-        return console.log(response.json.results);
-      }
-    );
+  handleScriptCreate() {
+    this.setState({ scriptLoaded: false });
   }
+
+  handleScriptError() {
+    this.setState({ scriptError: true });
+  }
+
+  handleScriptLoad() {
+    this.setState({ scriptLoaded: true });
+  }
+
+  geoLocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const geoLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        // eslint-disable-next-line no-undef
+        const circle = new google.maps.Circle({
+          center: geoLocation,
+          radius: position.coords.accuracy,
+        });
+        autoComplete.setBounds(circle.getBounds());
+      });
+      this.setState({ isLoading: false });
+    }
+  }
+
+  selectAddress() {}
   render() {
-    const { isLoading, value, results } = this.state;
     return (
       <Grid columns={1}>
         <Grid.Column>
           <Search
-            loading={isLoading}
+            loading={this.state.isLoading}
             onResultSelect={this.handleResultSelect}
             onSearchChange={this.handleSearchChange}
-            results={results}
-            value={value}
+            results={this.state.results}
+            value={this.state.value}
             {...this.props}
+            id="autocomplete"
           />
         </Grid.Column>
+        <Script
+          url="https://maps.googleapis.com/maps/api/js?keyAIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U&libraries=places"
+          // eslint-disable-next-line react/jsx-no-bind
+          onCreate={this.handleScriptCreate.bind(this)}
+          // eslint-disable-next-line react/jsx-no-bind
+          onError={this.handleScriptError.bind(this)}
+          // eslint-disable-next-line react/jsx-no-bind
+          onLoad={this.handleScriptLoad.bind(this)}
+        />
       </Grid>
     );
   }
