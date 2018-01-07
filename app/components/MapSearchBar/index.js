@@ -24,6 +24,9 @@ class MapSearchBar extends React.PureComponent {
       scriptLoaded: false,
       scriptError: false,
     };
+    this.handleScriptCreate = this.handleScriptCreate.bind(this);
+    this.handleScriptLoad = this.handleScriptLoad.bind(this);
+    this.handleScriptError = this.handleScriptError.bind(this);
   }
 
   componentWillMount() {
@@ -41,10 +44,7 @@ class MapSearchBar extends React.PureComponent {
   handleScriptLoad() {
     this.setState({ scriptLoaded: true });
     // eslint-disable-next-line no-undef
-    autoComplete = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */ (document.getElementById('autocomplete')),
-      { types: ['geocode'] }
-    );
+    autoComplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: ['geocode'] });
     autoComplete.addListener('place_changed', this.selectAddress.bind(this));
     autoComplete.addListener(this.state.value, this.geoLocate);
   }
@@ -95,12 +95,9 @@ class MapSearchBar extends React.PureComponent {
         </Grid.Column>
         <Script
           url="https://maps.googleapis.com/maps/api/js?keyAIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U&libraries=places"
-          // eslint-disable-next-line react/jsx-no-bind
-          onCreate={this.handleScriptCreate.bind(this)}
-          // eslint-disable-next-line react/jsx-no-bind
-          onError={this.handleScriptError.bind(this)}
-          // eslint-disable-next-line react/jsx-no-bind
-          onLoad={this.handleScriptLoad.bind(this)}
+          onCreate={this.handleScriptCreate}
+          onError={this.handleScriptError}
+          onLoad={this.handleScriptLoad}
         />
       </Grid>
     );

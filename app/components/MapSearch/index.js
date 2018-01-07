@@ -8,6 +8,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 // import styled from 'styled-components';
 
@@ -33,6 +34,7 @@ class MapSearch extends React.PureComponent {
       pins: [],
       center: [42.342813, -71.097606],
     };
+    this.mapLocation = this.mapLocation.bind(this);
   }
   componentDidMount() {
     this.setUpMap();
@@ -69,7 +71,7 @@ class MapSearch extends React.PureComponent {
   mapLocation(location) {
     const lat = location.geometry.location.lat();
     const lng = location.geometry.location.lng();
-    const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup('My Home');
+    const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(location.formatted_address);
     this.state.pins.push(newPin);
     newPin.addTo(mymap);
   }
@@ -89,10 +91,7 @@ class MapSearch extends React.PureComponent {
               <div id="mapid" />
             </Grid.Column>
             <Grid.Column width={6}>
-              <MapSearchBar
-                // eslint-disable-next-line react/jsx-no-bind
-                submitLocation={this.mapLocation.bind(this)}
-              />
+              <MapSearchBar submitLocation={this.mapLocation} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -101,6 +100,8 @@ class MapSearch extends React.PureComponent {
   }
 }
 
-MapSearch.propTypes = {};
+MapSearch.propTypes = {
+  submitLocation: PropTypes.func,
+};
 
 export default MapSearch;
