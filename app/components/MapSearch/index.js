@@ -88,20 +88,20 @@ class MapSearch extends React.PureComponent {
   render() {
     return (
       <div>
-        <Grid stackable columns={1}>
+        <Grid columns={1}>
           <Grid.Row>
             <Grid.Column>
               <FormattedMessage {...messages.header} />
             </Grid.Column>
           </Grid.Row>{' '}
         </Grid>
-        <Grid centered columns={2}>
+        <Grid centered stackable columns={2}>
           <Grid.Row>
-            <Grid.Column width={10}>
-              <div id="mapid" />
-            </Grid.Column>
             <Grid.Column width={6}>
               <MapSearchBar submitLocation={this.mapLocation} />
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <div id="mapid" />
             </Grid.Column>
           </Grid.Row>
         </Grid>
