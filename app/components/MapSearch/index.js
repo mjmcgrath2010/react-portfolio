@@ -57,11 +57,12 @@ class MapSearch extends React.PureComponent {
       Satellite: satellite,
     };
     const overlayMaps = {
-      pins: this.state.pins,
+      Home: pins,
     };
     mymap = L.map('mapid', {
       center: this.state.center,
       zoom: 15,
+      minZoom: 15,
       layers: [pins, streets],
     });
 
