@@ -62,18 +62,28 @@ class MapSearch extends React.PureComponent {
     mymap = L.map('mapid', {
       center: this.state.center,
       zoom: 15,
-      minZoom: 15,
       layers: [pins, streets],
     });
 
     L.control.layers(baseMaps, overlayMaps).addTo(mymap);
   }
   mapLocation(location) {
+    const that = this;
     const lat = location.geometry.location.lat();
     const lng = location.geometry.location.lng();
     const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(location.formatted_address);
     this.state.pins.push(newPin);
     newPin.addTo(mymap);
+    mymap.panTo(
+      {
+        lon: lng,
+        lat,
+      },
+      {
+        animate: true,
+      }
+    );
+    mymap.fitBounds([[lat, lng], [that.state.center]]);
   }
   render() {
     return (
