@@ -7,6 +7,7 @@
 import React from 'react';
 import { Search, Grid } from 'semantic-ui-react';
 import Script from 'react-load-script';
+import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 let autoComplete;
@@ -19,28 +20,16 @@ class MapSearchBar extends React.PureComponent {
       value: '',
       results: [],
       isLoading: false,
+      selectedLocation: null,
       scriptLoaded: false,
       scriptError: false,
     };
   }
+
   componentWillMount() {
     this.resetComponent();
   }
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title });
-
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value });
-    if (this.state.scriptLoaded) {
-      // eslint-disable-next-line no-undef
-      autoComplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */ (document.getElementById('autocomplete')),
-        { types: ['geocode'] }
-      );
-      autoComplete.addListener(this.state.value, this.geoLocate());
-    }
-  };
   handleScriptCreate() {
     this.setState({ scriptLoaded: false });
   }
@@ -51,7 +40,22 @@ class MapSearchBar extends React.PureComponent {
 
   handleScriptLoad() {
     this.setState({ scriptLoaded: true });
+    // eslint-disable-next-line no-undef
+    autoComplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */ (document.getElementById('autocomplete')),
+      { types: ['geocode'] }
+    );
+    autoComplete.addListener('place_changed', this.selectAddress.bind(this));
+    autoComplete.addListener(this.state.value, this.geoLocate);
   }
+
+  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
+
+  handleResultSelect = (e, { result }) => this.setState({ value: result.title });
+
+  handleSearchChange = (e, { value }) => {
+    this.setState({ isLoading: true, value });
+  };
 
   geoLocate() {
     if (navigator.geolocation) {
@@ -67,11 +71,14 @@ class MapSearchBar extends React.PureComponent {
         });
         autoComplete.setBounds(circle.getBounds());
       });
-      this.setState({ isLoading: false });
     }
   }
+  selectAddress() {
+    const place = autoComplete.getPlace();
+    this.props.submitLocation(place);
+    this.setState({ isLoading: false });
+  }
 
-  selectAddress() {}
   render() {
     return (
       <Grid columns={1}>
@@ -100,6 +107,8 @@ class MapSearchBar extends React.PureComponent {
   }
 }
 
-MapSearchBar.propTypes = {};
+MapSearchBar.propTypes = {
+  submitLocation: PropTypes.func,
+};
 
 export default MapSearchBar;
