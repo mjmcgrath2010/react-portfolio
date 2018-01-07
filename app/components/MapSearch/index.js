@@ -8,7 +8,6 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 // import styled from 'styled-components';
 
@@ -37,35 +36,35 @@ class MapSearch extends React.PureComponent {
     this.mapLocation = this.mapLocation.bind(this);
   }
   componentDidMount() {
+    this.state.pins.push(L.marker([42.342813, -71.097606], { icon: mikesIcon }).bindPopup('My Home'));
     this.setUpMap();
   }
   setUpMap() {
     const mapBoxUrl =
       '//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibW1jZ3JhdGgyMDEwIiwiYSI6ImNqYzE2c2F3czAzZ20zMm85emhpOW15aTkifQ.ieXsZA8iOh4YBSaC0GgW-Q';
-    const mbAttr =
-      'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+    const mbAttr = 'Made by Mike McGrath';
     const satellite = L.tileLayer(mapBoxUrl, {
       id: 'mapbox.satellite',
       attribution: mbAttr,
     });
-    const streets = L.tileLayer(mapBoxUrl, { id: 'mapbox.streets', attribution: mbAttr });
-
-    this.state.pins.push(L.marker([42.342813, -71.097606], { icon: mikesIcon }).bindPopup('My Home'));
-    const pins = L.layerGroup(this.state.pins);
-    mymap = L.map('mapid', {
-      center: this.state.center,
-      zoom: 15,
-      layers: [pins, streets],
+    const streets = L.tileLayer(mapBoxUrl, {
+      id: 'mapbox.streets',
+      attribution: mbAttr,
     });
+    const pins = L.layerGroup(this.state.pins);
     const baseMaps = {
       Streets: streets,
       Satellite: satellite,
     };
     const overlayMaps = {
-      Pins: this.state.pins,
+      pins: this.state.pins,
     };
+    mymap = L.map('mapid', {
+      center: this.state.center,
+      zoom: 15,
+      layers: [pins, streets],
+    });
+
     L.control.layers(baseMaps, overlayMaps).addTo(mymap);
   }
   mapLocation(location) {
@@ -100,8 +99,6 @@ class MapSearch extends React.PureComponent {
   }
 }
 
-MapSearch.propTypes = {
-  submitLocation: PropTypes.func,
-};
+MapSearch.propTypes = {};
 
 export default MapSearch;
