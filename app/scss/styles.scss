@@ -17,23 +17,24 @@ h2 {
 }
 
 h3 {
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 h4 {
-  font-size: 2em;
+  font-size: 1.6em;
 }
 
 h5 {
-  font-size: 2em;
+  font-size: 1.4em;
 }
 
 h6 {
-  font-size: 2em;
+  font-size: 1.2em;
 }
 
 p, a, span, div, ul, li {
   font-family: $primary-font;
+  font-size: 1em;
 }
 
 .hero-text {
@@ -72,5 +73,24 @@ img.logo {
   height: 80vh;
   min-height: 500px;
   width: 100%;
+}
+
+.playground {
+  .ui.pointing.secondary.menu {
+    .item {
+      text-align: center;
+      margin: 0 auto;
+      width: 32%;
+      display: block;
+      position: relative;
+    }
+    a {
+      color: #FFF;
+    }
+    .active.item {
+        color: #FFF;
+        border-color: $secondary-color;
+    }
+  }
 }
 

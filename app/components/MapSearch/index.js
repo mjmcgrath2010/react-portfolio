@@ -91,9 +91,12 @@ class MapSearch extends React.PureComponent {
         <Grid columns={1}>
           <Grid.Row>
             <Grid.Column>
+              <h4>
+                <FormattedMessage {...messages.headline} />
+              </h4>
               <FormattedMessage {...messages.header} />
             </Grid.Column>
-          </Grid.Row>{' '}
+          </Grid.Row>
         </Grid>
         <Grid centered stackable columns={2}>
           <Grid.Row>
