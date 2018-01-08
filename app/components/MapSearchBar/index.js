@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Search, Grid } from 'semantic-ui-react';
+import { Search, Grid, Statistic } from 'semantic-ui-react';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -23,40 +23,45 @@ class MapSearchBar extends React.PureComponent {
       selectedLocation: null,
       scriptLoaded: false,
       scriptError: false,
+      submittedAddress: '',
+      travelTimes: undefined,
     };
     this.handleScriptCreate = this.handleScriptCreate.bind(this);
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handleScriptError = this.handleScriptError.bind(this);
+    this.displayTravelTimes = this.displayTravelTimes.bind(this);
   }
 
   componentWillMount() {
     this.resetComponent();
   }
 
-  handleScriptCreate() {
-    this.setState({ scriptLoaded: false });
-  }
-
-  handleScriptError() {
-    this.setState({ scriptError: true });
-  }
-
-  handleScriptLoad() {
-    this.setState({ scriptLoaded: true });
+  getTimes(destLat, destLong) {
     // eslint-disable-next-line no-undef
-    autoComplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: ['geocode'] });
-    autoComplete.addListener('place_changed', this.selectAddress.bind(this));
-    autoComplete.addListener(this.state.value, this.geoLocate);
+    const origin = new google.maps.LatLng(42.342813, -71.097606);
+    // eslint-disable-next-line no-undef
+    const destination = new google.maps.LatLng(destLat, destLong);
+    // eslint-disable-next-line no-undef
+    const transit = new google.maps.DistanceMatrixService();
+    transit.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'TRANSIT',
+        transitOptions: {
+          modes: ['BUS', 'RAIL', 'SUBWAY', 'TRAIN'],
+        },
+      },
+      this.displayTravelTimes
+    );
   }
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
-
-  handleSearchChange = e => {
-    this.setState({ isLoading: true, value: e.target.value });
-    if (e.target.value === '') {
-      this.setState({ isLoading: false });
-    }
-  };
+  displayTravelTimes(response, status) {
+    console.log(response, status);
+    this.setState({
+      travelTimes: response,
+    });
+  }
 
   geoLocate() {
     if (navigator.geolocation) {
@@ -77,9 +82,34 @@ class MapSearchBar extends React.PureComponent {
   }
   selectAddress() {
     const place = autoComplete.getPlace();
-    this.state.value = place.formatted_address;
-    this.setState({ isLoading: false });
+    this.setState({ isLoading: false, submittedAddress: place.formatted_address });
     this.props.submitLocation(place);
+    this.getTimes(place.geometry.location.lat(), place.geometry.location.lng());
+  }
+
+  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
+
+  handleSearchChange = e => {
+    this.setState({ isLoading: true, value: e.target.value });
+    if (e.target.value === '') {
+      this.setState({ isLoading: false });
+    }
+  };
+
+  handleScriptCreate() {
+    this.setState({ scriptLoaded: false });
+  }
+
+  handleScriptError() {
+    this.setState({ scriptError: true });
+  }
+
+  handleScriptLoad() {
+    this.setState({ scriptLoaded: true });
+    // eslint-disable-next-line no-undef
+    autoComplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: ['geocode'] });
+    autoComplete.addListener('place_changed', this.selectAddress.bind(this));
+    autoComplete.addListener(this.state.value, this.geoLocate);
   }
 
   render() {
@@ -97,11 +127,22 @@ class MapSearchBar extends React.PureComponent {
           />
         </Grid.Column>
         <Script
-          url="https://maps.googleapis.com/maps/api/js?keyAIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U&libraries=places"
+          url="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U&libraries=places"
           onCreate={this.handleScriptCreate}
           onError={this.handleScriptError}
           onLoad={this.handleScriptLoad}
         />
+        <Grid.Column>
+          <h5>Time to get to: {this.state.submittedAddress}</h5>
+          <Statistic>
+            <Statistic.Value>
+              {this.state.travelTimes ? this.state.travelTimes.rows[0].elements[0].duration.text : ''}
+            </Statistic.Value>
+            <Statistic.Label>
+              {this.state.travelTimes ? this.state.travelTimes.rows[0].elements[0].distance.text : ''}
+            </Statistic.Label>
+          </Statistic>
+        </Grid.Column>
       </Grid>
     );
   }
