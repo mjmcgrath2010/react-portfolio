@@ -1,0 +1,19 @@
+// Semantic UI Overrides
+@import "variables";
+
+
+.ui.form .field {
+  label {
+    color: #fff;
+    font-family: $primary-font;
+    font-size: 18px;
+  }
+}
+
+p, a, span, div, ul, li {
+  font-family: $primary-font !important;
+  color: $primary-color !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+

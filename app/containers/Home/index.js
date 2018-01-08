@@ -40,16 +40,16 @@ export class Home extends React.Component {
           </div>
         </HeroContainer>
         <EvenSection>
-          <MyWork />
-        </EvenSection>
-        <OddSection>
-          <MySkills />
-        </OddSection>
-        <EvenSection>
           <About />
         </EvenSection>
         <OddSection>
           <Playground />
+        </OddSection>
+        <EvenSection>
+          <MyWork />
+        </EvenSection>
+        <OddSection>
+          <MySkills />
         </OddSection>
         <AccentSection>
           <Contact />
