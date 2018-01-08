@@ -1,4 +1,5 @@
 // Semantic UI Overrides
+@import "variables";
 
 .ui.form .field {
   label {
@@ -6,11 +7,6 @@
     font-family: $primary-font;
     font-size: 18px;
   }
-}
-.ui.medium.image, .ui.medium.images .image, .ui.medium.images img, .ui.medium.images svg {
-  width: 200px;
-  height: auto;
-  font-size: 1rem;
 }
 
 p, a, span, div, ul, li {
