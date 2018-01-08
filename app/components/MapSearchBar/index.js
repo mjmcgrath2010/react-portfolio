@@ -51,6 +51,7 @@ class MapSearchBar extends React.PureComponent {
         transitOptions: {
           modes: ['BUS', 'RAIL', 'SUBWAY', 'TRAIN'],
         },
+        // eslint-disable-next-line no-undef
         unitSystem: google.maps.UnitSystem.IMPERIAL,
       },
       this.displayTravelTimes
