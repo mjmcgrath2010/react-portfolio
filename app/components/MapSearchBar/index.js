@@ -24,12 +24,14 @@ class MapSearchBar extends React.PureComponent {
       scriptLoaded: false,
       scriptError: false,
       submittedAddress: '',
-      travelTimes: undefined,
+      travelTransitTimes: undefined,
+      travelDrivingTimes: undefined,
     };
     this.handleScriptCreate = this.handleScriptCreate.bind(this);
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handleScriptError = this.handleScriptError.bind(this);
     this.displayTravelTimes = this.displayTravelTimes.bind(this);
+    this.displayDrivingTimes = this.displayDrivingTimes.bind(this);
   }
 
   componentWillMount() {
@@ -43,6 +45,8 @@ class MapSearchBar extends React.PureComponent {
     const destination = new google.maps.LatLng(destLat, destLong);
     // eslint-disable-next-line no-undef
     const transit = new google.maps.DistanceMatrixService();
+    // eslint-disable-next-line no-undef
+    const driving = new google.maps.DistanceMatrixService();
     transit.getDistanceMatrix(
       {
         origins: [origin],
@@ -56,12 +60,29 @@ class MapSearchBar extends React.PureComponent {
       },
       this.displayTravelTimes
     );
+    driving.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'DRIVING',
+        // eslint-disable-next-line no-undef
+        unitSystem: google.maps.UnitSystem.IMPERIAL,
+      },
+      this.displayDrivingTimes
+    );
+  }
+
+  displayDrivingTimes(response, status) {
+    console.log(response, status);
+    this.setState({
+      travelDrivingTimes: response,
+    });
   }
 
   displayTravelTimes(response, status) {
     console.log(response, status);
     this.setState({
-      travelTimes: response,
+      travelTransitTimes: response,
     });
   }
 
@@ -138,10 +159,20 @@ class MapSearchBar extends React.PureComponent {
           <h5>Time to get to: {this.state.submittedAddress}</h5>
           <Statistic>
             <Statistic.Value>
-              {this.state.travelTimes ? this.state.travelTimes.rows[0].elements[0].duration.text : ''}
+              {this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : ''}
             </Statistic.Value>
             <Statistic.Label>
-              {this.state.travelTimes ? this.state.travelTimes.rows[0].elements[0].distance.text : ''}
+              {this.state.travelTransitTimes
+                ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Public Transit`
+                : ''}
+            </Statistic.Label>
+            <Statistic.Value>
+              {this.state.travelDrivingTimes ? this.state.travelDrivingTimes.rows[0].elements[0].duration.text : ''}
+            </Statistic.Value>
+            <Statistic.Label>
+              {this.state.travelDrivingTimes
+                ? `${this.state.travelDrivingTimes.rows[0].elements[0].distance.text} -  Driving`
+                : ''}
             </Statistic.Label>
           </Statistic>
         </Grid.Column>
