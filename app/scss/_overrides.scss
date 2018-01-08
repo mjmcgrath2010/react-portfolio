@@ -2,6 +2,14 @@
 @import "variables";
 
 
+p, a, span, div, ul, li {
+  font-family: $primary-font !important;
+  color: $primary-color;
+  font-size: 18px;
+  line-height: 1 !important;
+}
+
+
 .ui.form .field {
   label {
     color: #fff;
@@ -9,11 +17,3 @@
     font-size: 18px;
   }
 }
-
-p, a, span, div, ul, li {
-  font-family: $primary-font !important;
-  color: $primary-color !important;
-  font-size: 18px !important;
-  line-height: 1 !important;
-}
-

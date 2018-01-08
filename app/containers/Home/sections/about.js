@@ -9,7 +9,7 @@ function About() {
   return (
     <Wrapper>
       <h2>About</h2>
-      <Grid columns={2}>
+      <Grid stackable columns={2}>
         <Grid.Row>
           <Grid.Column width={6}>
             <Image centered size="medium" verticalAlign="top" circular src={HeadShot} alt="Mike McGrath head shot" />
