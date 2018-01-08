@@ -65,6 +65,15 @@ class MapSearch extends React.PureComponent {
       layers: [pins, streets],
     });
 
+    mymap.scrollWheelZoom.disable();
+    mymap.on('click', () => {
+      if (mymap.scrollWheelZoom.enabled()) {
+        mymap.scrollWheelZoom.disable();
+      } else {
+        mymap.scrollWheelZoom.enable();
+      }
+    });
+
     L.control.layers(baseMaps, overlayMaps).addTo(mymap);
   }
   mapLocation(location) {
