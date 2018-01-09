@@ -34,6 +34,7 @@ class MapSearch extends React.PureComponent {
       center: [42.342813, -71.097606],
     };
     this.mapLocation = this.mapLocation.bind(this);
+    this.resetMap = this.resetMap.bind(this);
   }
   componentDidMount() {
     this.state.pins.push(L.marker([42.342813, -71.097606], { icon: mikesIcon }).bindPopup('My Home'));
@@ -77,23 +78,20 @@ class MapSearch extends React.PureComponent {
     L.control.layers(baseMaps, overlayMaps).addTo(mymap);
   }
   mapLocation(location) {
+    if (this.state.pins.length > 1) {
+      this.resetMap();
+    }
+
     const that = this;
     const lat = location.geometry.location.lat();
     const lng = location.geometry.location.lng();
     const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(location.formatted_address);
     this.state.pins.push(newPin);
     newPin.addTo(mymap);
-    mymap.panTo(
-      {
-        lon: lng,
-        lat,
-      },
-      {
-        animate: true,
-      }
-    );
+    mymap.panTo({ lon: lng, lat }, { animate: true });
     mymap.fitBounds([[lat, lng], [that.state.center]]);
   }
+  resetMap() {}
   render() {
     return (
       <div>

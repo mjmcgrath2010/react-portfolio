@@ -5,10 +5,15 @@
  */
 
 import React from 'react';
-import { Search, Grid, Statistic } from 'semantic-ui-react';
+import { Search, Grid } from 'semantic-ui-react';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
+import styled from 'styled-components';
+import TravelTime from './TravelTime';
+
+const Heading = styled.h5`
+  color: #fff;
+`;
 
 let autoComplete;
 
@@ -32,6 +37,7 @@ class MapSearchBar extends React.PureComponent {
     this.handleScriptError = this.handleScriptError.bind(this);
     this.displayTravelTimes = this.displayTravelTimes.bind(this);
     this.displayDrivingTimes = this.displayDrivingTimes.bind(this);
+    this.showResults = this.showResults.bind(this);
   }
 
   componentWillMount() {
@@ -72,15 +78,13 @@ class MapSearchBar extends React.PureComponent {
     );
   }
 
-  displayDrivingTimes(response, status) {
-    console.log(response, status);
+  displayDrivingTimes(response) {
     this.setState({
       travelDrivingTimes: response,
     });
   }
 
-  displayTravelTimes(response, status) {
-    console.log(response, status);
+  displayTravelTimes(response) {
     this.setState({
       travelTransitTimes: response,
     });
@@ -135,6 +139,33 @@ class MapSearchBar extends React.PureComponent {
     autoComplete.addListener(this.state.value, this.geoLocate);
   }
 
+  showResults() {
+    let Result;
+    if (this.state.submittedAddress) {
+      return (Result = (
+        <TravelTime
+          transitDistance={
+            this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : 'N/A'
+          }
+          transitMiles={
+            this.state.travelTransitTimes
+              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Public Transit`
+              : ''
+          }
+          travelDrivingMiles={
+            this.state.travelDrivingTimes ? this.state.travelDrivingTimes.rows[0].elements[0].duration.text : 'N/A'
+          }
+          travelDrivingTime={
+            this.state.travelDrivingTimes
+              ? `${this.state.travelDrivingTimes.rows[0].elements[0].distance.text} -  Driving`
+              : ''
+          }
+        />
+      ));
+    }
+    return (Result = '');
+  }
+
   render() {
     return (
       <Grid columns={1}>
@@ -149,33 +180,13 @@ class MapSearchBar extends React.PureComponent {
             fluid
           />
         </Grid.Column>
+        <Grid.Column>{this.showResults()}</Grid.Column>
         <Script
           url="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U&libraries=places"
           onCreate={this.handleScriptCreate}
           onError={this.handleScriptError}
           onLoad={this.handleScriptLoad}
         />
-        <Grid.Column>
-          <h5>Time to get to: {this.state.submittedAddress}</h5>
-          <Statistic>
-            <Statistic.Value>
-              {this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : ''}
-            </Statistic.Value>
-            <Statistic.Label>
-              {this.state.travelTransitTimes
-                ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Public Transit`
-                : ''}
-            </Statistic.Label>
-            <Statistic.Value>
-              {this.state.travelDrivingTimes ? this.state.travelDrivingTimes.rows[0].elements[0].duration.text : ''}
-            </Statistic.Value>
-            <Statistic.Label>
-              {this.state.travelDrivingTimes
-                ? `${this.state.travelDrivingTimes.rows[0].elements[0].distance.text} -  Driving`
-                : ''}
-            </Statistic.Label>
-          </Statistic>
-        </Grid.Column>
       </Grid>
     );
   }
