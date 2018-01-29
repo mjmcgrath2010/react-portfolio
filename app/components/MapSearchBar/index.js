@@ -145,6 +145,7 @@ class MapSearchBar extends React.PureComponent {
     if (this.state.submittedAddress) {
       return (Result = (
         <TravelTime
+          address={this.props.address}
           transitDistance={
             this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : 'N/A'
           }

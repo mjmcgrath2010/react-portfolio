@@ -129,6 +129,7 @@ class MapSearch extends React.PureComponent {
                 onSearchChange={this.handleSearchChange}
                 value={this.state.submittedAddress}
                 submitLocation={this.mapLocation}
+                address={this.state.submittedAddress}
               />
             </Grid.Column>
             <Grid.Column width={10}>

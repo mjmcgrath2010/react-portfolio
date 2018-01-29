@@ -76,6 +76,14 @@ img.logo {
 }
 
 .playground {
+  .ui.icon.input {
+    width: 100%;
+  }
+
+  .ui.search .prompt {
+    border-radius: 5px;
+  }
+
   .ui.pointing.secondary.menu {
     .item {
       text-align: center;

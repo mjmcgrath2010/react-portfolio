@@ -18,7 +18,7 @@ class TravelTime extends React.PureComponent {
   render() {
     return (
       <div>
-        <Heading>Time to get to: {this.props.submittedAddress}</Heading>
+        <Heading>Time to get to: {this.props.address}</Heading>
         <Card>
           <Card.Content>
             {/*<Image floated="right" size="mini" src= />*/}
