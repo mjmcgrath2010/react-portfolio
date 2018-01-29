@@ -121,6 +121,7 @@ class MapSearchBar extends React.PureComponent {
     if (e.target.value === '') {
       this.setState({ isLoading: false });
     }
+    this.props.onSearchChange(e);
   };
 
   handleScriptCreate() {

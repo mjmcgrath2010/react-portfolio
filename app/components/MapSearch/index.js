@@ -32,6 +32,7 @@ class MapSearch extends React.PureComponent {
     this.state = {
       pins: [],
       center: [42.342813, -71.097606],
+      submittedAddress: undefined,
     };
     this.mapLocation = this.mapLocation.bind(this);
     this.resetMap = this.resetMap.bind(this);
@@ -82,6 +83,10 @@ class MapSearch extends React.PureComponent {
       this.resetMap();
     }
 
+    this.setState({
+      submittedAddress: location.formatted_address,
+    });
+
     const that = this;
     const lat = location.geometry.location.lat();
     const lng = location.geometry.location.lng();
@@ -91,6 +96,18 @@ class MapSearch extends React.PureComponent {
     mymap.panTo({ lon: lng, lat }, { animate: true });
     mymap.fitBounds([[lat, lng], [that.state.center]]);
   }
+
+  handleSearchChange = e => {
+    this.setState({
+      isLoading: true,
+      submittedAddress: e.target.value,
+    });
+
+    if (e.target.value === '') {
+      this.setState({ isLoading: false });
+    }
+  };
+
   resetMap() {}
   render() {
     return (
@@ -108,7 +125,11 @@ class MapSearch extends React.PureComponent {
         <Grid centered stackable columns={2}>
           <Grid.Row>
             <Grid.Column width={6}>
-              <MapSearchBar submitLocation={this.mapLocation} />
+              <MapSearchBar
+                onSearchChange={this.handleSearchChange}
+                value={this.state.submittedAddress}
+                submitLocation={this.mapLocation}
+              />
             </Grid.Column>
             <Grid.Column width={10}>
               <div id="mapid" />
