@@ -21,16 +21,14 @@ class TravelTime extends React.PureComponent {
         <Heading>Time to get to: {this.props.address}</Heading>
         <Card>
           <Card.Content>
-            {/*<Image floated="right" size="mini" src= />*/}
             <Card.Header>{this.props.transitDistance}</Card.Header>
             <Card.Description>{this.props.transitMiles}</Card.Description>
           </Card.Content>
         </Card>
         <Card>
           <Card.Content>
-            {/*<Image floated="right" size="mini" src="/assets/images/avatar/large/steve.jpg" />*/}
-            <Card.Header>{this.props.travelDrivingTime}</Card.Header>
-            <Card.Description>{this.props.travelDrivingMiles}</Card.Description>
+            <Card.Header>{this.props.travelDrivingMiles}</Card.Header>
+            <Card.Description>{this.props.travelDrivingTime}</Card.Description>
           </Card.Content>
         </Card>
       </div>
@@ -43,6 +41,7 @@ TravelTime.propTypes = {
   travelDrivingMiles: PropTypes.string,
   transitMiles: PropTypes.string,
   transitDistance: PropTypes.string,
+  address: PropTypes.string,
 };
 
 export default TravelTime;
