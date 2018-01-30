@@ -8,12 +8,7 @@ import React from 'react';
 import { Search, Grid } from 'semantic-ui-react';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import TravelTime from './TravelTime';
-
-const Heading = styled.h5`
-  color: #fff;
-`;
 
 let autoComplete;
 
@@ -143,7 +138,7 @@ class MapSearchBar extends React.PureComponent {
   showResults() {
     let Result;
     if (this.state.submittedAddress) {
-      return (Result = (
+      Result = (
         <TravelTime
           address={this.props.address}
           transitDistance={
@@ -159,13 +154,15 @@ class MapSearchBar extends React.PureComponent {
           }
           travelDrivingTime={
             this.state.travelDrivingTimes
-              ? `${this.state.travelDrivingTimes.rows[0].elements[0].distance.text} -  Driving`
+              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Driving`
               : ''
           }
         />
-      ));
+      );
+      return Result;
     }
-    return (Result = '');
+    Result = '';
+    return Result;
   }
 
   render() {
@@ -196,6 +193,8 @@ class MapSearchBar extends React.PureComponent {
 
 MapSearchBar.propTypes = {
   submitLocation: PropTypes.any,
+  onSearchChange: PropTypes.func,
+  address: PropTypes.string,
 };
 
 export default MapSearchBar;
