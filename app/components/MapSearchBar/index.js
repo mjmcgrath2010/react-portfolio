@@ -130,9 +130,9 @@ class MapSearchBar extends React.PureComponent {
   handleScriptLoad() {
     this.setState({ scriptLoaded: true });
     // eslint-disable-next-line no-undef
-    autoComplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: ['geocode'] });
-    autoComplete.addListener('place_changed', this.selectAddress.bind(this));
-    autoComplete.addListener(this.state.value, this.geoLocate);
+    // autoComplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: ['geocode'] });
+    // autoComplete.addListener('place_changed', this.selectAddress.bind(this));
+    // autoComplete.addListener(this.state.value, this.geoLocate);
   }
 
   showResults() {
