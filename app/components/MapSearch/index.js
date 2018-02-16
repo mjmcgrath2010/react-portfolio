@@ -103,7 +103,7 @@ class MapSearch extends React.PureComponent {
 
   handleSearchChange = e => {
     const that = this;
-    request(`/geolocate?keyword=${e.target.value}`)
+    request(`/autocomplete?keyword=${e.target.value}`)
       .then(response => {
         const predictions = [];
         _.each(response.predictions, item => {

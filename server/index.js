@@ -13,7 +13,7 @@ const app = express();
 const api = require('./api/index');
 
 // Backend api and middleware
-app.use('/api/geolocate', api.autoComplete);
+app.use('/api/autocomplete', api.autoComplete);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
