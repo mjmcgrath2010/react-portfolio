@@ -8,6 +8,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
 
 // import styled from 'styled-components';
@@ -35,6 +36,7 @@ class MapSearch extends React.PureComponent {
       pins: [],
       center: [42.342813, -71.097606],
       submittedAddress: undefined,
+      results: [],
     };
     this.mapLocation = this.mapLocation.bind(this);
     this.resetMap = this.resetMap.bind(this);
@@ -100,19 +102,34 @@ class MapSearch extends React.PureComponent {
   }
 
   handleSearchChange = e => {
+    const that = this;
     request(`/geolocate?keyword=${e.target.value}`)
-      .then(response => console.log(response))
+      .then(response => {
+        const predictions = [];
+        _.each(response.predictions, item => {
+          predictions.push({ title: item.description });
+        });
+        return predictions;
+      })
+      .then(predictions => that.setState({ results: predictions }))
       .catch(err => console.log(err));
+
     this.setState({
       isLoading: true,
       submittedAddress: e.target.value,
     });
+
     if (e.target.value === '') {
       this.setState({ isLoading: false });
     }
   };
 
-  resetMap() {}
+  handleResultSelect = (e, { result }) => this.setState({ submittedAddress: result.title });
+
+  resetMap() {
+    this.setState({ pins: [] });
+  }
+
   render() {
     return (
       <div>
@@ -129,7 +146,12 @@ class MapSearch extends React.PureComponent {
         <Grid centered stackable columns={2}>
           <Grid.Row>
             <Grid.Column width={6}>
-              <MapSearchBar onSearchChange={this.handleSearchChange} value={this.state.submittedAddress} />
+              <MapSearchBar
+                onSearchChange={this.handleSearchChange}
+                value={this.state.submittedAddress}
+                onResultSelect={this.handleResultSelect}
+                results={this.state.results}
+              />
             </Grid.Column>
             <Grid.Column width={10}>
               <div id="mapid" />

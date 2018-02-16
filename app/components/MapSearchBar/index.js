@@ -15,7 +15,6 @@ class MapSearchBar extends React.PureComponent {
     super(props);
     this.state = {
       value: '',
-      results: [],
       isLoading: false,
       selectedLocation: null,
       submittedAddress: '',
@@ -92,7 +91,7 @@ class MapSearchBar extends React.PureComponent {
             onSearchChange={this.handleSearchChange}
             value={this.state.value}
             {...this.props}
-            results={this.props.predictions}
+            results={this.props.results}
             fluid
           />
         </Grid.Column>
@@ -105,7 +104,7 @@ class MapSearchBar extends React.PureComponent {
 MapSearchBar.propTypes = {
   onSearchChange: PropTypes.func,
   address: PropTypes.string,
-  predictions: PropTypes.array,
+  results: PropTypes.array,
 };
 
 export default MapSearchBar;
