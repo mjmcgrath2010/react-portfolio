@@ -9,11 +9,13 @@ import { Grid } from 'semantic-ui-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FormattedMessage } from 'react-intl';
+
 // import styled from 'styled-components';
 
 import PrimaryPin from '../../images/icons/map-localization.png';
 import messages from './messages';
 import MapSearchBar from '../MapSearchBar/index';
+import mapUtils from '../../utils/request';
 
 const mikesIcon = L.icon({
   iconUrl: PrimaryPin,
@@ -98,11 +100,11 @@ class MapSearch extends React.PureComponent {
   }
 
   handleSearchChange = e => {
+    mapUtils.geoLocate(e.target.value);
     this.setState({
       isLoading: true,
       submittedAddress: e.target.value,
     });
-
     if (e.target.value === '') {
       this.setState({ isLoading: false });
     }
