@@ -1,5 +1,5 @@
 /**
- * Map Utils
+ *  API and Middleware methods
  */
 
 const GooglePlaces = require('google-places');
