@@ -129,11 +129,7 @@ class MapSearch extends React.PureComponent {
         <Grid centered stackable columns={2}>
           <Grid.Row>
             <Grid.Column width={6}>
-              <MapSearchBar
-                onSearchChange={this.handleSearchChange}
-                value={this.state.submittedAddress}
-                address={this.state.submittedAddress}
-              />
+              <MapSearchBar onSearchChange={this.handleSearchChange} value={this.state.submittedAddress} />
             </Grid.Column>
             <Grid.Column width={10}>
               <div id="mapid" />
