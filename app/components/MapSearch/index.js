@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import PrimaryPin from '../../images/icons/map-localization.png';
 import messages from './messages';
 import MapSearchBar from '../MapSearchBar/index';
-import mapUtils from '../../utils/request';
+import request from '../../utils/request';
 
 const mikesIcon = L.icon({
   iconUrl: PrimaryPin,
@@ -100,7 +100,9 @@ class MapSearch extends React.PureComponent {
   }
 
   handleSearchChange = e => {
-    mapUtils.geoLocate(e.target.value);
+    request(`/geolocate?keyword=${e.target.value}`)
+      .then(response => console.log(response))
+      .catch(err => console.log(err));
     this.setState({
       isLoading: true,
       submittedAddress: e.target.value,
@@ -130,7 +132,6 @@ class MapSearch extends React.PureComponent {
               <MapSearchBar
                 onSearchChange={this.handleSearchChange}
                 value={this.state.submittedAddress}
-                submitLocation={this.mapLocation}
                 address={this.state.submittedAddress}
               />
             </Grid.Column>
