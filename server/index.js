@@ -14,6 +14,8 @@ const api = require('./api/index');
 
 // Backend api and middleware
 app.use('/api/autocomplete', api.autoComplete);
+app.use('/api/geocode', api.geocode);
+app.use('/api/directions', api.directions);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
