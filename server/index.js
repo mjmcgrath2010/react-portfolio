@@ -10,9 +10,12 @@ const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
 const resolve = require('path').resolve;
 const app = express();
+const api = require('./api/index');
 
-// If you need a backend, e.g. an API, add your custom backend-specific middleware here
-// app.use('/api', myApi);
+// Backend api and middleware
+app.use('/api/autocomplete', api.autoComplete);
+app.use('/api/geocode', api.geocode);
+app.use('/api/directions', api.directions);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
@@ -26,7 +29,7 @@ const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
 // Start your app.
-app.listen(port, host, (err) => {
+app.listen(port, host, err => {
   if (err) {
     return logger.error(err.message);
   }

@@ -8,12 +8,15 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
+
 // import styled from 'styled-components';
 
 import PrimaryPin from '../../images/icons/map-localization.png';
 import messages from './messages';
 import MapSearchBar from '../MapSearchBar/index';
+import request from '../../utils/request';
 
 const mikesIcon = L.icon({
   iconUrl: PrimaryPin,
@@ -32,8 +35,11 @@ class MapSearch extends React.PureComponent {
     this.state = {
       pins: [],
       center: [42.342813, -71.097606],
+      submittedAddress: undefined,
+      results: [],
     };
     this.mapLocation = this.mapLocation.bind(this);
+    this.resetMap = this.resetMap.bind(this);
   }
   componentDidMount() {
     this.state.pins.push(L.marker([42.342813, -71.097606], { icon: mikesIcon }).bindPopup('My Home'));
@@ -77,23 +83,53 @@ class MapSearch extends React.PureComponent {
     L.control.layers(baseMaps, overlayMaps).addTo(mymap);
   }
   mapLocation(location) {
+    if (this.state.pins.length > 1) {
+      this.resetMap();
+    }
+
+    this.setState({
+      submittedAddress: location.formatted_address,
+    });
+
     const that = this;
     const lat = location.geometry.location.lat();
     const lng = location.geometry.location.lng();
     const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(location.formatted_address);
     this.state.pins.push(newPin);
     newPin.addTo(mymap);
-    mymap.panTo(
-      {
-        lon: lng,
-        lat,
-      },
-      {
-        animate: true,
-      }
-    );
+    mymap.panTo({ lon: lng, lat }, { animate: true });
     mymap.fitBounds([[lat, lng], [that.state.center]]);
   }
+
+  handleSearchChange = e => {
+    const that = this;
+    request(`/autocomplete?keyword=${e.target.value}`)
+      .then(response => {
+        const predictions = [];
+        _.each(response.predictions, item => {
+          predictions.push({ title: item.description });
+        });
+        return predictions;
+      })
+      .then(predictions => that.setState({ results: predictions }))
+      .catch(err => console.log(err));
+
+    this.setState({
+      isLoading: true,
+      submittedAddress: e.target.value,
+    });
+
+    if (e.target.value === '') {
+      this.setState({ isLoading: false });
+    }
+  };
+
+  handleResultSelect = (e, { result }) => this.setState({ submittedAddress: result.title });
+
+  resetMap() {
+    this.setState({ pins: [] });
+  }
+
   render() {
     return (
       <div>
@@ -110,7 +146,12 @@ class MapSearch extends React.PureComponent {
         <Grid centered stackable columns={2}>
           <Grid.Row>
             <Grid.Column width={6}>
-              <MapSearchBar submitLocation={this.mapLocation} />
+              <MapSearchBar
+                onSearchChange={this.handleSearchChange}
+                value={this.state.submittedAddress}
+                onResultSelect={this.handleResultSelect}
+                results={this.state.results}
+              />
             </Grid.Column>
             <Grid.Column width={10}>
               <div id="mapid" />

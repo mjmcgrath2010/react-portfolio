@@ -5,12 +5,9 @@
  */
 
 import React from 'react';
-import { Search, Grid, Statistic } from 'semantic-ui-react';
-import Script from 'react-load-script';
+import { Search, Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
-let autoComplete;
+import TravelTime from './TravelTime';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class MapSearchBar extends React.PureComponent {
@@ -18,96 +15,31 @@ class MapSearchBar extends React.PureComponent {
     super(props);
     this.state = {
       value: '',
-      results: [],
       isLoading: false,
       selectedLocation: null,
-      scriptLoaded: false,
-      scriptError: false,
       submittedAddress: '',
       travelTransitTimes: undefined,
       travelDrivingTimes: undefined,
     };
-    this.handleScriptCreate = this.handleScriptCreate.bind(this);
-    this.handleScriptLoad = this.handleScriptLoad.bind(this);
-    this.handleScriptError = this.handleScriptError.bind(this);
     this.displayTravelTimes = this.displayTravelTimes.bind(this);
     this.displayDrivingTimes = this.displayDrivingTimes.bind(this);
+    this.showResults = this.showResults.bind(this);
   }
 
   componentWillMount() {
     this.resetComponent();
   }
 
-  getTimes(destLat, destLong) {
-    // eslint-disable-next-line no-undef
-    const origin = new google.maps.LatLng(42.342813, -71.097606);
-    // eslint-disable-next-line no-undef
-    const destination = new google.maps.LatLng(destLat, destLong);
-    // eslint-disable-next-line no-undef
-    const transit = new google.maps.DistanceMatrixService();
-    // eslint-disable-next-line no-undef
-    const driving = new google.maps.DistanceMatrixService();
-    transit.getDistanceMatrix(
-      {
-        origins: [origin],
-        destinations: [destination],
-        travelMode: 'TRANSIT',
-        transitOptions: {
-          modes: ['BUS', 'RAIL', 'SUBWAY', 'TRAIN'],
-        },
-        // eslint-disable-next-line no-undef
-        unitSystem: google.maps.UnitSystem.IMPERIAL,
-      },
-      this.displayTravelTimes
-    );
-    driving.getDistanceMatrix(
-      {
-        origins: [origin],
-        destinations: [destination],
-        travelMode: 'DRIVING',
-        // eslint-disable-next-line no-undef
-        unitSystem: google.maps.UnitSystem.IMPERIAL,
-      },
-      this.displayDrivingTimes
-    );
-  }
-
-  displayDrivingTimes(response, status) {
-    console.log(response, status);
+  displayDrivingTimes(response) {
     this.setState({
       travelDrivingTimes: response,
     });
   }
 
-  displayTravelTimes(response, status) {
-    console.log(response, status);
+  displayTravelTimes(response) {
     this.setState({
       travelTransitTimes: response,
     });
-  }
-
-  geoLocate() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const geoLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        // eslint-disable-next-line no-undef
-        const circle = new google.maps.Circle({
-          center: geoLocation,
-          radius: position.coords.accuracy,
-        });
-        autoComplete.setBounds(circle.getBounds());
-      });
-    }
-    this.setState({ isLoading: false });
-  }
-  selectAddress() {
-    const place = autoComplete.getPlace();
-    this.setState({ isLoading: false, submittedAddress: place.formatted_address });
-    this.props.submitLocation(place);
-    this.getTimes(place.geometry.location.lat(), place.geometry.location.lng());
   }
 
   resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
@@ -117,22 +49,37 @@ class MapSearchBar extends React.PureComponent {
     if (e.target.value === '') {
       this.setState({ isLoading: false });
     }
+    this.props.onSearchChange(e);
   };
 
-  handleScriptCreate() {
-    this.setState({ scriptLoaded: false });
-  }
-
-  handleScriptError() {
-    this.setState({ scriptError: true });
-  }
-
-  handleScriptLoad() {
-    this.setState({ scriptLoaded: true });
-    // eslint-disable-next-line no-undef
-    autoComplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: ['geocode'] });
-    autoComplete.addListener('place_changed', this.selectAddress.bind(this));
-    autoComplete.addListener(this.state.value, this.geoLocate);
+  showResults() {
+    let Result;
+    if (this.state.submittedAddress) {
+      Result = (
+        <TravelTime
+          address={this.props.address}
+          transitDistance={
+            this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : 'N/A'
+          }
+          transitMiles={
+            this.state.travelTransitTimes
+              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Public Transit`
+              : ''
+          }
+          travelDrivingMiles={
+            this.state.travelDrivingTimes ? this.state.travelDrivingTimes.rows[0].elements[0].duration.text : 'N/A'
+          }
+          travelDrivingTime={
+            this.state.travelDrivingTimes
+              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Driving`
+              : ''
+          }
+        />
+      );
+      return Result;
+    }
+    Result = '';
+    return Result;
   }
 
   render() {
@@ -144,45 +91,20 @@ class MapSearchBar extends React.PureComponent {
             onSearchChange={this.handleSearchChange}
             value={this.state.value}
             {...this.props}
-            showNoResults={false}
-            id="autocomplete"
+            results={this.props.results}
             fluid
           />
         </Grid.Column>
-        <Script
-          url="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U&libraries=places"
-          onCreate={this.handleScriptCreate}
-          onError={this.handleScriptError}
-          onLoad={this.handleScriptLoad}
-        />
-        <Grid.Column>
-          <h5>Time to get to: {this.state.submittedAddress}</h5>
-          <Statistic>
-            <Statistic.Value>
-              {this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : ''}
-            </Statistic.Value>
-            <Statistic.Label>
-              {this.state.travelTransitTimes
-                ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Public Transit`
-                : ''}
-            </Statistic.Label>
-            <Statistic.Value>
-              {this.state.travelDrivingTimes ? this.state.travelDrivingTimes.rows[0].elements[0].duration.text : ''}
-            </Statistic.Value>
-            <Statistic.Label>
-              {this.state.travelDrivingTimes
-                ? `${this.state.travelDrivingTimes.rows[0].elements[0].distance.text} -  Driving`
-                : ''}
-            </Statistic.Label>
-          </Statistic>
-        </Grid.Column>
+        <Grid.Column>{this.showResults()}</Grid.Column>
       </Grid>
     );
   }
 }
 
 MapSearchBar.propTypes = {
-  submitLocation: PropTypes.any,
+  onSearchChange: PropTypes.func,
+  address: PropTypes.string,
+  results: PropTypes.array,
 };
 
 export default MapSearchBar;

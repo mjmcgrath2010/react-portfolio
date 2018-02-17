@@ -76,6 +76,23 @@ img.logo {
 }
 
 .playground {
+
+  >h1,h2,h3,h4,h5,h6 {
+    color: $primary-color;
+  }
+  .ui.icon.input {
+    width: 100%;
+  }
+
+  .ui.search .prompt {
+    border-radius: 5px;
+  }
+
+  .ui.card {
+    margin: 1em auto;
+    width: 100%;
+  }
+
   .ui.pointing.secondary.menu {
     .item {
       text-align: center;
@@ -85,10 +102,10 @@ img.logo {
       position: relative;
     }
     a {
-      color: #FFF;
+      color: $primary-color;
     }
     .active.item {
-        color: #FFF;
+        color: $secondary-color;
         border-color: $secondary-color;
     }
   }

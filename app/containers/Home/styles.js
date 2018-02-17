@@ -20,7 +20,7 @@ export const EvenSection = styled.section`
 export const OddSection = styled.section`
   height: auto;
   width: 100%;
-  background: #2f4858;
+  background: #fff;
   display: table;
   color: #fff;
 `;
@@ -34,7 +34,7 @@ export const Wrapper = styled.div`
 export const Footer = styled.section`
   height: 250px;
   width: 100%;
-  background: #336699;
+  background: #2f4858;
   display: table;
   color: #fff;
 `;

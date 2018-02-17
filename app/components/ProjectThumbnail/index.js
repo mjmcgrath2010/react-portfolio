@@ -21,15 +21,7 @@ class ProjectThumbnail extends React.Component {
       <div className="project-container">
         <Reveal animated="move right">
           <Reveal.Content visible>
-            <Link to={this.props.projectPage}>
-              <Image
-                src={this.props.thumbnail}
-                as="a"
-                alt={this.props.altTag}
-                size="medium"
-                href={this.props.projectPage}
-              />
-            </Link>
+            <Image src={this.props.thumbnail} as="a" alt={this.props.altTag} size="medium" />
           </Reveal.Content>
           <Reveal.Content hidden>
             <Link to={this.props.projectPage}>
