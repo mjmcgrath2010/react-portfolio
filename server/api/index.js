@@ -33,7 +33,7 @@ module.exports = {
     googleMapsClient.directions(
       {
         origin: ['42.342813', '-71.097606'],
-        destination: ['42.3503027', '-71.05706599999999'],
+        destination: [req.query.lat, req.query.lng],
       },
       (err, response) => {
         if (!err) {
