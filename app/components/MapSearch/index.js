@@ -87,14 +87,10 @@ class MapSearch extends React.PureComponent {
       this.resetMap();
     }
 
-    this.setState({
-      submittedAddress: location.formatted_address,
-    });
-
     const that = this;
-    const lat = location.geometry.location.lat();
-    const lng = location.geometry.location.lng();
-    const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(location.formatted_address);
+    const lat = location.lat;
+    const lng = location.lng;
+    const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(that.state.submittedAddress);
     this.state.pins.push(newPin);
     newPin.addTo(mymap);
     mymap.panTo({ lon: lng, lat }, { animate: true });
@@ -125,12 +121,16 @@ class MapSearch extends React.PureComponent {
   };
 
   handleResultSelect = (e, { result }) => {
+    const that = this;
     request(`/geocode?address=${result.title}`)
       .then(response => response.json.results[0].geometry.location)
-      .then(response =>
-        request(`/directions?lat=${response.lat}&lng=${response.lng}`).then(directions => console.log(directions.json))
-      )
-      .catch(err => console.log(err))
+      .then(response => {
+        const location = { lat: response.lat, lng: response.lng };
+        that.mapLocation(location);
+        return request(`/directions?lat=${response.lat}&lng=${response.lng}`)
+          .then(directions => console.log(directions))
+          .catch(err => console.log(err));
+      })
       .catch(err => console.log(err));
     this.setState({ submittedAddress: result.title });
   };
