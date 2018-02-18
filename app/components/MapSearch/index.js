@@ -127,9 +127,13 @@ class MapSearch extends React.PureComponent {
       .then(response => {
         const location = { lat: response.lat, lng: response.lng };
         that.mapLocation(location);
-        return request(`/directions?lat=${response.lat}&lng=${response.lng}`)
-          .then(directions => console.log(directions))
-          .catch(err => console.log(err));
+        const transit = request(`/directions?lat=${response.lat}&lng=${response.lng}&mode=transit`);
+        const driving = request(`/directions?lat=${response.lat}&lng=${response.lng}&mode=driving`);
+        return { transit, driving };
+      })
+      .then(directions => {
+        directions.transit.then(data => console.log(data));
+        directions.driving.then(data => console.log(data));
       })
       .catch(err => console.log(err));
     this.setState({ submittedAddress: result.title });

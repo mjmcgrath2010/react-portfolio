@@ -44,6 +44,7 @@ module.exports = {
       {
         origin: ['42.342813', '-71.097606'],
         destination: [req.query.lat, req.query.lng],
+        mode: req.query.mode,
       },
       (err, response) => {
         if (!err) {
