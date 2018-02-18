@@ -124,7 +124,16 @@ class MapSearch extends React.PureComponent {
     }
   };
 
-  handleResultSelect = (e, { result }) => this.setState({ submittedAddress: result.title });
+  handleResultSelect = (e, { result }) => {
+    request(`/geocode?address=${result.title}`)
+      .then(response => response.json.results[0].geometry.location)
+      .then(response =>
+        request(`/directions?lat=${response.lat}&lng=${response.lng}`).then(directions => console.log(directions.json))
+      )
+      .catch(err => console.log(err))
+      .catch(err => console.log(err));
+    this.setState({ submittedAddress: result.title });
+  };
 
   resetMap() {
     this.setState({ pins: [] });

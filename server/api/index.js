@@ -34,7 +34,7 @@ module.exports = {
       },
       (err, response) => {
         if (!err) {
-          res.send(response.json.results);
+          res.send(response);
         }
       }
     );
