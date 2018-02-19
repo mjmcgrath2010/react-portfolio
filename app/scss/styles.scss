@@ -44,6 +44,7 @@ p, a, span, div, ul, li {
   animation: dropDown 3.2s ease-in-out;
   position: fixed;
   width: 100%;
+  z-index: 10000;
 }
 
 #mainNavMenu {
@@ -60,6 +61,17 @@ p, a, span, div, ul, li {
       a {
         color:#FFF;
       }
+    }
+  }
+}
+
+#topNav.scroll {
+  background: #FFF;
+  @include box-shadow;
+  li{
+    color: #000;
+    a {
+      color: #000;
     }
   }
 }
@@ -118,7 +130,7 @@ svg#animatedLogo {
   bottom: 5vh;
   left: calc(50% - 25px);
   color: #FFF;
-  animation: slideUp 4s ease-in;
+  animation: slideUp 4.2s ease-in;
   img{
     width: 50px;
     animation: pulse 3s 4s linear infinite;
