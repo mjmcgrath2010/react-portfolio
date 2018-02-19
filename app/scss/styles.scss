@@ -37,10 +37,47 @@ p, a, span, div, ul, li {
   font-size: 1em;
 }
 
+//Navigation Styles
+
+@keyframes dropDown {
+  0%{
+    transform: translateY(-100%);
+  }
+  100%{
+    transform: translateY(0%);
+  }
+}
+
+#topNav{
+  animation: dropDown .5s ease-in-out;
+  animation-delay: 3s;
+}
+
+#mainNavMenu {
+  padding: 0;
+  span {
+    li {
+      display: inline-block;
+      color: #FFF;
+      text-transform: uppercase;
+    padding: 1em 2em;
+      a {
+        color:#FFF;
+      }
+    }
+  }
+}
+
+
+
+#menuContainer {
+  float: right;
+}
+
 .hero-text {
   text-align: center;
   color: #FFF;
-  margin-top: 30vh;
+  margin-top: 20vh;
   width: 100%;
 
   h1, h3 {
