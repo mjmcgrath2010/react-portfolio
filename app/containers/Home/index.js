@@ -23,6 +23,7 @@ import MySkills from './sections/skills';
 import MyWork from './sections/mywork';
 import Contact from './sections/contact';
 import Playground from './sections/playground';
+import Logo from '../../components/Logo';
 
 import { EvenSection, HeroContainer, OddSection, Footer, AccentSection } from './styles';
 
@@ -35,8 +36,7 @@ export class Home extends React.Component {
       <div>
         <HeroContainer>
           <div className="hero-text">
-            <h1>The Portfolio of Mike McGrath</h1>
-            <h3>Software Engineer</h3>
+            <Logo />
           </div>
         </HeroContainer>
         <EvenSection>

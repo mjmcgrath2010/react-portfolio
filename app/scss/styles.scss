@@ -41,11 +41,119 @@ p, a, span, div, ul, li {
   text-align: center;
   color: #FFF;
   margin-top: 30vh;
+  width: 100%;
 
   h1, h3 {
     margin: 0;
   }
 }
+@keyframes left-animation {
+  0% {
+    transform: translateX(175px);
+  }
+
+  50% {
+    transform: translateX(175px);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes right-animation {
+  0% {
+    transform: translateX(-175px);
+  }
+
+  50% {
+    transform: translateX(-175px);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes firstM {
+  0% {
+    transform: translateX(170px);
+  }
+
+  50% {
+    transform: translateX(170px);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes secondM {
+  0% {
+    transform: translateX(45px);
+  }
+
+  50% {
+    transform: translateX(45px);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+svg#animatedLogo {
+  fill: #fff;
+  width: 511px;
+  height: 205px;
+}
+
+#left-carrot {
+  animation: left-animation 2s ease-in-out;
+}
+
+#slash,
+#right-carrot {
+  animation: right-animation 2s ease-in-out;
+}
+
+#firstM {
+  animation: firstM 2s ease-in-out;
+}
+
+#secondM {
+  animation: secondM 2s ease-in-out;
+}
+
+#name {
+  animation: fadeIn 2.5s ease-in-out;
+}
+
+#line {
+  animation: fadeIn 3s ease-in-out;
+}
+#tagline {
+  animation: fadeIn 3s ease-in-out;
+}
+#title {
+  animation: fadeIn 2.5s ease-in-out;
+}
+
 
 .projects-row{
 }
