@@ -55,6 +55,9 @@ p, a, span, div, ul, li {
 
 #mainNavMenu {
   padding: 0;
+  #menuContainer {
+    float: right;
+  }
   span {
     li {
       display: inline-block;
@@ -66,12 +69,6 @@ p, a, span, div, ul, li {
       }
     }
   }
-}
-
-
-
-#menuContainer {
-  float: right;
 }
 
 .hero-text {
