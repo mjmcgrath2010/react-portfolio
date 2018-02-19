@@ -1,9 +1,10 @@
 @import "variables";
 @import "mixins";
 @import "overrides";
+@import "animations";
 
 // Fonts
-h1, h2 ,h3 ,h4 ,h5 ,h6{
+h1, h2 ,h3 ,h4 ,h5 ,h6 {
   font-family: $heading-font;
   font-weight: 300;
 }
@@ -37,83 +38,53 @@ p, a, span, div, ul, li {
   font-size: 1em;
 }
 
+//Navigation Styles
+
+#topNav{
+  animation: dropDown 3.2s ease-in-out;
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
+}
+
+#mainNavMenu {
+  padding: 0;
+  #menuContainer {
+    float: right;
+  }
+  span {
+    li {
+      display: inline-block;
+      color: #FFF;
+      text-transform: uppercase;
+    padding: 1em 2em;
+      a {
+        color:#FFF;
+      }
+    }
+  }
+}
+
+#topNav.scroll {
+  background: #FFF;
+  @include box-shadow;
+  li{
+    color: #000;
+    a {
+      color: #000;
+    }
+  }
+}
+
+// Hero Styles
 .hero-text {
   text-align: center;
   color: #FFF;
-  margin-top: 30vh;
+  margin-top: 25vh;
   width: 100%;
 
   h1, h3 {
     margin: 0;
-  }
-}
-@keyframes left-animation {
-  0% {
-    transform: translateX(175px);
-  }
-
-  50% {
-    transform: translateX(175px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes right-animation {
-  0% {
-    transform: translateX(-175px);
-  }
-
-  50% {
-    transform: translateX(-175px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes firstM {
-  0% {
-    transform: translateX(170px);
-  }
-
-  50% {
-    transform: translateX(170px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes secondM {
-  0% {
-    transform: translateX(45px);
-  }
-
-  50% {
-    transform: translateX(45px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
   }
 }
 
@@ -145,7 +116,7 @@ svg#animatedLogo {
 }
 
 #line {
-  animation: fadeIn 3s ease-in-out;
+  animation: fadeIn 2.8s ease-in-out;
 }
 #tagline {
   animation: fadeIn 3s ease-in-out;
@@ -154,8 +125,16 @@ svg#animatedLogo {
   animation: fadeIn 2.5s ease-in-out;
 }
 
-
-.projects-row{
+#viewMore {
+  position: absolute;
+  bottom: 5vh;
+  left: calc(50% - 25px);
+  color: #FFF;
+  animation: slideUp 4.2s ease-in;
+  img{
+    width: 50px;
+    animation: pulse 3s 4s linear infinite;
+  }
 }
 
 .project-container{

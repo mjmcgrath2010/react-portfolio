@@ -24,6 +24,7 @@ import MyWork from './sections/mywork';
 import Contact from './sections/contact';
 import Playground from './sections/playground';
 import Logo from '../../components/Logo';
+import TopNavMenu from '../../components/TopNavMenu';
 
 import { EvenSection, HeroContainer, OddSection, Footer, AccentSection } from './styles';
 
@@ -35,23 +36,24 @@ export class Home extends React.Component {
     return (
       <div>
         <HeroContainer>
+          <TopNavMenu />
           <div className="hero-text">
             <Logo />
           </div>
         </HeroContainer>
-        <EvenSection>
+        <EvenSection id="about">
           <About />
         </EvenSection>
-        <OddSection>
+        <OddSection id="playground">
           <Playground />
         </OddSection>
-        <EvenSection>
+        <EvenSection id="mywork">
           <MyWork />
         </EvenSection>
         <OddSection>
           <MySkills />
         </OddSection>
-        <AccentSection>
+        <AccentSection id="contact">
           <Contact />
         </AccentSection>
         <Footer />
