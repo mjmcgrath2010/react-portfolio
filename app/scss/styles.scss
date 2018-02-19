@@ -1,9 +1,10 @@
 @import "variables";
 @import "mixins";
 @import "overrides";
+@import "animations";
 
 // Fonts
-h1, h2 ,h3 ,h4 ,h5 ,h6{
+h1, h2 ,h3 ,h4 ,h5 ,h6 {
   font-family: $heading-font;
   font-weight: 300;
 }
@@ -39,18 +40,10 @@ p, a, span, div, ul, li {
 
 //Navigation Styles
 
-@keyframes dropDown {
-  0%, 90%{
-    transform: translateY(-100%);
-  }
-  100%{
-    transform: translateY(0%);
-  }
-}
-
 #topNav{
   animation: dropDown 3.2s ease-in-out;
-
+  position: fixed;
+  width: 100%;
 }
 
 #mainNavMenu {
@@ -71,83 +64,15 @@ p, a, span, div, ul, li {
   }
 }
 
+// Hero Styles
 .hero-text {
   text-align: center;
   color: #FFF;
-  margin-top: 20vh;
+  margin-top: 25vh;
   width: 100%;
 
   h1, h3 {
     margin: 0;
-  }
-}
-@keyframes left-animation {
-  0% {
-    transform: translateX(175px);
-  }
-
-  50% {
-    transform: translateX(175px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes right-animation {
-  0% {
-    transform: translateX(-175px);
-  }
-
-  50% {
-    transform: translateX(-175px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes firstM {
-  0% {
-    transform: translateX(170px);
-  }
-
-  50% {
-    transform: translateX(170px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes secondM {
-  0% {
-    transform: translateX(45px);
-  }
-
-  50% {
-    transform: translateX(45px);
-  }
-
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
   }
 }
 
@@ -186,6 +111,18 @@ svg#animatedLogo {
 }
 #title {
   animation: fadeIn 2.5s ease-in-out;
+}
+
+#viewMore {
+  position: absolute;
+  bottom: 5vh;
+  left: calc(50% - 25px);
+  color: #FFF;
+  animation: slideUp 4s ease-in;
+  img{
+    width: 50px;
+    animation: pulse 3s 4s linear infinite;
+  }
 }
 
 .project-container{
