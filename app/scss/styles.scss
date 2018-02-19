@@ -41,6 +41,7 @@ p, a, span, div, ul, li {
   text-align: center;
   color: #FFF;
   margin-top: 30vh;
+  width: 100%;
 
   h1, h3 {
     margin: 0;
@@ -102,6 +103,8 @@ p, a, span, div, ul, li {
 
 svg#animatedLogo {
   fill: #fff;
+  width: 511px;
+  height: 205px;
 }
 
 #left-carrot {
