@@ -49,7 +49,11 @@ p, a, span, div, ul, li {
 }
 @keyframes left-animation {
   0% {
-    transform: translateX(34%);
+    transform: translateX(175px);
+  }
+
+  50% {
+    transform: translateX(175px);
   }
 
   100% {
@@ -59,7 +63,11 @@ p, a, span, div, ul, li {
 
 @keyframes right-animation {
   0% {
-    transform: translateX(-34%);
+    transform: translateX(-175px);
+  }
+
+  50% {
+    transform: translateX(-175px);
   }
 
   100% {
@@ -69,7 +77,11 @@ p, a, span, div, ul, li {
 
 @keyframes firstM {
   0% {
-    transform: translateX(34%);
+    transform: translateX(170px);
+  }
+
+  50% {
+    transform: translateX(170px);
   }
 
   100% {
@@ -79,7 +91,11 @@ p, a, span, div, ul, li {
 
 @keyframes secondM {
   0% {
-    transform: translateX(9%);
+    transform: translateX(45px);
+  }
+
+  50% {
+    transform: translateX(45px);
   }
 
   100% {
@@ -108,34 +124,34 @@ svg#animatedLogo {
 }
 
 #left-carrot {
-  animation: left-animation 1s ease-in-out;
+  animation: left-animation 2s ease-in-out;
 }
 
 #slash,
 #right-carrot {
-  animation: right-animation 1s ease-in-out;
+  animation: right-animation 2s ease-in-out;
 }
 
 #firstM {
-  animation: firstM 1s ease-in-out;
+  animation: firstM 2s ease-in-out;
 }
 
 #secondM {
-  animation: secondM 1s ease-in-out;
+  animation: secondM 2s ease-in-out;
 }
 
 #name {
-  animation: fadeIn 1.5s ease-in-out;
+  animation: fadeIn 2.5s ease-in-out;
 }
 
 #line {
-  animation: fadeIn 1.8s ease-in-out;
+  animation: fadeIn 3s ease-in-out;
 }
 #tagline {
-  animation: fadeIn 2s ease-in-out;
+  animation: fadeIn 3s ease-in-out;
 }
 #title {
-  animation: fadeIn 1.6s ease-in-out;
+  animation: fadeIn 2.5s ease-in-out;
 }
 
 
