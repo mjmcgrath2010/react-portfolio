@@ -52,8 +52,7 @@ function Logo() {
       </div>
       <div id="viewMore">
         <a href="#about">
-          {' '}
-          <img src={Arrow} alt="view more" />{' '}
+          <img src={Arrow} alt="view more" />
         </a>
       </div>
     </div>
