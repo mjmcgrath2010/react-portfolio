@@ -6,9 +6,9 @@ import Charts from '../../../components/Charts';
 // import PropTypes from 'prop-types';
 
 const panes = [
-  { menuItem: 'Leaflet and Google Maps API', render: () => <MapSearch /> },
-  { menuItem: 'AmCharts', render: () => <Charts /> },
-  { menuItem: 'Redux Playground', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
+  { menuItem: 'Maps', render: () => <MapSearch /> },
+  { menuItem: 'Data Visualization', render: () => <Charts /> },
+  { menuItem: 'TDB', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
 ];
 
 function Playground() {
