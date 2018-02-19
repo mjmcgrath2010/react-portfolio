@@ -87,14 +87,10 @@ class MapSearch extends React.PureComponent {
       this.resetMap();
     }
 
-    this.setState({
-      submittedAddress: location.formatted_address,
-    });
-
     const that = this;
-    const lat = location.geometry.location.lat();
-    const lng = location.geometry.location.lng();
-    const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(location.formatted_address);
+    const lat = location.lat;
+    const lng = location.lng;
+    const newPin = L.marker([lat, lng], { icon: mikesIcon }).bindPopup(that.state.submittedAddress);
     this.state.pins.push(newPin);
     newPin.addTo(mymap);
     mymap.panTo({ lon: lng, lat }, { animate: true });
@@ -124,7 +120,24 @@ class MapSearch extends React.PureComponent {
     }
   };
 
-  handleResultSelect = (e, { result }) => this.setState({ submittedAddress: result.title });
+  handleResultSelect = (e, { result }) => {
+    const that = this;
+    request(`/geocode?address=${result.title}`)
+      .then(response => response.json.results[0].geometry.location)
+      .then(response => {
+        const location = { lat: response.lat, lng: response.lng };
+        that.mapLocation(location);
+        const transit = request(`/directions?lat=${response.lat}&lng=${response.lng}&mode=transit`);
+        const driving = request(`/directions?lat=${response.lat}&lng=${response.lng}&mode=driving`);
+        return { transit, driving };
+      })
+      .then(directions => {
+        directions.transit.then(data => console.log(data));
+        directions.driving.then(data => console.log(data));
+      })
+      .catch(err => console.log(err));
+    this.setState({ submittedAddress: result.title });
+  };
 
   resetMap() {
     this.setState({ pins: [] });

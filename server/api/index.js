@@ -34,7 +34,7 @@ module.exports = {
       },
       (err, response) => {
         if (!err) {
-          res.send(response.json.results);
+          res.send(response);
         }
       }
     );
@@ -44,6 +44,7 @@ module.exports = {
       {
         origin: ['42.342813', '-71.097606'],
         destination: [req.query.lat, req.query.lng],
+        mode: req.query.mode,
       },
       (err, response) => {
         if (!err) {
