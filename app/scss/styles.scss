@@ -46,6 +46,95 @@ p, a, span, div, ul, li {
     margin: 0;
   }
 }
+@keyframes left-animation {
+  0% {
+    transform: translateX(34%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes right-animation {
+  0% {
+    transform: translateX(-34%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes firstM {
+  0% {
+    transform: translateX(34%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes secondM {
+  0% {
+    transform: translateX(9%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+svg#animatedLogo {
+  fill: #fff;
+}
+
+#left-carrot {
+  animation: left-animation 1s ease-in-out;
+}
+
+#slash,
+#right-carrot {
+  animation: right-animation 1s ease-in-out;
+}
+
+#firstM {
+  animation: firstM 1s ease-in-out;
+}
+
+#secondM {
+  animation: secondM 1s ease-in-out;
+}
+
+#name {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+#line {
+  animation: fadeIn 1.8s ease-in-out;
+}
+#tagline {
+  animation: fadeIn 2s ease-in-out;
+}
+#title {
+  animation: fadeIn 1.6s ease-in-out;
+}
+
 
 .projects-row{
 }
