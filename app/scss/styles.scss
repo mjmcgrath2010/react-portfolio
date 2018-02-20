@@ -52,6 +52,14 @@ p, a, span, div, ul, li {
   #menuContainer {
     float: right;
   }
+  #navLogo{
+    li {
+      padding: .5em 1em;
+      svg {
+        fill: #FFF;
+      }
+    }
+  }
   span {
     li {
       display: inline-block;
@@ -67,6 +75,19 @@ p, a, span, div, ul, li {
 
 #topNav.scroll {
   background: #FFF;
+  #mainNavMenu {
+    padding: 0;
+    #menuContainer {
+      float: right;
+    }
+    #navLogo {
+      li {
+        svg {
+          fill: #000;
+        }
+      }
+    }
+  }
   @include box-shadow;
   li{
     color: #000;
