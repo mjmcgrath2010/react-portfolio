@@ -130,10 +130,10 @@ svg#animatedLogo {
   bottom: 15vh;
   left: calc(50% - 50px);
   color: #FFF;
-  animation: slideUp 4.2s ease-in;
+  animation: slideUp 4s ease-in;
   #viewMore{
     fill: #FFF;
-    animation: pulse 3s 4s linear infinite;
+    animation: pulse 3s 4.5s linear infinite;
     #circle{
       fill-opacity: 0;
       stroke: #FFF;
