@@ -65,7 +65,7 @@ class Charts extends React.PureComponent {
   render() {
     return (
       <div className="chartContainer">
-        <canvas id="myChart" width="400px" height="400px" />
+        <canvas id="myChart" />
       </div>
     );
   }
