@@ -57,13 +57,14 @@ class Charts extends React.PureComponent {
             },
           ],
         },
+        responsive: true,
       },
     });
     return myChart;
   }
   render() {
     return (
-      <div id="chartContainer">
+      <div className="chartContainer">
         <canvas id="myChart" width="400px" height="400px" />
       </div>
     );
