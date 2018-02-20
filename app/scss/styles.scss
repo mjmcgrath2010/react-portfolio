@@ -125,15 +125,22 @@ svg#animatedLogo {
   animation: fadeIn 2.5s ease-in-out;
 }
 
-#viewMore {
+#viewMoreContainer {
   position: absolute;
   bottom: 5vh;
   left: calc(50% - 25px);
   color: #FFF;
   animation: slideUp 4.2s ease-in;
-  img{
-    width: 50px;
+  #viewMore{
+    fill: #FFF;
     animation: pulse 3s 4s linear infinite;
+    #circle{
+      fill-opacity: 0;
+      stroke: #FFF;
+      stroke-dasharray: 2470.63623046875;
+      animation: draw-circle 5.5s linear;
+      stroke-width: 15;
+    }
   }
 }
 

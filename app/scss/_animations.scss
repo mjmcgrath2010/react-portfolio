@@ -112,3 +112,13 @@
     transform: scale(1);
   }
 }
+
+
+@keyframes draw-circle {
+  0%, 90% {
+    stroke-dashoffset: 2470.63623046875;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
