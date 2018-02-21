@@ -38,6 +38,12 @@ p, a, span, div, ul, li {
   font-size: 1em;
 }
 
+p {
+  font-size: 1.5em;
+  font-family: $primary-font;
+  line-height: 1.1;
+}
+
 //Navigation Styles
 
 #topNav{
@@ -45,12 +51,25 @@ p, a, span, div, ul, li {
   position: fixed;
   width: 100%;
   z-index: 10000;
+  height: 60px;
+  margin: 0;
+  padding: 0;
 }
 
 #mainNavMenu {
   padding: 0;
+  height: 50px;
+  margin: 10px 0 0 0;
   #menuContainer {
     float: right;
+  }
+  #navLogo{
+    li {
+      padding: .5em 2em;
+      svg {
+        fill: #FFF;
+      }
+    }
   }
   span {
     li {
@@ -67,6 +86,19 @@ p, a, span, div, ul, li {
 
 #topNav.scroll {
   background: #FFF;
+  #mainNavMenu {
+    padding: 0;
+    #menuContainer {
+      float: right;
+    }
+    #navLogo {
+      li {
+        svg {
+          fill: #000;
+        }
+      }
+    }
+  }
   @include box-shadow;
   li{
     color: #000;
@@ -125,15 +157,22 @@ svg#animatedLogo {
   animation: fadeIn 2.5s ease-in-out;
 }
 
-#viewMore {
+#viewMoreContainer {
   position: absolute;
-  bottom: 5vh;
-  left: calc(50% - 25px);
+  bottom: 15vh;
+  left: calc(50% - 50px);
   color: #FFF;
-  animation: slideUp 4.2s ease-in;
-  img{
-    width: 50px;
-    animation: pulse 3s 4s linear infinite;
+  animation: slideUp 4s ease-in;
+  #viewMore{
+    fill: #FFF;
+    animation: pulse 3s 4.5s linear infinite;
+    #circle{
+      fill-opacity: 0;
+      stroke: #FFF;
+      stroke-dasharray: 2470.63623046875;
+      animation: draw-circle 5.5s linear;
+      stroke-width: 15;
+    }
   }
 }
 
@@ -198,3 +237,15 @@ img.logo {
   }
 }
 
+//Charts
+
+.chartContainer {
+  position: relative;
+  height: 100%;
+  max-height: 700px;
+  width: 100%;
+}
+
+#myChart {
+  max-height: 500px;
+}

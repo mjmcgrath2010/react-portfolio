@@ -8,11 +8,11 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'app.components.MapSearch.header',
-    defaultMessage: 'Leaflet.js and MapBox',
+    defaultMessage: 'Leaflet.js, MapBox, Google Maps and Places API',
   },
   headline: {
     id: 'app.components.MapSearch.header',
     defaultMessage:
-      "See how long it will take me to get to your office, or take a look at some of the places I've been!",
+      'My Transit Times to Locations. Type in your office address and see how long it will take me to get there.',
   },
 });
