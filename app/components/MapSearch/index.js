@@ -182,7 +182,7 @@ class MapSearch extends React.PureComponent {
               <MapSearchBar
                 onSearchChange={this.handleSearchChange}
                 value={this.state.submittedAddress}
-                onResultSelect={this.handleResultSelect}
+                handleSelect={this.handleResultSelect}
                 results={this.state.results}
                 address={this.state.submittedAddress}
                 drivingTime={this.state.drivingTime}

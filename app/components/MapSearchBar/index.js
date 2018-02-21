@@ -52,16 +52,22 @@ class MapSearchBar extends React.PureComponent {
     this.props.onSearchChange(e);
   };
 
-  showResults(props) {
+  selectLocation = (e, { result }) => {
+    this.setState({
+      value: result.title,
+    });
+    this.props.handleSelect(e, { result });
+  };
+  showResults() {
     let Result;
-    if (props.transitTimes) {
+    if (this.props.transitTimes) {
       Result = (
         <TravelTime
-          address={props.address}
-          transitDistance={props.transitTime ? props.transitTime : 'N/A'}
-          transitMiles={props.transitMiles ? `${props.transitMiles} -  Public Transit` : ''}
-          travelDrivingTime={props.drivingTime ? `${props.drivingTime} -  Driving` : ''}
-          travelDrivingMiles={props.drivingMiles ? props.drivingMiles : 'N/A'}
+          address={this.props.address}
+          transitDistance={this.props.transitTime ? this.props.transitTime : 'N/A'}
+          transitMiles={this.props.transitMiles ? `${this.props.transitMiles} -  Public Transit` : ''}
+          travelDrivingTime={this.props.drivingTime ? `${this.props.drivingTime} -  Driving` : ''}
+          travelDrivingMiles={this.props.drivingMiles ? this.props.drivingMiles : 'N/A'}
         />
       );
       return Result;
@@ -78,7 +84,7 @@ class MapSearchBar extends React.PureComponent {
             loading={this.state.isLoading}
             onSearchChange={this.handleSearchChange}
             value={this.state.value}
-            {...this.props}
+            onResultSelect={this.selectLocation}
             results={this.props.results}
             fluid
           />
@@ -98,6 +104,7 @@ MapSearchBar.propTypes = {
   drivingMiles: PropTypes.string,
   results: PropTypes.array,
   transitTimes: PropTypes.string,
+  handleSelect: PropTypes.func,
 };
 
 export default MapSearchBar;
