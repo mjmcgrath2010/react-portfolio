@@ -52,28 +52,22 @@ class MapSearchBar extends React.PureComponent {
     this.props.onSearchChange(e);
   };
 
+  selectLocation = (e, { result }) => {
+    this.setState({
+      value: result.title,
+    });
+    this.props.handleSelect(e, { result });
+  };
   showResults() {
     let Result;
-    if (this.state.submittedAddress) {
+    if (this.props.transitTimes) {
       Result = (
         <TravelTime
           address={this.props.address}
-          transitDistance={
-            this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : 'N/A'
-          }
-          transitMiles={
-            this.state.travelTransitTimes
-              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Public Transit`
-              : ''
-          }
-          travelDrivingMiles={
-            this.state.travelDrivingTimes ? this.state.travelDrivingTimes.rows[0].elements[0].duration.text : 'N/A'
-          }
-          travelDrivingTime={
-            this.state.travelDrivingTimes
-              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Driving`
-              : ''
-          }
+          transitDistance={this.props.transitTime ? this.props.transitTime : 'N/A'}
+          transitMiles={this.props.transitMiles ? `${this.props.transitMiles} -  Public Transit` : ''}
+          travelDrivingTime={this.props.drivingTime ? `${this.props.drivingTime} -  Driving` : ''}
+          travelDrivingMiles={this.props.drivingMiles ? this.props.drivingMiles : 'N/A'}
         />
       );
       return Result;
@@ -90,7 +84,7 @@ class MapSearchBar extends React.PureComponent {
             loading={this.state.isLoading}
             onSearchChange={this.handleSearchChange}
             value={this.state.value}
-            {...this.props}
+            onResultSelect={this.selectLocation}
             results={this.props.results}
             fluid
           />
@@ -104,7 +98,13 @@ class MapSearchBar extends React.PureComponent {
 MapSearchBar.propTypes = {
   onSearchChange: PropTypes.func,
   address: PropTypes.string,
+  transitTime: PropTypes.string,
+  transitMiles: PropTypes.string,
+  drivingTime: PropTypes.string,
+  drivingMiles: PropTypes.string,
   results: PropTypes.array,
+  transitTimes: PropTypes.string,
+  handleSelect: PropTypes.func,
 };
 
 export default MapSearchBar;

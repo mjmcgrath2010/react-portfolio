@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Step, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 

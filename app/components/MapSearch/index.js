@@ -37,6 +37,10 @@ class MapSearch extends React.PureComponent {
       center: [42.342813, -71.097606],
       submittedAddress: undefined,
       results: [],
+      transitTime: '',
+      transitMiles: '',
+      drivingMiles: '',
+      drivingTime: '',
     };
     this.mapLocation = this.mapLocation.bind(this);
     this.resetMap = this.resetMap.bind(this);
@@ -132,8 +136,24 @@ class MapSearch extends React.PureComponent {
         return { transit, driving };
       })
       .then(directions => {
-        directions.transit.then(data => console.log(data));
-        directions.driving.then(data => console.log(data));
+        directions.transit.then(data => {
+          const transitMiles = data.json.routes[0].legs[0].distance.text;
+          const transitTime = data.json.routes[0].legs[0].duration.text;
+
+          that.setState({
+            transitMiles,
+            transitTime,
+          });
+        });
+        directions.driving.then(data => {
+          const drivingMiles = data.json.routes[0].legs[0].distance.text;
+          const drivingTime = data.json.routes[0].legs[0].duration.text;
+
+          that.setState({
+            drivingMiles,
+            drivingTime,
+          });
+        });
       })
       .catch(err => console.log(err));
     this.setState({ submittedAddress: result.title });
@@ -162,8 +182,14 @@ class MapSearch extends React.PureComponent {
               <MapSearchBar
                 onSearchChange={this.handleSearchChange}
                 value={this.state.submittedAddress}
-                onResultSelect={this.handleResultSelect}
+                handleSelect={this.handleResultSelect}
                 results={this.state.results}
+                address={this.state.submittedAddress}
+                drivingTime={this.state.drivingTime}
+                drivingMiles={this.state.drivingMiles}
+                transitTime={this.state.transitTime}
+                transitMiles={this.state.transitMiles}
+                transitTimes={this.state.drivingTime}
               />
             </Grid.Column>
             <Grid.Column width={10}>
