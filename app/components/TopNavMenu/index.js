@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-// import styled from 'styled-components';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class TopNavMenu extends React.PureComponent {
@@ -15,7 +14,7 @@ class TopNavMenu extends React.PureComponent {
       coloredNav: false,
     };
   }
-  render() {
+  componentDidMount() {
     const that = this;
     let scrollPos = window.scrollY;
 
@@ -27,6 +26,8 @@ class TopNavMenu extends React.PureComponent {
         that.setState({ coloredNav: false });
       }
     });
+  }
+  render() {
     return (
       <nav id="topNav" className={this.state.coloredNav ? 'scroll' : ''}>
         <ul id="mainNavMenu">

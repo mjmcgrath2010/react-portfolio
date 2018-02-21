@@ -34,7 +34,7 @@ import { EvenSection, HeroContainer, OddSection, Footer, AccentSection } from '.
 export class Home extends React.Component {
   render() {
     return (
-      <div>
+      <div id="homeContainer">
         <HeroContainer>
           <TopNavMenu />
           <div className="hero-text">
