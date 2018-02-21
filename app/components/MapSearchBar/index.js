@@ -52,28 +52,16 @@ class MapSearchBar extends React.PureComponent {
     this.props.onSearchChange(e);
   };
 
-  showResults() {
+  showResults(props) {
     let Result;
-    if (this.state.submittedAddress) {
+    if (props.transitTimes) {
       Result = (
         <TravelTime
-          address={this.props.address}
-          transitDistance={
-            this.state.travelTransitTimes ? this.state.travelTransitTimes.rows[0].elements[0].duration.text : 'N/A'
-          }
-          transitMiles={
-            this.state.travelTransitTimes
-              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Public Transit`
-              : ''
-          }
-          travelDrivingMiles={
-            this.state.travelDrivingTimes ? this.state.travelDrivingTimes.rows[0].elements[0].duration.text : 'N/A'
-          }
-          travelDrivingTime={
-            this.state.travelDrivingTimes
-              ? `${this.state.travelTransitTimes.rows[0].elements[0].distance.text} -  Driving`
-              : ''
-          }
+          address={props.address}
+          transitDistance={props.transitTime ? props.transitTime : 'N/A'}
+          transitMiles={props.transitMiles ? `${props.transitMiles} -  Public Transit` : ''}
+          travelDrivingTime={props.drivingTime ? `${props.drivingTime} -  Driving` : ''}
+          travelDrivingMiles={props.drivingMiles ? props.drivingMiles : 'N/A'}
         />
       );
       return Result;
@@ -95,7 +83,7 @@ class MapSearchBar extends React.PureComponent {
             fluid
           />
         </Grid.Column>
-        <Grid.Column>{this.showResults()}</Grid.Column>
+        <Grid.Column>{this.showResults(this.props)}</Grid.Column>
       </Grid>
     );
   }
@@ -104,7 +92,12 @@ class MapSearchBar extends React.PureComponent {
 MapSearchBar.propTypes = {
   onSearchChange: PropTypes.func,
   address: PropTypes.string,
+  transitTime: PropTypes.string,
+  transitMiles: PropTypes.string,
+  drivingTime: PropTypes.string,
+  drivingMiles: PropTypes.string,
   results: PropTypes.array,
+  transitTimes: PropTypes.string,
 };
 
 export default MapSearchBar;
