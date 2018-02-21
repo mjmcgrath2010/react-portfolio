@@ -6,6 +6,7 @@
 
 import React from 'react';
 import _ from 'lodash';
+// import { Search } from 'semantic-ui-react';
 import request from '../../utils/request';
 
 const Chart = require('chart.js');
@@ -98,8 +99,10 @@ class Charts extends React.PureComponent {
   }
   render() {
     return (
-      <div className="chartContainer">
-        <canvas id="myChart" />
+      <div id="stockChart">
+        <div className="chartContainer">
+          <canvas id="myChart" />
+        </div>
       </div>
     );
   }
