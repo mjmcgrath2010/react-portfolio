@@ -89,7 +89,7 @@ class MapSearchBar extends React.PureComponent {
             fluid
           />
         </Grid.Column>
-        <Grid.Column>{this.showResults(this.props)}</Grid.Column>
+        <Grid.Column>{this.showResults()}</Grid.Column>
       </Grid>
     );
   }
