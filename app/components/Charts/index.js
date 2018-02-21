@@ -20,8 +20,12 @@ class Charts extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: null,
+      openData: null,
+      closeData: null,
+      highData: null,
+      lowData: null,
       title: null,
+      times: null,
     };
   }
   componentDidMount() {
@@ -32,17 +36,28 @@ class Charts extends React.PureComponent {
       .then(response => {
         const title = response['Meta Data']['1. Information'];
         const stockData = response['Time Series (1min)'];
-        const processedData = [];
+        const openData = [];
+        const closeData = [];
+        const highData = [];
+        const lowData = [];
+        const times = [];
         if (stockData) {
-          _.each(stockData, stock => {
-            processedData.push(stock);
+          _.each(stockData, (stock, key) => {
+            openData.push(stock['1. open']);
+            closeData.push(stock['4. close']);
+            highData.push(stock['2. high']);
+            lowData.push(stock['3. low']);
+            times.push(key);
           });
         }
         this.setState({
-          data: processedData,
+          openData,
           title,
+          closeData,
+          highData,
+          lowData,
+          times,
         });
-        console.log(processedData);
         renderChart();
       })
       .catch(err => console.log(err));
@@ -50,38 +65,31 @@ class Charts extends React.PureComponent {
       const myChart = new Chart(ctx, {
         type: 'line',
         data: {
+          labels: that.state.times,
           datasets: [
             {
-              label: that.state.title,
-              data: that.state.data,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-              ],
-              borderWidth: 1,
+              label: 'Open',
+              data: that.state.openData,
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            },
+            {
+              label: 'Close',
+              data: that.state.closeData,
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            },
+            {
+              label: 'High',
+              data: that.state.highData,
+              backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            },
+            {
+              label: 'Low',
+              data: that.state.lowData,
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
             },
           ],
         },
         options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-          },
           responsive: true,
         },
       });
