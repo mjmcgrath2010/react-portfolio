@@ -14,7 +14,7 @@ module.exports = {
       .get(
         `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
           req.query.keyword
-        }&types=address&location=42.342813,-71.0976066&key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U`,
+        }&types=address&location=42.342813,-71.0976066&radius=80467&strictbounds&key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U`,
         resp => {
           let data = '';
           resp.on('data', chunk => {

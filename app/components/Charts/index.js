@@ -6,7 +6,7 @@
 
 import React from 'react';
 import _ from 'lodash';
-// import { Search } from 'semantic-ui-react';
+import { Search, Grid, Button } from 'semantic-ui-react';
 import request from '../../utils/request';
 
 const Chart = require('chart.js');
@@ -99,11 +99,36 @@ class Charts extends React.PureComponent {
   }
   render() {
     return (
-      <div id="stockChart">
-        <div className="chartContainer">
-          <canvas id="myChart" />
-        </div>
-      </div>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column>
+            <h3>Real Time Stock Data</h3>
+            Search for a ticker symbol, and select an interval:
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={5}>
+            <Search />
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <Button.Group>
+              <Button>1 min</Button>
+              <Button>5 min</Button>
+              <Button>30 min</Button>
+              <Button>1 hr</Button>
+            </Button.Group>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+            <div id="stockChart">
+              <div className="chartContainer">
+                <canvas id="myChart" />
+              </div>
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
