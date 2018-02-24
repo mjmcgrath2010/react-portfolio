@@ -8,7 +8,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Search, Grid, Button } from 'semantic-ui-react';
 import request from '../../utils/request';
-// const tickerSymbols = require('./data/tickerSymbols.json');
+const tickerSymbols = require('./data/tickerSymbols.json');
 
 const Chart = require('chart.js');
 
@@ -28,6 +28,7 @@ class Charts extends React.PureComponent {
       lowData: null,
       title: null,
       times: null,
+      tickerSymbols,
     };
   }
   componentDidMount() {
