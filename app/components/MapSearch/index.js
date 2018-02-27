@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 
 import PrimaryPin from '../../images/icons/map-localization.png';
 import messages from './messages';
-import MapSearchBar from '../MapSearchBar/index';
+import MapSearchBar from './MapSearchBar/index';
 import request from '../../utils/request';
 
 const mikesIcon = L.icon({

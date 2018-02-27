@@ -28,6 +28,9 @@ class Charts extends React.PureComponent {
       lowData: null,
       title: null,
       times: null,
+      isLoading: false,
+      results: [],
+      value: '',
       tickerSymbols,
     };
   }
@@ -110,7 +113,7 @@ class Charts extends React.PureComponent {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={5}>
-            <Search />
+            <Search results={this.state.tickerSymbols} loading={this.state.loading} value={this.state.value} />
           </Grid.Column>
           <Grid.Column width={10}>
             <Button.Group>
