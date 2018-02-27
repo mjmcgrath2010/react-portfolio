@@ -32,7 +32,6 @@ class Charts extends React.PureComponent {
       results: [],
       value: '',
       description: '',
-      tickerSymbols,
     };
   }
   componentDidMount() {}
@@ -124,7 +123,7 @@ class Charts extends React.PureComponent {
     }
 
     this.setState({
-      results: _.filter(this.state.tickerSymbols, isMatch),
+      results: tickerSymbols.filter(isMatch),
     });
   };
 
