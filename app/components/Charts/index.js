@@ -31,14 +31,18 @@ class Charts extends React.PureComponent {
       isLoading: false,
       results: [],
       value: '',
+      description: '',
       tickerSymbols,
     };
   }
-  componentDidMount() {
+  componentDidMount() {}
+
+  handleResultSelect = (e, { result }) => {
+    this.setState({ value: result.title, description: result.description });
     const ctx = document.getElementById('myChart');
     const that = this;
 
-    request('/stock-data?symbol=AAPL&interval=1')
+    request(`/stock-data?symbol=${this.state.value}&interval=1`)
       .then(response => {
         const title = response['Meta Data']['1. Information'];
         const stockData = response['Time Series (1min)'];
@@ -96,12 +100,34 @@ class Charts extends React.PureComponent {
           ],
         },
         options: {
+          title: {
+            display: true,
+            text: `RealTime Stock Prices for ${that.state.description} (${that.state.value})`,
+          },
           responsive: true,
         },
       });
       return myChart;
     };
-  }
+  };
+
+  handleSearchChange = (e, { value }) => {
+    this.setState({ isLoading: true, value });
+
+    const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
+    const isMatch = result => re.test(result.title);
+
+    if (this.state.results) {
+      this.setState({
+        isLoading: false,
+      });
+    }
+
+    this.setState({
+      results: _.filter(this.state.tickerSymbols, isMatch),
+    });
+  };
+
   render() {
     return (
       <Grid>
@@ -113,7 +139,13 @@ class Charts extends React.PureComponent {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={5}>
-            <Search results={this.state.tickerSymbols} loading={this.state.loading} value={this.state.value} />
+            <Search
+              results={this.state.results}
+              loading={this.state.isLoading}
+              onResultSelect={this.handleResultSelect}
+              onSearchChange={this.handleSearchChange}
+              value={this.state.value}
+            />
           </Grid.Column>
           <Grid.Column width={10}>
             <Button.Group>
