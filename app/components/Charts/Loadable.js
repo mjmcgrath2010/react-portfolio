@@ -5,8 +5,9 @@
  */
 
 import Loadable from 'react-loadable';
+import LoadingSpinner from '../LoadingSpinner/index';
 
 export default Loadable({
   loader: () => import('./index'),
-  loading: () => null,
+  loading: LoadingSpinner,
 });

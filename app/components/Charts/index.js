@@ -34,8 +34,6 @@ class Charts extends React.PureComponent {
       description: '',
     };
   }
-  componentDidMount() {}
-
   handleResultSelect = (e, { result }) => {
     this.setState({ value: result.title, description: result.description });
     const ctx = document.getElementById('myChart');
