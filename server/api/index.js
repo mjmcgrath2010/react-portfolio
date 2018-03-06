@@ -1,8 +1,6 @@
 /**
  *  API and Middleware methods
  */
-
-// https://www.alphavantage.co/support/#api-key UPCYGJ7GI7N68IBM
 const https = require('https');
 const googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U',
@@ -58,22 +56,17 @@ module.exports = {
   },
   getStockData: (req, res) => {
     https
-      .get(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${req.query.symbol}&interval=${
-          req.query.interval
-        }min&apikey=UPCYGJ7GI7N68IBM`,
-        resp => {
-          let data = '';
+      .get(`https://api.iextrading.com/1.0/stock/${req.query.symbol}/chart/dynamic`, resp => {
+        let data = '';
 
-          resp.on('data', chunk => {
-            data += chunk;
-          });
+        resp.on('data', chunk => {
+          data += chunk;
+        });
 
-          resp.on('end', () => {
-            res.status(200).send(JSON.parse(data));
-          });
-        }
-      )
+        resp.on('end', () => {
+          res.status(200).send(JSON.parse(data));
+        });
+      })
       .on('error', err => {
         res.status(400).send(`Error: ${err.message}`);
       });

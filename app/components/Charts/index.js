@@ -39,35 +39,16 @@ class Charts extends React.PureComponent {
     const ctx = document.getElementById('myChart');
     const that = this;
 
-    request(`/stock-data?symbol=${this.state.value}&interval=1`)
+    request(`/stock-data?symbol=${this.state.value}`)
       .then(response => {
-        const title = response['Meta Data']['1. Information'];
-        const stockData = response['Time Series (1min)'];
-        const openData = [];
-        const closeData = [];
-        const highData = [];
-        const lowData = [];
-        const times = [];
-        if (stockData) {
-          _.each(stockData, (stock, key) => {
-            openData.push(stock['1. open']);
-            closeData.push(stock['4. close']);
-            highData.push(stock['2. high']);
-            lowData.push(stock['3. low']);
-            times.push(key);
-          });
+        console.log(response);
+
+        if (response.body) {
+          renderChart();
         }
-        this.setState({
-          openData,
-          title,
-          closeData,
-          highData,
-          lowData,
-          times,
-        });
-        renderChart();
       })
       .catch(err => console.log(err));
+
     const renderChart = () => {
       const myChart = new Chart(ctx, {
         type: 'line',
