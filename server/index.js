@@ -17,6 +17,7 @@ app.use('/api/autocomplete', api.autoComplete);
 app.use('/api/geocode', api.geocode);
 app.use('/api/directions', api.directions);
 app.use('/api/stock-data', api.getStockData);
+app.use('/api/symbols', api.getTickerSymbols);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
