@@ -44,7 +44,7 @@ class Charts extends React.PureComponent {
         console.log(response);
 
         if (response.body) {
-          renderChart();
+          renderChart(); // I KNOW THIS WON"T EXIST
         }
       })
       .catch(err => console.log(err));
