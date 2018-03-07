@@ -27,11 +27,15 @@ import Logo from '../../components/Logo';
 import TopNavMenu from '../../components/TopNavMenu';
 
 import { EvenSection, HeroContainer, OddSection, Footer, AccentSection } from './styles';
+import { FETCH_TICKERS } from './constants';
 
 // import messages from './messages';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class Home extends React.Component {
+  componentDidMount() {
+    this.props.fetchTickers();
+  }
   render() {
     return (
       <div id="homeContainer">
@@ -63,7 +67,7 @@ export class Home extends React.Component {
 }
 
 Home.propTypes = {
-  dispatch: PropTypes.func,
+  fetchTickers: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -72,7 +76,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    fetchTickers: () => {
+      dispatch({ type: FETCH_TICKERS });
+    },
   };
 }
 

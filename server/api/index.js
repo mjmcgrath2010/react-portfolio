@@ -54,6 +54,7 @@ module.exports = {
       }
     );
   },
+  // TODO: Refine these methods
   getStockData: (req, res) => {
     https
       .get(`https://api.iextrading.com/1.0/stock/${req.query.symbol}/chart/dynamic`, resp => {
