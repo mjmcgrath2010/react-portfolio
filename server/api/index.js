@@ -71,6 +71,39 @@ module.exports = {
         res.status(400).send(`Error: ${err.message}`);
       });
   },
+  getCompanyInfo: (req, res) => {
+    https
+      .get(`https://api.iextrading.com/1.0/stock/${req.query.symbol}/company`, resp => {
+        let data = '';
+        let processedData;
+
+        resp.on('data', chunk => {
+          data += chunk;
+        });
+
+        resp
+          .on('end', () => {
+            https.get(`https://api.iextrading.com/1.0/stock/${req.query.symbol}/logo`, response => {
+              response.on('data', logo => {
+                processedData = Object.assign(JSON.parse(data), JSON.parse(logo));
+              });
+              response.on('end', () => {
+                res.status(200).send(processedData);
+              });
+            });
+          })
+          .on('error', err => {
+            if (data) {
+              res.status(204).send(JSON.parse(data));
+            } else {
+              res.status(400).send(`Error: ${err.message}`);
+            }
+          });
+      })
+      .on('error', err => {
+        res.status(400).send(`Error: ${err.message}`);
+      });
+  },
   getTickerSymbols: (req, res) => {
     https.get('https://api.iextrading.com/1.0/ref-data/symbols', resp => {
       let data = '';
