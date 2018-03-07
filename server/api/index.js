@@ -122,4 +122,19 @@ module.exports = {
         });
     });
   },
+  getCurrentMarketData: (req, res) => {
+    https.get('https://api.iextrading.com/1.0/stock/market/list/gainers', resp => {
+      let data = '';
+      resp.on('data', chunk => {
+        data += chunk;
+      });
+      resp
+        .on('end', () => {
+          res.status(200).send(JSON.parse(data));
+        })
+        .on('error', err => {
+          res.status(400).send(`Error: ${err.message}`);
+        });
+    });
+  },
 };
