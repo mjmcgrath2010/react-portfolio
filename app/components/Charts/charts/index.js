@@ -39,12 +39,8 @@ const renderBarChart = (data, id, labels, title, dataLabel) =>
           data: data.data, // Array of values
           backgroundColor: randomColor({
             // Random Colors
-            count: data.length,
+            count: data.data.length,
           }),
-          borderColor: randomColor({
-            count: data.length,
-          }),
-          borderWidth: 1,
         },
       ],
     },
