@@ -57,20 +57,26 @@ module.exports = {
   },
   // TODO: Refine these methods
   getStockData: (req, res) => {
-    https
-      .get(`https://api.iextrading.com/1.0/stock/${req.query.symbol}/chart/dynamic`, resp => {
-        let data = '';
+    let data = {};
+    let completedRequests = 0;
+    let errors = 0;
 
-        resp.on('data', chunk => {
-          data += chunk;
-        });
+    const sendResponse = () => {
+      if (completedRequests === 1 || completedRequests + errors === 1) {
+        res.status(200).send(data);
+      }
+    };
 
-        resp.on('end', () => {
-          res.status(200).send(JSON.parse(data));
-        });
+    fetch(`https://api.iextrading.com/1.0/stock/${req.query.symbol}/chart/${req.query.interval || 'dynamic'}`)
+      .then(resp => resp.json())
+      .then(json => {
+        data = Object.assign(data, json);
+        completedRequests += 1;
+        sendResponse();
       })
-      .on('error', err => {
-        res.status(400).send(`Error: ${err.message}`);
+      .catch(err => {
+        data = Object.assign(data, err);
+        errors += 1;
       });
   },
   getCompanyInfo: (req, res) => {
