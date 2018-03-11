@@ -45,7 +45,6 @@ module.exports = {
       }
     );
   },
-  // TODO: Refine these methods
   getStockData: (req, res) => {
     const endpoints = [
       { name: 'stock_data', endpoint: `/stock/${req.query.symbol}/chart/${req.query.interval || 'dynamic'}` },
