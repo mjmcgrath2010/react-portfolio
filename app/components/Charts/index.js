@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Search, Grid, Button } from 'semantic-ui-react';
-import { renderBarChart } from './charts/index';
+import { renderBarChart, renderLineChart } from './charts/index';
 
 // import styled from 'styled-components';
 
@@ -27,13 +27,45 @@ class Charts extends React.PureComponent {
   }
   componentDidMount() {
     const ctx = document.getElementById('myChart');
-    renderBarChart(
-      { data: [100, 200, 300], labels: ['one', 'two', 'three'] },
-      ctx,
-      'Test',
-      'Mike Test',
-      'Data Label Test'
-    );
+    const data = [
+      {
+        data: [
+          {
+            x: 10,
+            y: 20,
+          },
+          {
+            x: 15,
+            y: 10,
+          },
+        ],
+        label: 'Mike',
+      },
+      {
+        data: [
+          {
+            x: 10,
+            y: 25,
+          },
+          {
+            x: 15,
+            y: 15,
+          },
+        ],
+        label: 'Lesley',
+      },
+    ];
+    if (false) {
+      renderBarChart(
+        { data: [100, 200, 300], labels: ['one', 'two', 'three'] },
+        ctx,
+        'Test',
+        'Mike Test',
+        'Data Label Test'
+      );
+    } else {
+      renderLineChart(data, ctx, ['one', 'two'], 'Hello World');
+    }
   }
   handleResultSelect = (e, { result }) => {
     this.props.onTicketSelect(e, { result });
