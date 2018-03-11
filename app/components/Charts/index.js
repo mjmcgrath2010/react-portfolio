@@ -5,12 +5,9 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { Search, Grid, Button } from 'semantic-ui-react';
-import request from '../../utils/request';
-const tickerSymbols = require('./data/tickerSymbols.json');
-
-const Chart = require('chart.js');
+import { renderBarChart } from './charts/index';
 
 // import styled from 'styled-components';
 
@@ -22,88 +19,35 @@ class Charts extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      openData: null,
-      closeData: null,
-      highData: null,
-      lowData: null,
-      title: null,
-      times: null,
       isLoading: false,
       results: [],
       value: '',
       description: '',
     };
   }
-  handleResultSelect = (e, { result }) => {
-    this.setState({ value: result.title, description: result.description });
+  componentDidMount() {
     const ctx = document.getElementById('myChart');
-    const that = this;
-
-    request(`/stock-data?symbol=${this.state.value}`)
-      .then(response => {
-        console.log(response);
-
-        if (response.body) {
-          renderChart(); // I KNOW THIS WON"T EXIST
-        }
-      })
-      .catch(err => console.log(err));
-
-    const renderChart = () => {
-      const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: that.state.times,
-          datasets: [
-            {
-              label: 'Open',
-              data: that.state.openData,
-              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            },
-            {
-              label: 'Close',
-              data: that.state.closeData,
-              backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            },
-            {
-              label: 'High',
-              data: that.state.highData,
-              backgroundColor: 'rgba(255, 206, 86, 0.2)',
-            },
-            {
-              label: 'Low',
-              data: that.state.lowData,
-              backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            },
-          ],
-        },
-        options: {
-          title: {
-            display: true,
-            text: `RealTime Stock Prices for ${that.state.description} (${that.state.value})`,
-          },
-          responsive: true,
-        },
-      });
-      return myChart;
-    };
+    renderBarChart(
+      { data: [100, 200, 300], labels: ['one', 'two', 'three'] },
+      ctx,
+      'Test',
+      'Mike Test',
+      'Data Label Test'
+    );
+  }
+  handleResultSelect = (e, { result }) => {
+    this.props.onTicketSelect(e, { result });
+    this.setState({ value: result.title, description: result.description });
   };
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value });
-
-    const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-    const isMatch = result => re.test(result.title);
-
-    if (this.state.results) {
+    this.props.onTicketSelect();
+    if (this.props.searchResults) {
       this.setState({
         isLoading: false,
       });
     }
-
-    this.setState({
-      results: tickerSymbols.filter(isMatch),
-    });
   };
 
   render() {
@@ -148,6 +92,9 @@ class Charts extends React.PureComponent {
   }
 }
 
-Charts.propTypes = {};
+Charts.propTypes = {
+  searchResults: PropTypes.array,
+  onTicketSelect: PropTypes.func,
+};
 
 export default Charts;
