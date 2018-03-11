@@ -1,7 +1,6 @@
 /**
  *  API and Middleware methods
  */
-const https = require('https');
 const fetch = require('node-fetch');
 const baseStockUrl = 'https://api.iextrading.com/1.0';
 const googleMapsClient = require('@google/maps').createClient({
@@ -10,24 +9,14 @@ const googleMapsClient = require('@google/maps').createClient({
 
 module.exports = {
   autoComplete: (req, res) => {
-    https
-      .get(
-        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
-          req.query.keyword
-        }&types=address&location=42.342813,-71.0976066&radius=80467&strictbounds&key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U`,
-        resp => {
-          let data = '';
-          resp.on('data', chunk => {
-            data += chunk;
-          });
-          resp.on('end', () => {
-            res.status(200).send(data);
-          });
-        }
-      )
-      .on('error', err => {
-        res.status(400).send(`Error: ${err.message}`);
-      });
+    fetch(
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
+        req.query.keyword
+      }&types=address&location=42.342813,-71.0976066&radius=80467&strictbounds&key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U`
+    )
+      .then(resp => resp.json())
+      .then(json => res.status(200).send(json))
+      .catch(err => res.status(400).send(`Error: ${err}`));
   },
   geocode: (req, res) => {
     googleMapsClient.geocode(
