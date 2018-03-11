@@ -2,6 +2,7 @@
  *  API and Middleware methods
  */
 const https = require('https');
+const fetch = require('node-fetch');
 const googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U',
 });
@@ -123,17 +124,29 @@ module.exports = {
     });
   },
   getCurrentMarketData: (req, res) => {
-    https.get('https://api.iextrading.com/1.0/stock/market/list/gainers', resp => {
-      let data = '';
-      resp.on('data', chunk => {
-        data += chunk;
-      });
-      resp
-        .on('end', () => {
-          res.status(200).send(JSON.parse(data));
+    const endpoints = ['/mostactive', '/gainers', '/iexvolume', '/iexpercent'];
+    const baseUrl = 'https://api.iextrading.com/1.0/stock/market/list';
+    let data = {};
+    let completedRequests = 0;
+    let errors = 0;
+
+    const sendResponse = () => {
+      if (completedRequests === endpoints.length || completedRequests + errors === endpoints.length) {
+        res.status(200).send(data);
+      }
+    };
+
+    endpoints.forEach(endpoint => {
+      fetch(`${baseUrl}${endpoint}`)
+        .then(resp => resp.json())
+        .then(json => {
+          data = Object.assign(data, { [endpoint.replace('/', '')]: json });
+          completedRequests += 1;
+          sendResponse();
         })
-        .on('error', err => {
-          res.status(400).send(`Error: ${err.message}`);
+        .catch(err => {
+          data = Object.assign(data, err);
+          errors += 1;
         });
     });
   },
