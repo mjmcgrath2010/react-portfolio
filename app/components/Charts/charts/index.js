@@ -8,7 +8,11 @@ const renderLineChart = (data, id, labels, title) => {
     chartData.push({
       label: dataSet.label,
       data: dataSet.data,
-      backgroundColor: randomColor(),
+      backgroundColor: randomColor({
+        format: 'rgba',
+        alpha: 0.35,
+        luminosity: 'bright',
+      }),
     });
   });
 
@@ -27,23 +31,6 @@ const renderLineChart = (data, id, labels, title) => {
     },
   });
 };
-
-// new Chart(document.getElementById('chartjs-0'), {
-//   type: 'line',
-//   data: {
-//     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//     datasets: [
-//       {
-//         label: 'My First Dataset',
-//         data: [65, 59, 80, 81, 56, 55, 40],
-//         fill: false,
-//         borderColor: 'rgb(75, 192, 192)',
-//         lineTension: 0.1,
-//       },
-//     ],
-//   },
-//   options: {},
-// });
 
 const renderBarChart = (data, id, labels, title, dataLabel) =>
   new Chart(id, {

@@ -5,9 +5,13 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Search, Grid, Button } from 'semantic-ui-react';
 import { renderBarChart, renderLineChart } from './charts/index';
+import makeSelectHome from '../../containers/Home/selectors';
 
 // import styled from 'styled-components';
 
@@ -36,7 +40,7 @@ class Charts extends React.PureComponent {
           },
           {
             x: 15,
-            y: 10,
+            y: 100,
           },
         ],
         label: 'Mike',
@@ -49,7 +53,7 @@ class Charts extends React.PureComponent {
           },
           {
             x: 15,
-            y: 15,
+            y: 35,
           },
         ],
         label: 'Lesley',
@@ -66,6 +70,9 @@ class Charts extends React.PureComponent {
     } else {
       renderLineChart(data, ctx, ['one', 'two'], 'Hello World');
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log('Next Props: ', nextProps);
   }
   handleResultSelect = (e, { result }) => {
     this.props.onTicketSelect(e, { result });
@@ -94,11 +101,11 @@ class Charts extends React.PureComponent {
         <Grid.Row>
           <Grid.Column width={5}>
             <Search
-              results={this.state.results}
+              results={this.props.results}
               loading={this.state.isLoading}
               onResultSelect={this.handleResultSelect}
               onSearchChange={this.handleSearchChange}
-              value={this.state.value}
+              value={this.props.value}
             />
           </Grid.Column>
           <Grid.Column width={10}>
@@ -127,6 +134,20 @@ class Charts extends React.PureComponent {
 Charts.propTypes = {
   searchResults: PropTypes.array,
   onTicketSelect: PropTypes.func,
+  value: PropTypes.string,
+  results: PropTypes.array,
 };
 
-export default Charts;
+const mapStateToProps = createStructuredSelector({
+  home: makeSelectHome(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withConnect)(Charts);
