@@ -5,7 +5,7 @@
  */
 
 import Loadable from 'react-loadable';
-import LoadingSpinner from '../LoadingSpinner/index';
+import LoadingSpinner from '../../components/LoadingSpinner/index';
 
 export default Loadable({
   loader: () => import('./index'),

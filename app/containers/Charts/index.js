@@ -11,7 +11,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Search, Grid, Button } from 'semantic-ui-react';
 import { renderBarChart, renderLineChart } from './charts/index';
-import makeSelectHome from '../../containers/Home/selectors';
+import makeSelectHome from '../Home/selectors';
 
 // import styled from 'styled-components';
 
