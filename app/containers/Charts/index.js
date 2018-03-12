@@ -11,7 +11,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Search, Grid, Button } from 'semantic-ui-react';
 import { renderBarChart, renderLineChart } from './charts/index';
-import makeSelectHome from '../Home/selectors';
+import { getTickerSymbols, getMarketData } from '../Home/selectors';
 
 // import styled from 'styled-components';
 
@@ -139,7 +139,8 @@ Charts.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  home: makeSelectHome(),
+  marketData: getMarketData(),
+  tickerSymbols: getTickerSymbols(),
 });
 
 function mapDispatchToProps(dispatch) {
