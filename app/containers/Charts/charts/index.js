@@ -8,7 +8,8 @@ const renderLineChart = (data, id, labels, title) => {
     chartData.push({
       label: dataSet.label,
       data: dataSet.data,
-      backgroundColor: randomColor({
+      fill: false,
+      borderColor: randomColor({
         format: 'rgba',
         alpha: 0.35,
         luminosity: 'bright',
