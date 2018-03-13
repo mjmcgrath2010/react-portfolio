@@ -1,5 +1,36 @@
+import _ from 'lodash';
 const Chart = require('chart.js');
 const randomColor = require('randomcolor');
+
+// Line Chart Data
+// const data = [
+//   {
+//     data: [
+//       {
+//         x: 10,
+//         y: 20,
+//       },
+//       {
+//         x: 15,
+//         y: 100,
+//       },
+//     ],
+//     label: 'Mike',
+//   },
+//   {
+//     data: [
+//       {
+//         x: 10,
+//         y: 25,
+//       },
+//       {
+//         x: 15,
+//         y: 35,
+//       },
+//     ],
+//     label: 'Lesley',
+//   },
+// ];
 
 const renderLineChart = (data, id, labels, title) => {
   const chartData = [];
@@ -33,7 +64,7 @@ const renderLineChart = (data, id, labels, title) => {
   });
 };
 
-const renderBarChart = (data, id, labels, title, dataLabel) =>
+const renderBarChart = (data, id, title, dataLabel) =>
   new Chart(id, {
     type: 'bar',
     data: {
@@ -66,4 +97,17 @@ const renderBarChart = (data, id, labels, title, dataLabel) =>
     },
   });
 
-export { renderLineChart, renderBarChart };
+const mapGainerData = (data, id) => {
+  const stockData = {
+    labels: [],
+    data: [],
+  };
+
+  _.forEach(data, stock => {
+    stockData.labels.push(stock.symbol);
+    stockData.data.push(stock.changePercent);
+  });
+  renderBarChart(stockData, id, "Today's Gainers", 'Percentage Change', 'Percentage Change');
+};
+
+export { renderLineChart, renderBarChart, mapGainerData };

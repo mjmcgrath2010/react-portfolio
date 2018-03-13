@@ -10,7 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Search, Grid, Button } from 'semantic-ui-react';
-import { renderBarChart, renderLineChart } from './charts/index';
+import { mapGainerData } from './charts/index';
 import { getTickerSymbols, getMarketData } from '../Home/selectors';
 
 // import styled from 'styled-components';
@@ -31,45 +31,7 @@ class Charts extends React.PureComponent {
   }
   componentDidMount() {
     const ctx = document.getElementById('myChart');
-    const data = [
-      {
-        data: [
-          {
-            x: 10,
-            y: 20,
-          },
-          {
-            x: 15,
-            y: 100,
-          },
-        ],
-        label: 'Mike',
-      },
-      {
-        data: [
-          {
-            x: 10,
-            y: 25,
-          },
-          {
-            x: 15,
-            y: 35,
-          },
-        ],
-        label: 'Lesley',
-      },
-    ];
-    if (false) {
-      renderBarChart(
-        { data: [100, 200, 300], labels: ['one', 'two', 'three'] },
-        ctx,
-        'Test',
-        'Mike Test',
-        'Data Label Test'
-      );
-    } else {
-      renderLineChart(data, ctx, ['one', 'two'], 'Hello World');
-    }
+    mapGainerData(this.props.marketData.gainers, ctx);
   }
   componentWillReceiveProps(nextProps) {
     console.log('Next Props: ', nextProps);
@@ -136,6 +98,8 @@ Charts.propTypes = {
   onTicketSelect: PropTypes.func,
   value: PropTypes.string,
   results: PropTypes.array,
+  marketData: PropTypes.array,
+  gainers: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
