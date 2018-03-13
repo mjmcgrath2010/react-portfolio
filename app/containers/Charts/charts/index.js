@@ -48,7 +48,7 @@ const renderLineChart = (data, id, labels, title) => {
     });
   });
 
-  return new Chart(id, {
+  const chart = new Chart(id, {
     type: 'line',
     data: {
       labels,
@@ -62,10 +62,11 @@ const renderLineChart = (data, id, labels, title) => {
       responsive: true,
     },
   });
+  return chart;
 };
 
-const renderBarChart = (data, id, title, dataLabel) =>
-  new Chart(id, {
+const renderBarChart = (data, id, title, dataLabel) => {
+  const chart = new Chart(id, {
     type: 'bar',
     data: {
       labels: data.labels, // Array of Labels
@@ -96,6 +97,8 @@ const renderBarChart = (data, id, title, dataLabel) =>
       },
     },
   });
+  return chart;
+};
 
 const mapGainerData = (data, id) => {
   const stockData = {

@@ -98,7 +98,7 @@ Charts.propTypes = {
   onTicketSelect: PropTypes.func,
   value: PropTypes.string,
   results: PropTypes.array,
-  marketData: PropTypes.array,
+  marketData: PropTypes.object,
   gainers: PropTypes.array,
 };
 
