@@ -109,17 +109,11 @@ const reportData = {
     dataPointDes: 'Percentage',
     chartTitle: "Today's Gainers",
   },
-  iexpercentage: {
+  losers: {
     dataLabel: 'symbol',
     dataProperty: 'changePercent',
-    dataPointDes: 'Volume',
-    chartTitle: 'IEX Change Percent',
-  },
-  iexvolume: {
-    dataLabel: 'symbol',
-    dataProperty: 'changePercent',
-    dataPointDes: 'Volume',
-    chartTitle: 'IEX Volume',
+    dataPointDes: 'Percentage',
+    chartTitle: "Today's Losers",
   },
   mostactive: {
     dataLabel: 'symbol',

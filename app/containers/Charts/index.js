@@ -31,9 +31,8 @@ class Charts extends React.PureComponent {
       stockSearch: false,
       marketReports: [
         { key: '0', value: 'gainers', text: 'Market Gainers' },
-        { key: '1', value: 'iexpercentage', text: 'Percentage' },
-        { key: '2', value: 'iexvolume', text: 'Market Volume' },
-        { key: '3', value: 'mostactive', text: 'Most Active' },
+        { key: '1', value: 'losers', text: 'Biggest Losers' },
+        { key: '2', value: 'mostactive', text: 'Most Active' },
       ],
       chart: null,
       selectedChart: 'gainers',

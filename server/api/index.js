@@ -81,7 +81,7 @@ module.exports = {
       .catch(err => res.status(400).send(`Error: ${err}`));
   },
   getCurrentMarketData: (req, res) => {
-    const endpoints = ['/mostactive', '/gainers', '/iexvolume', '/iexpercent'];
+    const endpoints = ['/mostactive', '/gainers', '/losers'];
     let data = {};
     let completedRequests = 0;
     let errors = 0;
