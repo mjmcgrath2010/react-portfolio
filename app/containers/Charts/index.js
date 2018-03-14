@@ -29,6 +29,12 @@ class Charts extends React.PureComponent {
       value: '',
       description: '',
       stockSearch: false,
+      marketReports: [
+        { key: 'GAIN', value: '0', text: 'Market Gainers' },
+        { key: 'LOSS', value: '1', text: 'Market Losers' },
+        { key: 'VOL', value: '2', text: 'Market Volume' },
+        { key: 'ACT', value: '3', text: 'Most Active' },
+      ],
     };
   }
   componentDidMount() {
@@ -74,6 +80,7 @@ class Charts extends React.PureComponent {
           onTickerSelect={this.handleResultSelect}
           onTickerSearch={this.handleSearchChange}
           searchSelected={this.stockSearch}
+          marketReports={this.state.marketReports}
         />
         <Grid.Row>
           <Grid.Column>

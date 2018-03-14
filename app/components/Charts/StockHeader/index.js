@@ -36,7 +36,7 @@ function StockHeader(props) {
   return (
     <Grid.Row>
       <Grid.Column width={5}>
-        <Dropdown />
+        <Dropdown placeholder="Select a Stock Report" search selection options={props.marketReports} />
       </Grid.Column>
       <Grid.Column width={10}>
         <Button.Group>
@@ -55,6 +55,7 @@ StockHeader.propTypes = {
   value: PropTypes.string,
   searchSelected: PropTypes.func,
   stockSearch: PropTypes.bool,
+  marketReports: PropTypes.array,
 };
 
 export default StockHeader;
