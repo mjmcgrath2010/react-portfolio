@@ -87,17 +87,17 @@ const renderBarChart = (data, id, title, dataLabel) => {
   return chart;
 };
 
-const mapGainerData = (data, id) => {
+const barChart = (data, id, dataLabel, value, dataPoint, title, dataLegend) => {
   const stockData = {
     labels: [],
     data: [],
   };
 
   _.forEach(data, stock => {
-    stockData.labels.push(stock.symbol);
-    stockData.data.push(stock.changePercent);
+    stockData.labels.push(stock[dataLabel]);
+    stockData.data.push(stock[value]);
   });
-  return renderBarChart(stockData, id, "Today's Gainers", 'Percentage Change', 'Percentage Change');
+  return renderBarChart(stockData, id, title, dataLegend, dataPoint);
 };
 
-export { renderLineChart, renderBarChart, mapGainerData };
+export { renderLineChart, renderBarChart, barChart };

@@ -10,7 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
-import { mapGainerData } from './utils/index';
+import { barChart } from './utils/index';
 import { getTickerSymbols, getMarketData } from '../Home/selectors';
 import StockHeader from '../../components/Charts/StockHeader/index';
 
@@ -30,18 +30,17 @@ class Charts extends React.PureComponent {
       description: '',
       stockSearch: false,
       marketReports: [
-        { key: 'GAIN', value: '0', text: 'Market Gainers' },
-        { key: 'LOSS', value: '1', text: 'Market Losers' },
-        { key: 'VOL', value: '2', text: 'Market Volume' },
-        { key: 'ACT', value: '3', text: 'Most Active' },
+        { key: 'GAIN', value: 'gainers', text: 'Market Gainers' },
+        { key: 'PER', value: 'iexpercentage', text: 'Percentage' },
+        { key: 'VOL', value: 'iexvolume', text: 'Market Volume' },
+        { key: 'ACT', value: 'mostactive', text: 'Most Active' },
       ],
+      chart: null,
     };
   }
   componentDidMount() {
-    const ctx = document.getElementById('myChart');
-    mapGainerData(this.props.marketData.gainers, ctx);
+    this.renderChart();
   }
-
   handleResultSelect = (e, { result }) => {
     this.props.onTicketSelect(e, { result });
     this.setState({ value: result.title, description: result.description });
@@ -63,6 +62,30 @@ class Charts extends React.PureComponent {
     });
   };
 
+  handleChartSelection = (e, { value }) => {
+    if (value && this.state.chart) {
+      this.renderChart(value);
+    }
+  };
+
+  renderChart = input => {
+    const id = this.chart;
+    const marketData = this.props.marketData;
+    if (this.state.chart) {
+      this.state.chart.destroy();
+    }
+    const chart = barChart(
+      marketData[input || 'gainers'],
+      id,
+      'symbol',
+      'changePercent',
+      'Percentage',
+      "Today's gainers",
+      'Stocks'
+    );
+    this.setState({ chart });
+  };
+
   render() {
     return (
       <Grid>
@@ -81,12 +104,18 @@ class Charts extends React.PureComponent {
           onTickerSearch={this.handleSearchChange}
           searchSelected={this.stockSearch}
           marketReports={this.state.marketReports}
+          onChartSelected={this.handleChartSelection}
         />
         <Grid.Row>
           <Grid.Column>
             <div id="stockChart">
               <div className="chartContainer">
-                <canvas id="myChart" />
+                <canvas
+                  id="stockChart"
+                  ref={chart => {
+                    this.chart = chart;
+                  }}
+                />
               </div>
             </div>
           </Grid.Column>
@@ -100,7 +129,6 @@ Charts.propTypes = {
   searchResults: PropTypes.array,
   onTicketSelect: PropTypes.func,
   marketData: PropTypes.object,
-  gainers: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
