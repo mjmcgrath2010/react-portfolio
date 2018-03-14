@@ -10,7 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Search, Grid, Button } from 'semantic-ui-react';
-import { mapGainerData } from './charts/index';
+import { mapGainerData, Header } from './charts/index';
 import { getTickerSymbols, getMarketData } from '../Home/selectors';
 
 // import styled from 'styled-components';
@@ -27,6 +27,7 @@ class Charts extends React.PureComponent {
       results: [],
       value: '',
       description: '',
+      stockSearch: false,
     };
   }
   componentDidMount() {
@@ -51,6 +52,12 @@ class Charts extends React.PureComponent {
     }
   };
 
+  stockSearch = () => {
+    this.setState({
+      stockSearch: true,
+    });
+  };
+
   render() {
     return (
       <Grid>
@@ -60,25 +67,15 @@ class Charts extends React.PureComponent {
             Search for a ticker symbol, and select an interval:
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={5}>
-            <Search
-              results={this.props.results}
-              loading={this.state.isLoading}
-              onResultSelect={this.handleResultSelect}
-              onSearchChange={this.handleSearchChange}
-              value={this.props.value}
-            />
-          </Grid.Column>
-          <Grid.Column width={10}>
-            <Button.Group>
-              <Button>1 min</Button>
-              <Button>5 min</Button>
-              <Button>30 min</Button>
-              <Button>1 hr</Button>
-            </Button.Group>
-          </Grid.Column>
-        </Grid.Row>
+        <Header
+          value={this.state.value}
+          results={this.state.results}
+          loading={this.state.loading}
+          stockSearch={this.state.stockSearch}
+          onTickerSelect={this.handleResultSelect}
+          onTickerSearch={this.handleSearchChange}
+          searchSelected={this.stockSearch}
+        />
         <Grid.Row>
           <Grid.Column>
             <div id="stockChart">

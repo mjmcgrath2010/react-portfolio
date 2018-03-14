@@ -1,6 +1,8 @@
+import React from 'react';
 import _ from 'lodash';
 const Chart = require('chart.js');
 const randomColor = require('randomcolor');
+import { Grid, Search, Button, Dropdown } from 'semantic-ui-react';
 
 // Line Chart Data
 // const data = [
@@ -100,4 +102,42 @@ const mapGainerData = (data, id) => {
   return renderBarChart(stockData, id, "Today's Gainers", 'Percentage Change', 'Percentage Change');
 };
 
-export { renderLineChart, renderBarChart, mapGainerData };
+const Header = props => {
+  if (props.stockSearch) {
+    return (
+      <Grid.Row>
+        <Grid.Column width={5}>
+          <Search
+            results={props.results}
+            loading={props.loading}
+            onResultSelect={props.onTickerSelect}
+            onSearchChange={props.onTickerSearch}
+            value={props.value}
+          />
+        </Grid.Column>
+        <Grid.Column width={10}>
+          <Button.Group>
+            <Button>1 min</Button>
+            <Button>5 min</Button>
+            <Button>30 min</Button>
+            <Button>1 hr</Button>
+          </Button.Group>
+        </Grid.Column>
+      </Grid.Row>
+    );
+  }
+  return (
+    <Grid.Row>
+      <Grid.Column width={5}>
+        <Dropdown />
+      </Grid.Column>
+      <Grid.Column width={10}>
+        <Button.Group>
+          <Button onClick={props.searchSelected}>Search for stocks</Button>
+        </Button.Group>
+      </Grid.Column>
+    </Grid.Row>
+  );
+};
+
+export { renderLineChart, renderBarChart, mapGainerData, Header };
