@@ -36,6 +36,7 @@ class Charts extends React.PureComponent {
         { key: 'ACT', value: 'mostactive', text: 'Most Active' },
       ],
       chart: null,
+      selectedChart: 'gainers',
     };
   }
   componentDidMount() {
@@ -57,8 +58,13 @@ class Charts extends React.PureComponent {
   };
 
   stockSearch = () => {
+    if (this.state.stockSearch) {
+      this.renderChart();
+    } else {
+      this.state.chart.destroy();
+    }
     this.setState({
-      stockSearch: true,
+      stockSearch: !this.state.stockSearch,
     });
   };
 
@@ -70,12 +76,16 @@ class Charts extends React.PureComponent {
 
   renderChart = input => {
     const id = this.chart;
-    const marketData = this.props.marketData;
+
     if (this.state.chart) {
       this.state.chart.destroy();
     }
+
+    this.setState({
+      selectedChart: input || 'gainers',
+    });
     const chart = barChart(
-      marketData[input || 'gainers'],
+      this.props.marketData[input || 'gainers'],
       id,
       'symbol',
       'changePercent',
@@ -105,6 +115,7 @@ class Charts extends React.PureComponent {
           searchSelected={this.stockSearch}
           marketReports={this.state.marketReports}
           onChartSelected={this.handleChartSelection}
+          selectedChart={this.state.selectedChart}
         />
         <Grid.Row>
           <Grid.Column>

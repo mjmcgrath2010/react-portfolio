@@ -29,6 +29,7 @@ function StockHeader(props) {
             <Button>30 min</Button>
             <Button>1 hr</Button>
           </Button.Group>
+          <Button floated="right" primary onClick={props.searchSelected} content="See Daily Stock Reports" />
         </Grid.Column>
       </Grid.Row>
     );
@@ -39,15 +40,20 @@ function StockHeader(props) {
         <Dropdown
           onChange={props.onChartSelected}
           placeholder="Select a Stock Report"
-          search
           selection
           options={props.marketReports}
+          defaultValue={props.selectedChart}
         />
       </Grid.Column>
       <Grid.Column width={10}>
-        <Button.Group>
-          <Button onClick={props.searchSelected}>Search for stocks</Button>
-        </Button.Group>
+        <Button
+          floated="right"
+          primary
+          labelPosition="right"
+          icon="search"
+          onClick={props.searchSelected}
+          content="Search For a Stock Report"
+        />
       </Grid.Column>
     </Grid.Row>
   );
@@ -63,6 +69,7 @@ StockHeader.propTypes = {
   stockSearch: PropTypes.bool,
   marketReports: PropTypes.array,
   onChartSelected: PropTypes.func,
+  selectedChart: PropTypes.string,
 };
 
 export default StockHeader;
