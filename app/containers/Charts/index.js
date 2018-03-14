@@ -10,7 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
-import { barChart } from './utils/index';
+import { barChart, reportData } from './utils/index';
 import { getTickerSymbols, getMarketData } from '../Home/selectors';
 import StockHeader from '../../components/Charts/StockHeader/index';
 
@@ -30,10 +30,10 @@ class Charts extends React.PureComponent {
       description: '',
       stockSearch: false,
       marketReports: [
-        { key: 'GAIN', value: 'gainers', text: 'Market Gainers' },
-        { key: 'PER', value: 'iexpercentage', text: 'Percentage' },
-        { key: 'VOL', value: 'iexvolume', text: 'Market Volume' },
-        { key: 'ACT', value: 'mostactive', text: 'Most Active' },
+        { key: '0', value: 'gainers', text: 'Market Gainers' },
+        { key: '1', value: 'iexpercentage', text: 'Percentage' },
+        { key: '2', value: 'iexvolume', text: 'Market Volume' },
+        { key: '3', value: 'mostactive', text: 'Most Active' },
       ],
       chart: null,
       selectedChart: 'gainers',
@@ -70,30 +70,32 @@ class Charts extends React.PureComponent {
 
   handleChartSelection = (e, { value }) => {
     if (value && this.state.chart) {
-      this.renderChart(value);
+      this.setState({
+        selectedChart: value,
+      });
     }
+    this.renderChart(value);
   };
 
   renderChart = input => {
     const id = this.chart;
-
+    const source = input || this.state.selectedChart;
+    const chartData = reportData[source];
     if (this.state.chart) {
       this.state.chart.destroy();
     }
 
-    this.setState({
-      selectedChart: input || 'gainers',
-    });
-    const chart = barChart(
-      this.props.marketData[input || 'gainers'],
-      id,
-      'symbol',
-      'changePercent',
-      'Percentage',
-      "Today's gainers",
-      'Stocks'
-    );
-    this.setState({ chart });
+    if (chartData && chartData.chartTitle) {
+      const chart = barChart(
+        this.props.marketData[source],
+        id,
+        chartData.dataLabel,
+        chartData.dataProperty,
+        chartData.dataPointDes,
+        chartData.chartTitle
+      );
+      this.setState({ chart });
+    }
   };
 
   render() {

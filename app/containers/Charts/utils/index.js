@@ -102,4 +102,31 @@ const barChart = (data, id, dataLabel, value, dataPoint, title) => {
   return renderBarChart(stockData, id);
 };
 
-export { renderLineChart, renderBarChart, barChart };
+const reportData = {
+  gainers: {
+    dataLabel: 'symbol',
+    dataProperty: 'changePercent',
+    dataPointDes: 'Percentage',
+    chartTitle: "Today's Gainers",
+  },
+  iexpercentage: {
+    dataLabel: 'symbol',
+    dataProperty: 'changePercent',
+    dataPointDes: 'Volume',
+    chartTitle: 'IEX Change Percent',
+  },
+  iexvolume: {
+    dataLabel: 'symbol',
+    dataProperty: 'changePercent',
+    dataPointDes: 'Volume',
+    chartTitle: 'IEX Volume',
+  },
+  mostactive: {
+    dataLabel: 'symbol',
+    dataProperty: 'latestVolume',
+    dataPointDes: 'Volume',
+    chartTitle: 'Most Active',
+  },
+};
+
+export { renderLineChart, renderBarChart, barChart, reportData };
