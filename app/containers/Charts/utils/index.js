@@ -52,14 +52,14 @@ const renderLineChart = (data, id, labels, title) => {
   return chart;
 };
 
-const renderBarChart = (data, id, title, dataLabel) => {
+const renderBarChart = (data, id) => {
   const chart = new Chart(id, {
     type: 'bar',
     data: {
       labels: data.labels, // Array of Labels
       datasets: [
         {
-          label: dataLabel,
+          label: data.dataLabel,
           data: data.data, // Array of values
           backgroundColor: randomColor({
             // Random Colors
@@ -71,7 +71,7 @@ const renderBarChart = (data, id, title, dataLabel) => {
     options: {
       title: {
         display: true,
-        text: title,
+        text: data.title,
       },
       scales: {
         yAxes: [
@@ -87,17 +87,19 @@ const renderBarChart = (data, id, title, dataLabel) => {
   return chart;
 };
 
-const barChart = (data, id, dataLabel, value, dataPoint, title, dataLegend) => {
+const barChart = (data, id, dataLabel, value, dataPoint, title) => {
   const stockData = {
     labels: [],
     data: [],
+    dataLabel: dataPoint,
+    title,
   };
 
   _.forEach(data, stock => {
     stockData.labels.push(stock[dataLabel]);
     stockData.data.push(stock[value]);
   });
-  return renderBarChart(stockData, id, title, dataLegend, dataPoint);
+  return renderBarChart(stockData, id);
 };
 
 export { renderLineChart, renderBarChart, barChart };
