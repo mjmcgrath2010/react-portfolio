@@ -73,31 +73,22 @@ const renderBarChart = (data, id) => {
         display: true,
         text: data.title,
       },
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
-      },
     },
   });
   return chart;
 };
 
-const barChart = (data, id, dataLabel, value, dataPoint, title) => {
+const barChart = (data, id, dataLabel, dataProperty, dataPointDes, title) => {
   const stockData = {
     labels: [],
     data: [],
-    dataLabel: dataPoint,
+    dataLabel: dataPointDes,
     title,
   };
 
   _.forEach(data, stock => {
     stockData.labels.push(stock[dataLabel]);
-    stockData.data.push(stock[value]);
+    stockData.data.push(stock[dataProperty]);
   });
   return renderBarChart(stockData, id);
 };
