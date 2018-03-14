@@ -9,9 +9,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { Search, Grid, Button } from 'semantic-ui-react';
-import { mapGainerData, Header } from './charts/index';
+import { Grid } from 'semantic-ui-react';
+import { mapGainerData } from './utils/index';
 import { getTickerSymbols, getMarketData } from '../Home/selectors';
+import StockHeader from '../../components/Charts/StockHeader/index';
 
 // import styled from 'styled-components';
 
@@ -34,9 +35,7 @@ class Charts extends React.PureComponent {
     const ctx = document.getElementById('myChart');
     mapGainerData(this.props.marketData.gainers, ctx);
   }
-  componentWillReceiveProps(nextProps) {
-    console.log('Next Props: ', nextProps);
-  }
+
   handleResultSelect = (e, { result }) => {
     this.props.onTicketSelect(e, { result });
     this.setState({ value: result.title, description: result.description });
@@ -67,7 +66,7 @@ class Charts extends React.PureComponent {
             Search for a ticker symbol, and select an interval:
           </Grid.Column>
         </Grid.Row>
-        <Header
+        <StockHeader
           value={this.state.value}
           results={this.state.results}
           loading={this.state.loading}
@@ -93,8 +92,6 @@ class Charts extends React.PureComponent {
 Charts.propTypes = {
   searchResults: PropTypes.array,
   onTicketSelect: PropTypes.func,
-  value: PropTypes.string,
-  results: PropTypes.array,
   marketData: PropTypes.object,
   gainers: PropTypes.array,
 };
