@@ -17,19 +17,6 @@ const randomColor = require('randomcolor');
 //     ],
 //     label: 'Mike',
 //   },
-//   {
-//     data: [
-//       {
-//         x: 10,
-//         y: 25,
-//       },
-//       {
-//         x: 15,
-//         y: 35,
-//       },
-//     ],
-//     label: 'Lesley',
-//   },
 // ];
 
 const renderLineChart = (data, id, labels, title) => {
@@ -110,7 +97,7 @@ const mapGainerData = (data, id) => {
     stockData.labels.push(stock.symbol);
     stockData.data.push(stock.changePercent);
   });
-  renderBarChart(stockData, id, "Today's Gainers", 'Percentage Change', 'Percentage Change');
+  return renderBarChart(stockData, id, "Today's Gainers", 'Percentage Change', 'Percentage Change');
 };
 
 export { renderLineChart, renderBarChart, mapGainerData };
