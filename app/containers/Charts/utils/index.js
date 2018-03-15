@@ -75,6 +75,9 @@ const renderBarChart = (data, id) => {
         display: true,
         text: data.title,
       },
+      legend: {
+        display: false,
+      },
     },
   });
   return chart;

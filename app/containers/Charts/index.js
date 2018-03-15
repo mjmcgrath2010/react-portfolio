@@ -80,6 +80,9 @@ class Charts extends React.PureComponent {
     const id = this.chart;
     const source = input || this.state.selectedChart;
     const chartData = reportData[source];
+
+    id.height = 120;
+
     if (this.state.chart) {
       this.state.chart.destroy();
     }
