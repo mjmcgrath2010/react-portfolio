@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { FETCH_TICKERS, FETCH_MARKET_DATA } from './constants';
-import { handleTickers, updateMarketData } from './actions';
+import { FETCH_TICKERS, FETCH_MARKET_DATA, FETCH_STOCK_DATA } from './constants';
+import { handleTickers, updateMarketData, handleStockData } from './actions';
 import request from '../../utils/request';
 
 export function* getTickerSymbols() {
@@ -13,9 +13,15 @@ export function* getMarketData() {
   yield put(updateMarketData(marketData));
 }
 
+export function* getStockData(action) {
+  const stockData = yield call(request, `/stock-data?symbol=${action.ticker}`);
+  yield put(handleStockData(stockData));
+}
+
 // Individual exports for testing
 export default function* defaultSaga() {
   // See example in containers/HomePage/saga.js
   yield takeLatest(FETCH_TICKERS, getTickerSymbols);
   yield takeLatest(FETCH_MARKET_DATA, getMarketData);
+  yield takeLatest(FETCH_STOCK_DATA, getStockData);
 }
