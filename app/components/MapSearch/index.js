@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 
 import PrimaryPin from '../../images/icons/map-localization.png';
 import messages from './messages';
-import MapSearchBar from '../MapSearchBar/index';
+import MapSearchBar from './MapSearchBar/index';
 import request from '../../utils/request';
 
 const mikesIcon = L.icon({
@@ -178,7 +178,7 @@ class MapSearch extends React.PureComponent {
         </Grid>
         <Grid centered stackable columns={2}>
           <Grid.Row>
-            <Grid.Column width={6}>
+            <Grid.Column width={5}>
               <MapSearchBar
                 onSearchChange={this.handleSearchChange}
                 value={this.state.submittedAddress}
@@ -192,7 +192,7 @@ class MapSearch extends React.PureComponent {
                 transitTimes={this.state.drivingTime}
               />
             </Grid.Column>
-            <Grid.Column width={10}>
+            <Grid.Column width={11}>
               <div id="mapid" />
             </Grid.Column>
           </Grid.Row>

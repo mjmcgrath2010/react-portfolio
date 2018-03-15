@@ -1,33 +1,22 @@
 /**
  *  API and Middleware methods
  */
-
-// https://www.alphavantage.co/support/#api-key UPCYGJ7GI7N68IBM
-const https = require('https');
+const fetch = require('node-fetch');
+const baseStockUrl = 'https://api.iextrading.com/1.0';
 const googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U',
 });
 
 module.exports = {
   autoComplete: (req, res) => {
-    https
-      .get(
-        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
-          req.query.keyword
-        }&types=address&location=42.342813,-71.0976066&key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U`,
-        resp => {
-          let data = '';
-          resp.on('data', chunk => {
-            data += chunk;
-          });
-          resp.on('end', () => {
-            res.status(200).send(data);
-          });
-        }
-      )
-      .on('error', err => {
-        res.status(400).send(`Error: ${err.message}`);
-      });
+    fetch(
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
+        req.query.keyword
+      }&types=address&location=42.342813,-71.0976066&radius=80467&strictbounds&key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U`
+    )
+      .then(resp => resp.json())
+      .then(json => res.status(200).send(json))
+      .catch(err => res.status(400).send(`Error: ${err}`));
   },
   geocode: (req, res) => {
     googleMapsClient.geocode(
@@ -57,25 +46,64 @@ module.exports = {
     );
   },
   getStockData: (req, res) => {
-    https
-      .get(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${req.query.symbol}&interval=${
-          req.query.interval
-        }min&apikey=UPCYGJ7GI7N68IBM`,
-        resp => {
-          let data = '';
+    const endpoints = [
+      { name: 'stock_data', endpoint: `/stock/${req.query.symbol}/chart/${req.query.interval || 'dynamic'}` },
+      { name: 'company_info', endpoint: `/stock/${req.query.symbol}/company` },
+    ];
+    let data = {};
+    let completedRequests = 0;
+    let errors = 0;
 
-          resp.on('data', chunk => {
-            data += chunk;
-          });
+    const sendResponse = () => {
+      if (completedRequests === endpoints.length || completedRequests + errors === endpoints.length) {
+        res.status(200).send(data);
+      }
+    };
 
-          resp.on('end', () => {
-            res.status(200).send(JSON.parse(data));
-          });
-        }
-      )
-      .on('error', err => {
-        res.status(400).send(`Error: ${err.message}`);
-      });
+    endpoints.forEach(endpoint => {
+      fetch(`${baseStockUrl}${endpoint.endpoint}`)
+        .then(resp => resp.json())
+        .then(json => {
+          data = Object.assign(data, { [endpoint.name]: json });
+          completedRequests += 1;
+          sendResponse();
+        })
+        .catch(err => {
+          data = Object.assign(data, { [endpoint.name]: err });
+          errors += 1;
+        });
+    });
+  },
+  getTickerSymbols: (req, res) => {
+    fetch(`${baseStockUrl}/ref-data/symbols`)
+      .then(resp => resp.json())
+      .then(json => res.status(200).send(json))
+      .catch(err => res.status(400).send(`Error: ${err}`));
+  },
+  getCurrentMarketData: (req, res) => {
+    const endpoints = ['/mostactive', '/gainers', '/losers'];
+    let data = {};
+    let completedRequests = 0;
+    let errors = 0;
+
+    const sendResponse = () => {
+      if (completedRequests === endpoints.length || completedRequests + errors === endpoints.length) {
+        res.status(200).send(data);
+      }
+    };
+
+    endpoints.forEach(endpoint => {
+      fetch(`${baseStockUrl}/stock/market/list${endpoint}`)
+        .then(resp => resp.json())
+        .then(json => {
+          data = Object.assign(data, { [endpoint.replace('/', '')]: json });
+          completedRequests += 1;
+          sendResponse();
+        })
+        .catch(err => {
+          data = Object.assign(data, err);
+          errors += 1;
+        });
+    });
   },
 };

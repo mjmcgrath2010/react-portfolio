@@ -1,48 +1,8 @@
+@import url("//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css");
 @import "variables";
 @import "mixins";
 @import "overrides";
 @import "animations";
-
-// Fonts
-h1, h2 ,h3 ,h4 ,h5 ,h6 {
-  font-family: $heading-font;
-  font-weight: 300;
-}
-
-h1 {
-  font-size: 3em;
-}
-
-h2 {
-  font-size: 2em;
-}
-
-h3 {
-  font-size: 1.8em;
-}
-
-h4 {
-  font-size: 1.6em;
-}
-
-h5 {
-  font-size: 1.4em;
-}
-
-h6 {
-  font-size: 1.2em;
-}
-
-p, a, span, div, ul, li {
-  font-family: $primary-font;
-  font-size: 1em;
-}
-
-p {
-  font-size: 1.5em;
-  font-family: $primary-font;
-  line-height: 1.1;
-}
 
 #homeContainer h2 {
   text-transform: uppercase;
@@ -200,8 +160,7 @@ img.logo {
 }
 
 #mapid {
-  height: 80vh;
-  min-height: 500px;
+  min-height: 435px;
   width: 100%;
 }
 
@@ -230,6 +189,7 @@ img.logo {
       width: 32%;
       display: block;
       position: relative;
+      text-transform: uppercase;
     }
     a {
       color: $primary-color;

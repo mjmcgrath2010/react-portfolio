@@ -1,18 +1,78 @@
 // Semantic UI Overrides
 @import "variables";
+@import "mixins";
 
+// Fonts
+h1, h2 ,h3 ,h4 ,h5 ,h6 {
+  font-family: $heading-font;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.4m;
+}
+
+h5 {
+  font-size: 1.3em;
+}
+
+h6 {
+  font-size: 1.2em;
+}
 
 p, a, span, div, ul, li {
-  font-family: $primary-font !important;
+  font-family: $primary-font;
   color: $primary-color;
-  font-size: 18px;
+  font-size: 14px;
 }
 
+p {
+  font-size: 1.5em;
+  font-family: $primary-font;
+  line-height: 1.5;
+}
 
-.ui.form .field {
-  label {
-    color: #fff;
-    font-family: $primary-font;
-    font-size: 18px;
+.ui {
+  &.selection {
+    &.dropdown {
+      padding: 1em 0 1em .5em;
+      >.dropdown.icon{
+        top: 1em;
+      }
+    }
+  }
+  &.primary {
+    &.button {
+      background: $primary-color;
+      font-family: $primary-font;
+      text-transform: uppercase;
+      padding: 1em;
+      @include box-shadow
+      &:hover{
+        background: $secondary-color;
+      }
+    }
   }
 }
+
+
+  .ui.form .field {
+    label {
+      color: #fff;
+      font-family: $primary-font;
+      font-size: 18px;
+    }
+  }
+

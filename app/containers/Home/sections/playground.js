@@ -2,7 +2,7 @@ import React from 'react';
 import { Tab } from 'semantic-ui-react';
 import { Wrapper } from '../styles';
 import MapSearch from '../../../components/MapSearch/index';
-import Charts from '../../../components/Charts';
+import Charts from '../../Charts/Loadable';
 // import PropTypes from 'prop-types';
 
 const panes = [

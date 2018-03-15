@@ -14,7 +14,7 @@ class TopNavMenu extends React.PureComponent {
       coloredNav: false,
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     const that = this;
     let scrollPos = window.scrollY;
 

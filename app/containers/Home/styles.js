@@ -42,7 +42,7 @@ export const Footer = styled.section`
 export const AccentSection = styled.section`
   height: 250px;
   width: 100%;
-  background: #85cbf7;
+  background: #e37222;
   display: table;
   color: #fff;
 `;
