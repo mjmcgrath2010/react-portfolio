@@ -53,6 +53,8 @@ const renderLineChart = (data, id, labels, title) => {
 };
 
 const renderBarChart = (data, id) => {
+  Chart.defaults.global.defaultFontFamily = "'Quicksand', sans-serif";
+  Chart.defaults.global.defaultFontSize = 12;
   const chart = new Chart(id, {
     type: 'bar',
     data: {

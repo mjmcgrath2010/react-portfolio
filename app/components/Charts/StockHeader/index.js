@@ -24,10 +24,10 @@ function StockHeader(props) {
         </Grid.Column>
         <Grid.Column width={10}>
           <Button.Group>
-            <Button>1 min</Button>
-            <Button>5 min</Button>
-            <Button>30 min</Button>
-            <Button>1 hr</Button>
+            <Button primary>1 min</Button>
+            <Button primary>5 min</Button>
+            <Button primary> 30 min</Button>
+            <Button primary>1 hr</Button>
           </Button.Group>
           <Button floated="right" primary onClick={props.searchSelected} content="See Daily Stock Reports" />
         </Grid.Column>

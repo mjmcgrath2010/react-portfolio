@@ -34,19 +34,14 @@ h6 {
 
 p, a, span, div, ul, li {
   font-family: $primary-font;
-  font-size: 1em;
+  color: $primary-color;
+  font-size: 14px;
 }
 
 p {
   font-size: 1.5em;
   font-family: $primary-font;
-  line-height: 1.1;
-}
-
-p, a, span, div, ul, li {
-  font-family: $primary-font;
-  color: $primary-color;
-  font-size: 14px;
+  line-height: 1.5;
 }
 
 .ui {
