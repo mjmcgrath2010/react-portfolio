@@ -1,7 +1,12 @@
 import React from 'react';
 import { Image, Grid } from 'semantic-ui-react';
-import HeadShot from '../../../images/headshot.png';
 import { Wrapper } from '../styles';
+
+// Images
+import HeadShot from '../../../images/headshot.png';
+import GitHubIcon from '../../../images/icons/github-logo.svg';
+import CodePenIcon from '../../../images/icons/3d-outlined-shape.svg';
+import EmailIcon from '../../../images/icons/at.svg';
 
 // import PropTypes from 'prop-types';
 
@@ -13,6 +18,17 @@ function About() {
         <Grid.Row>
           <Grid.Column width={6}>
             <Image centered size="medium" verticalAlign="top" circular src={HeadShot} alt="Mike McGrath head shot" />
+            <div id="aboutIconContainer">
+              <span className="github">
+                <Image size="mini" src={GitHubIcon} />
+              </span>
+              <span className="codepen">
+                <Image size="mini" src={CodePenIcon} />
+              </span>
+              <span className="email">
+                <Image size="mini" src={EmailIcon} />
+              </span>
+            </div>
           </Grid.Column>
           <Grid.Column width={10}>
             <p>

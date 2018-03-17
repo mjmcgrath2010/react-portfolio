@@ -140,6 +140,14 @@ svg#animatedLogo {
   }
 }
 
+// About Section
+#aboutIconContainer{
+  display:inline-block;
+  > span {
+    max-width:32%
+  }
+}
+
 .project-container{
   display: inline-block;
   margin: 1em auto;
