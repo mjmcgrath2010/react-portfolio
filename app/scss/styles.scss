@@ -141,10 +141,18 @@ svg#animatedLogo {
 }
 
 // About Section
+
+#headShot {
+  margin: 0 auto;
+  display: block;
+}
 #aboutIconContainer{
-  display:inline-block;
+  width: 150px;
+  margin: 1em auto .5em;
   > span {
-    max-width:32%
+    max-width:30px;
+    display:inline-block;
+    margin: 1em 10px;
   }
 }
 
