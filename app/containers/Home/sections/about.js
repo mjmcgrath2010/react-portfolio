@@ -28,13 +28,13 @@ function About() {
             />
             <div id="aboutIconContainer">
               <span className="github">
-                <Image size="mini" src={GitHubIcon} />
+                <Image size="mini" src={GitHubIcon} href="https://github.com/mjmcgrath2010" target="_blank" />
               </span>
               <span className="codepen">
-                <Image size="mini" src={CodePenIcon} />
+                <Image size="mini" src={CodePenIcon} href="https://codepen.io/mjmcgrath2010/" target="_blank" />
               </span>
               <span className="email">
-                <Image size="mini" src={EmailIcon} />
+                <Image size="mini" src={EmailIcon} href="mailto:mike@mikemcgrathonline.us" />
               </span>
             </div>
           </Grid.Column>
