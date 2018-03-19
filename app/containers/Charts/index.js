@@ -11,7 +11,8 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
 import { barChart, reportData } from './utils/index';
-import { getTickerSymbols, getMarketData } from '../Home/selectors';
+import { getTickerSymbols, getMarketData, getTickerSearchResults } from '../Home/selectors';
+import { filterStockSymbols } from '../Home/actions';
 import StockHeader from '../../components/Charts/StockHeader/index';
 
 // import styled from 'styled-components';
@@ -47,8 +48,8 @@ class Charts extends React.PureComponent {
   };
 
   handleSearchChange = (e, { value }) => {
+    this.props.dispatch(filterStockSymbols(value));
     this.setState({ isLoading: true, value });
-    this.props.onTicketSelect();
     if (this.props.searchResults) {
       this.setState({
         isLoading: false,
@@ -111,7 +112,7 @@ class Charts extends React.PureComponent {
         </Grid.Row>
         <StockHeader
           value={this.state.value}
-          results={this.state.results}
+          results={this.props.results}
           loading={this.state.loading}
           stockSearch={this.state.stockSearch}
           onTickerSelect={this.handleResultSelect}
@@ -144,11 +145,14 @@ Charts.propTypes = {
   searchResults: PropTypes.array,
   onTicketSelect: PropTypes.func,
   marketData: PropTypes.object,
+  results: PropTypes.array,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   marketData: getMarketData(),
   tickerSymbols: getTickerSymbols(),
+  results: getTickerSearchResults(),
 });
 
 function mapDispatchToProps(dispatch) {
