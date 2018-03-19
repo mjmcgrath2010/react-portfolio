@@ -31,7 +31,7 @@ function homeReducer(state = initialState, action) {
       return state.set('marketData', action.marketData);
     case STOCK_DATA_RECEIVED:
       return state.set('stockData', action.stockData);
-    case FILTER_SYMBOLS:
+    case FILTER_SYMBOLS: {
       const results = [];
       const combinedResults = {};
       const tickerSearch = state
@@ -44,6 +44,7 @@ function homeReducer(state = initialState, action) {
       Object.assign(combinedResults, companySearch);
       results.push(combinedResults);
       return state.set('stockSearchResults', results);
+    }
     default:
       return state;
   }
