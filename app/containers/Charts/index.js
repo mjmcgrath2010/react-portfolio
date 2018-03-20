@@ -11,22 +11,18 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
 import { barChart, reportData } from './utils/index';
-import { getTickerSymbols, getMarketData } from '../Home/selectors';
+import { getTickerSymbols, getMarketData, getTickerSearchResults } from '../Home/selectors';
+import { filterStockSymbols, fetchStockData } from '../Home/actions';
 import StockHeader from '../../components/Charts/StockHeader/index';
-
-// import styled from 'styled-components';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Charts extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      results: [],
+      loading: false,
       value: '',
+      results: [],
       description: '',
       stockSearch: false,
       marketReports: [
@@ -41,19 +37,31 @@ class Charts extends React.PureComponent {
   componentDidMount() {
     this.renderChart();
   }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.searchResults && nextProps.searchResults !== this.props.searchResults) {
+      let suggestions = nextProps.searchResults;
+      suggestions = suggestions.splice(0, 10);
+
+      this.handleSearchResults(suggestions);
+    }
+  }
+
   handleResultSelect = (e, { result }) => {
-    this.props.onTicketSelect(e, { result });
     this.setState({ value: result.title, description: result.description });
+    this.props.dispatch(fetchStockData(result.title));
   };
 
   handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value });
-    this.props.onTicketSelect();
-    if (this.props.searchResults) {
-      this.setState({
-        isLoading: false,
-      });
-    }
+    this.setState({
+      loading: true,
+      value,
+    });
+    this.props.dispatch(filterStockSymbols(value));
+  };
+
+  handleSearchResults = results => {
+    this.setState({ results, loading: false });
   };
 
   stockSearch = () => {
@@ -142,13 +150,14 @@ class Charts extends React.PureComponent {
 
 Charts.propTypes = {
   searchResults: PropTypes.array,
-  onTicketSelect: PropTypes.func,
   marketData: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   marketData: getMarketData(),
   tickerSymbols: getTickerSymbols(),
+  searchResults: getTickerSearchResults(),
 });
 
 function mapDispatchToProps(dispatch) {

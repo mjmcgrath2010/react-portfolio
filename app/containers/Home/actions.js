@@ -4,7 +4,14 @@
  *
  */
 
-import { DEFAULT_ACTION, TICKERS_RECEIVED, MARKERT_DATA_RECEIVED, STOCK_DATA_RECEIVED } from './constants';
+import {
+  DEFAULT_ACTION,
+  TICKERS_RECEIVED,
+  MARKERT_DATA_RECEIVED,
+  STOCK_DATA_RECEIVED,
+  FILTER_SYMBOLS,
+  FETCH_STOCK_DATA,
+} from './constants';
 
 export function defaultAction() {
   return {
@@ -29,5 +36,19 @@ export function handleStockData(stockData) {
   return {
     type: STOCK_DATA_RECEIVED,
     stockData,
+  };
+}
+
+export function filterStockSymbols(searchText) {
+  return {
+    type: FILTER_SYMBOLS,
+    searchText,
+  };
+}
+
+export function fetchStockData(ticker) {
+  return {
+    type: FETCH_STOCK_DATA,
+    ticker,
   };
 }
