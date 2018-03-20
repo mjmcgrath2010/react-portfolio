@@ -12,13 +12,8 @@ import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
 import { barChart, reportData } from './utils/index';
 import { getTickerSymbols, getMarketData, getTickerSearchResults } from '../Home/selectors';
-import { filterStockSymbols } from '../Home/actions';
+import { filterStockSymbols, fetchStockData } from '../Home/actions';
 import StockHeader from '../../components/Charts/StockHeader/index';
-
-// import styled from 'styled-components';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Charts extends React.PureComponent {
@@ -51,21 +46,22 @@ class Charts extends React.PureComponent {
       this.handleSearchResults(suggestions);
     }
   }
+
   handleResultSelect = (e, { result }) => {
-    this.props.onTicketSelect(e, { result });
     this.setState({ value: result.title, description: result.description });
+    this.props.dispatch(fetchStockData(result.title));
   };
 
   handleSearchChange = (e, { value }) => {
     this.setState({
-      loading: false,
+      loading: true,
       value,
     });
     this.props.dispatch(filterStockSymbols(value));
   };
 
   handleSearchResults = results => {
-    this.setState({ results });
+    this.setState({ results, loading: false });
   };
 
   stockSearch = () => {
@@ -154,7 +150,6 @@ class Charts extends React.PureComponent {
 
 Charts.propTypes = {
   searchResults: PropTypes.array,
-  onTicketSelect: PropTypes.func,
   marketData: PropTypes.object,
   dispatch: PropTypes.func,
 };

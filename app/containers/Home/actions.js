@@ -10,6 +10,7 @@ import {
   MARKERT_DATA_RECEIVED,
   STOCK_DATA_RECEIVED,
   FILTER_SYMBOLS,
+  FETCH_STOCK_DATA,
 } from './constants';
 
 export function defaultAction() {
@@ -42,5 +43,12 @@ export function filterStockSymbols(searchText) {
   return {
     type: FILTER_SYMBOLS,
     searchText,
+  };
+}
+
+export function fetchStockData(ticker) {
+  return {
+    type: FETCH_STOCK_DATA,
+    ticker,
   };
 }
