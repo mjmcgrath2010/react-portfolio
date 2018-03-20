@@ -36,16 +36,15 @@ function homeReducer(state = initialState, action) {
     case STOCK_DATA_RECEIVED:
       return state.set('stockData', action.stockData);
     case FILTER_SYMBOLS: {
-      const combinedResults = {};
       const tickerSearch = state
         .get('tickerSymbols')
         .filter(stock => stock.title.toLowerCase().search(action.searchText.toLowerCase()) > -1);
       const companySearch = state
         .get('tickerSymbols')
         .filter(stock => stock.description.toLowerCase().search(action.searchText.toLowerCase()) > -1);
-      Object.assign(combinedResults, tickerSearch);
-      Object.assign(combinedResults, companySearch);
-      return state.set('stockSearchResults', combinedResults);
+      let list = _.concat(companySearch, tickerSearch);
+      list = _.uniqBy(list, 'title');
+      return state.set('stockSearchResults', list);
     }
     default:
       return state;

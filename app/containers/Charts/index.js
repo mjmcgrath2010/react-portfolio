@@ -25,8 +25,9 @@ class Charts extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      loading: false,
       value: '',
+      results: [],
       description: '',
       stockSearch: false,
       marketReports: [
@@ -41,19 +42,30 @@ class Charts extends React.PureComponent {
   componentDidMount() {
     this.renderChart();
   }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.searchResults && nextProps.searchResults !== this.props.searchResults) {
+      let suggestions = nextProps.searchResults;
+      suggestions = suggestions.splice(0, 10);
+
+      this.handleSearchResults(suggestions);
+    }
+  }
   handleResultSelect = (e, { result }) => {
     this.props.onTicketSelect(e, { result });
     this.setState({ value: result.title, description: result.description });
   };
 
   handleSearchChange = (e, { value }) => {
+    this.setState({
+      loading: false,
+      value,
+    });
     this.props.dispatch(filterStockSymbols(value));
-    this.setState({ isLoading: true, value });
-    if (this.props.searchResults) {
-      this.setState({
-        isLoading: false,
-      });
-    }
+  };
+
+  handleSearchResults = results => {
+    this.setState({ results });
   };
 
   stockSearch = () => {
@@ -111,7 +123,7 @@ class Charts extends React.PureComponent {
         </Grid.Row>
         <StockHeader
           value={this.state.value}
-          results={this.props.results}
+          results={this.state.results}
           loading={this.state.loading}
           stockSearch={this.state.stockSearch}
           onTickerSelect={this.handleResultSelect}
@@ -144,14 +156,13 @@ Charts.propTypes = {
   searchResults: PropTypes.array,
   onTicketSelect: PropTypes.func,
   marketData: PropTypes.object,
-  results: PropTypes.object,
   dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   marketData: getMarketData(),
   tickerSymbols: getTickerSymbols(),
-  results: getTickerSearchResults(),
+  searchResults: getTickerSearchResults(),
 });
 
 function mapDispatchToProps(dispatch) {
