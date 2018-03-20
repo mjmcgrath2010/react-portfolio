@@ -26,7 +26,6 @@ class Charts extends React.PureComponent {
     super(props);
     this.state = {
       isLoading: false,
-      results: [],
       value: '',
       description: '',
       stockSearch: false,
@@ -145,7 +144,7 @@ Charts.propTypes = {
   searchResults: PropTypes.array,
   onTicketSelect: PropTypes.func,
   marketData: PropTypes.object,
-  results: PropTypes.array,
+  results: PropTypes.object,
   dispatch: PropTypes.func,
 };
 
