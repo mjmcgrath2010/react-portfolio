@@ -46,9 +46,10 @@ export function filterStockSymbols(searchText) {
   };
 }
 
-export function fetchStockData(ticker) {
+export function fetchStockData(ticker, interval) {
   return {
     type: FETCH_STOCK_DATA,
     ticker,
+    interval,
   };
 }

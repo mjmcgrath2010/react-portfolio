@@ -52,9 +52,7 @@ class Charts extends React.PureComponent {
 
   handleResultSelect = (e, { result }) => {
     this.setState({ value: result.title, description: result.description });
-    this.props.dispatch(fetchStockData(result.title));
-
-    //  chartStockData(this.props.stockData)
+    this.props.dispatch(fetchStockData(result.title, '1y'));
   };
 
   handleSearchChange = (e, { value }) => {
@@ -96,7 +94,7 @@ class Charts extends React.PureComponent {
         this.state.chart.destroy();
       }
       const data = input.stock_data;
-      const stockChart = chartStockData(id, data, 'average', 'label', {});
+      const stockChart = chartStockData(id, data, 'close', 'label', {});
       this.setState({
         chart: stockChart,
       });
