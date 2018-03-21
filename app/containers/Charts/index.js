@@ -32,6 +32,7 @@ class Charts extends React.PureComponent {
       ],
       chart: null,
       selectedChart: 'gainers',
+      interval: 'ytd',
     };
   }
   componentDidMount() {
@@ -52,7 +53,17 @@ class Charts extends React.PureComponent {
 
   handleResultSelect = (e, { result }) => {
     this.setState({ value: result.title, description: result.description });
-    this.props.dispatch(fetchStockData(result.title, '1y'));
+    this.props.dispatch(fetchStockData(result.title, this.state.interval));
+  };
+
+  handleInterval = (e, data) => {
+    console.log(data);
+    this.setState({
+      interval: e.target.name,
+    });
+    if (this.state.value) {
+      this.props.dispatch(fetchStockData(this.state.value, this.state.interval));
+    }
   };
 
   handleSearchChange = (e, { value }) => {
@@ -143,6 +154,7 @@ class Charts extends React.PureComponent {
           marketReports={this.state.marketReports}
           onChartSelected={this.handleChartSelection}
           selectedChart={this.state.selectedChart}
+          handleInterval={this.handleInterval}
         />
         <Grid.Row>
           <Grid.Column>
