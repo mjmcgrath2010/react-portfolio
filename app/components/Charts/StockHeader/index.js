@@ -23,16 +23,16 @@ function StockHeader(props) {
         </Grid.Column>
         <Grid.Column width={10}>
           <Button.Group>
-            <Button name="ytd" primary onClick={props.handleInterval}>
+            <Button active={props.interval === 'ytd'} name="ytd" primary onClick={props.handleInterval}>
               YTD
             </Button>
-            <Button name="1d" primary onClick={props.handleInterval}>
+            <Button active={props.interval === '1d'} name="1d" primary onClick={props.handleInterval}>
               1 Day
             </Button>
-            <Button name="6m" primary onClick={props.handleInterval}>
+            <Button active={props.interval === '6m'} name="6m" primary onClick={props.handleInterval}>
               6 Month
             </Button>
-            <Button name="5y" primary onClick={props.handleInterval}>
+            <Button active={props.interval === '5y'} name="5y" primary onClick={props.handleInterval}>
               5 Year
             </Button>
           </Button.Group>
@@ -78,6 +78,7 @@ StockHeader.propTypes = {
   onChartSelected: PropTypes.func,
   selectedChart: PropTypes.string,
   handleInterval: PropTypes.func,
+  interval: PropTypes.string,
 };
 
 export default StockHeader;

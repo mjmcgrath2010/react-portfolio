@@ -56,8 +56,7 @@ class Charts extends React.PureComponent {
     this.props.dispatch(fetchStockData(result.title, this.state.interval));
   };
 
-  handleInterval = (e, data) => {
-    console.log(data);
+  handleInterval = e => {
     this.setState({
       interval: e.target.name,
     });
@@ -155,6 +154,7 @@ class Charts extends React.PureComponent {
           onChartSelected={this.handleChartSelection}
           selectedChart={this.state.selectedChart}
           handleInterval={this.handleInterval}
+          interval={this.state.interval}
         />
         <Grid.Row>
           <Grid.Column>
