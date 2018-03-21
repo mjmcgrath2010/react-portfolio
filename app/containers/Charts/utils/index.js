@@ -18,13 +18,13 @@ const renderLineChart = (data, id) => {
   return chart;
 };
 
-const chartStockData = (id, data, point, label, dataObject) => {
+const chartStockData = (id, data, point, label) => {
   const color = randomColor();
   const processedData = [];
   const labelArray = [];
-  const chartData = dataObject || {};
+  const chartData = {};
 
-  chartData.data = dataObject.data || [];
+  chartData.data = [];
 
   data.forEach(item => {
     if (item[point]) {
@@ -42,9 +42,9 @@ const chartStockData = (id, data, point, label, dataObject) => {
   };
 
   chartData.data.push(dataSet);
-  chartData.labels = dataObject.labels || labelArray;
+  chartData.labels = labelArray;
 
-  return renderLineChart(dataObject, id);
+  return renderLineChart(chartData, id);
 };
 
 const renderBarChart = (data, id) => {
