@@ -49,6 +49,8 @@ module.exports = {
     const endpoints = [
       { name: 'stock_data', endpoint: `/stock/${req.query.symbol}/chart/${req.query.interval || '1d'}` },
       { name: 'company_info', endpoint: `/stock/${req.query.symbol}/company` },
+      { name: 'company_logo', endpoint: `/stock/${req.query.symbol}/logo` },
+      { name: 'company_news', endpoint: `/stock/${req.query.symbol}/news/last/3` },
     ];
     let data = {};
     let completedRequests = 0;

@@ -1,9 +1,7 @@
 import _ from 'lodash';
 const Chart = require('chart.js');
 const randomColor = require('randomcolor');
-
 // Line Chart Data
-
 const renderLineChart = (data, id) => {
   const chart = new Chart(id, {
     type: 'line',
