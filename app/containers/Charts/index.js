@@ -95,8 +95,8 @@ class Charts extends React.PureComponent {
       if (this.state.chart) {
         this.state.chart.destroy();
       }
-      const data = input.stock_data.data;
-      const stockChart = chartStockData(id, data, 'high', 'label', {});
+      const data = input.stock_data;
+      const stockChart = chartStockData(id, data, 'average', 'label', {});
       this.setState({
         chart: stockChart,
       });

@@ -27,8 +27,10 @@ const chartStockData = (id, data, point, label, dataObject) => {
   chartData.data = dataObject.data || [];
 
   data.forEach(item => {
-    processedData.push(item[point]);
-    labelArray.push(item[label]);
+    if (item[point]) {
+      processedData.push(item[point]);
+      labelArray.push(item[label]);
+    }
   });
 
   const dataSet = {
