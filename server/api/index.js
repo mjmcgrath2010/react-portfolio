@@ -47,7 +47,7 @@ module.exports = {
   },
   getStockData: (req, res) => {
     const endpoints = [
-      { name: 'stock_data', endpoint: `/stock/${req.query.symbol}/chart/${req.query.interval || 'dynamic'}` },
+      { name: 'stock_data', endpoint: `/stock/${req.query.symbol}/chart/${req.query.interval || '1d'}` },
       { name: 'company_info', endpoint: `/stock/${req.query.symbol}/company` },
     ];
     let data = {};

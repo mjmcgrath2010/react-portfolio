@@ -7,8 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Search, Button, Dropdown } from 'semantic-ui-react';
-// import styled from 'styled-components';
-
+// import styled from 'styled-componenprops.handleInterval
 function StockHeader(props) {
   if (props.stockSearch) {
     return (
@@ -24,10 +23,18 @@ function StockHeader(props) {
         </Grid.Column>
         <Grid.Column width={10}>
           <Button.Group>
-            <Button primary>1 min</Button>
-            <Button primary>5 min</Button>
-            <Button primary> 30 min</Button>
-            <Button primary>1 hr</Button>
+            <Button active={props.interval === 'ytd'} name="ytd" primary onClick={props.handleInterval}>
+              YTD
+            </Button>
+            <Button active={props.interval === '1d'} name="1d" primary onClick={props.handleInterval}>
+              1 Day
+            </Button>
+            <Button active={props.interval === '6m'} name="6m" primary onClick={props.handleInterval}>
+              6 Month
+            </Button>
+            <Button active={props.interval === '5y'} name="5y" primary onClick={props.handleInterval}>
+              5 Year
+            </Button>
           </Button.Group>
           <Button floated="right" primary onClick={props.searchSelected} content="See Daily Stock Reports" />
         </Grid.Column>
@@ -70,6 +77,8 @@ StockHeader.propTypes = {
   marketReports: PropTypes.array,
   onChartSelected: PropTypes.func,
   selectedChart: PropTypes.string,
+  handleInterval: PropTypes.func,
+  interval: PropTypes.string,
 };
 
 export default StockHeader;

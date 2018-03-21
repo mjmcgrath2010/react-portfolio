@@ -14,7 +14,7 @@ export function* getMarketData() {
 }
 
 export function* getStockData(action) {
-  const stockData = yield call(request, `/stock-data?symbol=${action.ticker}`);
+  const stockData = yield call(request, `/stock-data?symbol=${action.ticker}&interval=${action.interval}`);
   yield put(handleStockData(stockData));
 }
 

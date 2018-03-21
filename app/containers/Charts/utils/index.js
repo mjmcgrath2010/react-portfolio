@@ -3,53 +3,48 @@ const Chart = require('chart.js');
 const randomColor = require('randomcolor');
 
 // Line Chart Data
-// const data = [
-//   {
-//     data: [
-//       {
-//         x: 10,
-//         y: 20,
-//       },
-//       {
-//         x: 15,
-//         y: 100,
-//       },
-//     ],
-//     label: 'Mike',
-//   },
-// ];
 
-const renderLineChart = (data, id, labels, title) => {
-  const chartData = [];
-
-  data.forEach(dataSet => {
-    chartData.push({
-      label: dataSet.label,
-      data: dataSet.data,
-      fill: false,
-      borderColor: randomColor({
-        format: 'rgba',
-        alpha: 0.35,
-        luminosity: 'bright',
-      }),
-    });
-  });
-
+const renderLineChart = (data, id) => {
   const chart = new Chart(id, {
     type: 'line',
     data: {
-      labels,
-      datasets: chartData,
+      labels: data.labels,
+      datasets: data.data,
     },
     options: {
-      title: {
-        display: true,
-        text: title,
-      },
       responsive: true,
     },
   });
   return chart;
+};
+
+const chartStockData = (id, data, point, label) => {
+  const color = randomColor();
+  const processedData = [];
+  const labelArray = [];
+  const chartData = {};
+
+  chartData.data = [];
+
+  data.forEach(item => {
+    if (item[point]) {
+      processedData.push(item[point]);
+      labelArray.push(item[label]);
+    }
+  });
+
+  const dataSet = {
+    label: point.toUpperCase(),
+    backgroundColor: color,
+    borderColor: color,
+    data: processedData,
+    fill: false,
+  };
+
+  chartData.data.push(dataSet);
+  chartData.labels = labelArray;
+
+  return renderLineChart(chartData, id);
 };
 
 const renderBarChart = (data, id) => {
@@ -119,4 +114,4 @@ const reportData = {
   },
 };
 
-export { renderLineChart, renderBarChart, barChart, reportData };
+export { renderLineChart, renderBarChart, barChart, reportData, chartStockData };
