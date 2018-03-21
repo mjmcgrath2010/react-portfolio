@@ -10,8 +10,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
-import { barChart, reportData } from './utils/index';
-import { getTickerSymbols, getMarketData, getTickerSearchResults } from '../Home/selectors';
+import { barChart, reportData, chartStockData } from './utils/index';
+import { getTickerSymbols, getMarketData, getTickerSearchResults, getStockData } from '../Home/selectors';
 import { filterStockSymbols, fetchStockData } from '../Home/actions';
 import StockHeader from '../../components/Charts/StockHeader/index';
 
@@ -35,21 +35,26 @@ class Charts extends React.PureComponent {
     };
   }
   componentDidMount() {
-    this.renderChart();
+    this.renderChart('bar');
   }
 
   componentWillUpdate(nextProps) {
     if (nextProps.searchResults && nextProps.searchResults !== this.props.searchResults) {
       let suggestions = nextProps.searchResults;
       suggestions = suggestions.splice(0, 10);
-
       this.handleSearchResults(suggestions);
+    }
+
+    if (nextProps.stockData !== this.props.stockData) {
+      this.renderChart('line', nextProps.stockData);
     }
   }
 
   handleResultSelect = (e, { result }) => {
     this.setState({ value: result.title, description: result.description });
     this.props.dispatch(fetchStockData(result.title));
+
+    //  chartStockData(this.props.stockData)
   };
 
   handleSearchChange = (e, { value }) => {
@@ -81,30 +86,42 @@ class Charts extends React.PureComponent {
         selectedChart: value,
       });
     }
-    this.renderChart(value);
+    this.renderChart('bar', value);
   };
 
-  renderChart = input => {
+  renderChart = (type, input) => {
     const id = this.chart;
-    const source = input || this.state.selectedChart;
-    const chartData = reportData[source];
-
-    id.height = 120;
-
-    if (this.state.chart) {
-      this.state.chart.destroy();
+    if (type === 'line') {
+      if (this.state.chart) {
+        this.state.chart.destroy();
+      }
+      const data = input.stock_data.data;
+      const stockChart = chartStockData(id, data, 'high', 'label', {});
+      this.setState({
+        chart: stockChart,
+      });
     }
+    if (type === 'bar') {
+      const source = input || this.state.selectedChart;
+      const chartData = reportData[source];
 
-    if (chartData && chartData.chartTitle) {
-      const chart = barChart(
-        this.props.marketData[source],
-        id,
-        chartData.dataLabel,
-        chartData.dataProperty,
-        chartData.dataPointDes,
-        chartData.chartTitle
-      );
-      this.setState({ chart });
+      id.height = 120;
+
+      if (this.state.chart) {
+        this.state.chart.destroy();
+      }
+
+      if (chartData && chartData.chartTitle) {
+        const chart = barChart(
+          this.props.marketData[source],
+          id,
+          chartData.dataLabel,
+          chartData.dataProperty,
+          chartData.dataPointDes,
+          chartData.chartTitle
+        );
+        this.setState({ chart });
+      }
     }
   };
 
@@ -152,12 +169,14 @@ Charts.propTypes = {
   searchResults: PropTypes.array,
   marketData: PropTypes.object,
   dispatch: PropTypes.func,
+  stockData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   marketData: getMarketData(),
   tickerSymbols: getTickerSymbols(),
   searchResults: getTickerSearchResults(),
+  stockData: getStockData(),
 });
 
 function mapDispatchToProps(dispatch) {
