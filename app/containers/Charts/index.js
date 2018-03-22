@@ -22,6 +22,7 @@ import {
 } from '../Home/selectors';
 import { filterStockSymbols, fetchStockData } from '../Home/actions';
 import StockHeader from '../../components/Charts/StockHeader/index';
+import ChartBody from '../../components/ChartsBody/index';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Charts extends React.PureComponent {
@@ -164,20 +165,11 @@ class Charts extends React.PureComponent {
           handleInterval={this.handleInterval}
           interval={this.state.interval}
         />
-        <Grid.Row>
-          <Grid.Column>
-            <div id="stockChart">
-              <div className="chartContainer">
-                <canvas
-                  id="stockChart"
-                  ref={chart => {
-                    this.chart = chart;
-                  }}
-                />
-              </div>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
+        <ChartBody
+          chart={chart => {
+            this.chart = chart;
+          }}
+        />
       </Grid>
     );
   }
