@@ -17,7 +17,12 @@ import {
 const initialState = fromJS({
   tickerSymbols: null,
   marketData: null,
-  stockData: null,
+  stockData: {
+    company_info: null,
+    company_news: null,
+    company_logo: null,
+    stock_data: null,
+  },
   searchText: null,
   stockSearchResults: null,
 });
@@ -34,7 +39,11 @@ function homeReducer(state = initialState, action) {
     case MARKERT_DATA_RECEIVED:
       return state.set('marketData', action.marketData);
     case STOCK_DATA_RECEIVED:
-      return state.set('stockData', action.stockData);
+      return state
+        .setIn(['stockData', 'stock_data'], action.stockData)
+        .setIn(['stockData', 'company_info'], action.company_info)
+        .setIn(['stockData', 'company_logo'], action.company_logo)
+        .setIn(['stockData', 'company_news'], action.company_news);
     case FILTER_SYMBOLS: {
       const tickerSearch = state
         .get('tickerSymbols')

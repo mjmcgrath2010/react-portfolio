@@ -32,10 +32,13 @@ export function updateMarketData(marketData) {
   };
 }
 
-export function handleStockData(stockData) {
+export function handleStockData(stockData, company_info, company_logo, company_news) {
   return {
     type: STOCK_DATA_RECEIVED,
     stockData,
+    company_logo,
+    company_news,
+    company_info,
   };
 }
 

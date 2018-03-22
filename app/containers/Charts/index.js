@@ -11,7 +11,15 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
 import { barChart, reportData, chartStockData } from './utils/index';
-import { getTickerSymbols, getMarketData, getTickerSearchResults, getStockData } from '../Home/selectors';
+import {
+  getTickerSymbols,
+  getMarketData,
+  getTickerSearchResults,
+  getStockData,
+  getCompanyNews,
+  getCompanyInfo,
+  getCompanyLogo,
+} from '../Home/selectors';
 import { filterStockSymbols, fetchStockData } from '../Home/actions';
 import StockHeader from '../../components/Charts/StockHeader/index';
 
@@ -103,7 +111,7 @@ class Charts extends React.PureComponent {
       if (this.state.chart) {
         this.state.chart.destroy();
       }
-      const data = input.stock_data;
+      const data = input;
       const stockChart = chartStockData(id, data, 'close', 'label');
       this.setState({
         chart: stockChart,
@@ -179,7 +187,7 @@ Charts.propTypes = {
   searchResults: PropTypes.array,
   marketData: PropTypes.object,
   dispatch: PropTypes.func,
-  stockData: PropTypes.object,
+  stockData: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -187,6 +195,9 @@ const mapStateToProps = createStructuredSelector({
   tickerSymbols: getTickerSymbols(),
   searchResults: getTickerSearchResults(),
   stockData: getStockData(),
+  companyInfo: getCompanyInfo(),
+  companyLogo: getCompanyLogo(),
+  companyNews: getCompanyNews(),
 });
 
 function mapDispatchToProps(dispatch) {

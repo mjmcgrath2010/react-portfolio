@@ -12,7 +12,13 @@ const selectHomeDomain = state => state.get('home');
 const getMarketData = () => createSelector(selectHomeDomain, homeState => homeState.get('marketData'));
 const getTickerSymbols = () => createSelector(selectHomeDomain, homeState => homeState.get('tickerSymbols'));
 const getTickerSearchResults = () => createSelector(selectHomeDomain, homeState => homeState.get('stockSearchResults'));
-const getStockData = () => createSelector(selectHomeDomain, homeState => homeState.get('stockData'));
+const getStockData = () => createSelector(selectHomeDomain, homeState => homeState.getIn(['stockData', 'stock_data']));
+const getCompanyLogo = () =>
+  createSelector(selectHomeDomain, homeState => homeState.getIn(['stockData', 'company_logo']));
+const getCompanyInfo = () =>
+  createSelector(selectHomeDomain, homeState => homeState.getIn(['stockData', 'company_info']));
+const getCompanyNews = () =>
+  createSelector(selectHomeDomain, homeState => homeState.getIn(['stockData', 'company_news']));
 
 /**
  * Default selector used by Home
@@ -21,4 +27,13 @@ const getStockData = () => createSelector(selectHomeDomain, homeState => homeSta
 const makeSelectHome = () => createSelector(selectHomeDomain, substate => substate.toJS());
 
 export default makeSelectHome;
-export { selectHomeDomain, getMarketData, getTickerSymbols, getTickerSearchResults, getStockData };
+export {
+  selectHomeDomain,
+  getMarketData,
+  getTickerSymbols,
+  getTickerSearchResults,
+  getStockData,
+  getCompanyLogo,
+  getCompanyInfo,
+  getCompanyNews,
+};
