@@ -15,6 +15,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Home from 'containers/Home/Loadable';
+import ProjectPage from 'containers/ProjectPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import 'scss/styles.scss';
 
@@ -23,6 +24,7 @@ export default function App() {
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/projects/*" component={ProjectPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

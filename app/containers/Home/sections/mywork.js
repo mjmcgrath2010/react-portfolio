@@ -7,7 +7,7 @@ import ProjectThumbnail from '../../../components/ProjectThumbnail';
 // Images
 import OSHome from '../../../images/projects/oppspace/opportunityspacehome.png';
 import Residential from '../../../images/projects/oppspace/residential.png';
-import HapYakAcademy from '../../../images/projects/hapyak/hapyak-academy.png';
+import HapYakControlBar from '../../../images/projects/hapyak/control_bar/control_bar_after.png';
 import CoreReports from '../../../images/projects/hapyak/core-reports.png';
 import HapYakLogo from '../../../images/logos/hapyak_logo_color.png';
 import TolemiLogo from '../../../images/logos/tolemi-logo.png';
@@ -32,9 +32,9 @@ function MyWork() {
           </Grid.Column>
           <Grid.Column>
             <ProjectThumbnail
-              projectPage="/projects/hapyak-academy"
-              altTag="HapYak Academy"
-              thumbnail={HapYakAcademy}
+              projectPage="/projects/hapyak-editor"
+              altTag="HapYak Editor"
+              thumbnail={HapYakControlBar}
             />
           </Grid.Column>
         </Grid.Row>
