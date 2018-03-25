@@ -24,7 +24,7 @@ export class ProjectPage extends React.PureComponent {
   render() {
     return (
       <div>
-        <TopNavMenu />
+        <TopNavMenu dark />
       </div>
     );
   }

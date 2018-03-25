@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class TopNavMenu extends React.PureComponent {
@@ -18,15 +19,22 @@ class TopNavMenu extends React.PureComponent {
     const that = this;
     let scrollPos = window.scrollY;
 
-    window.addEventListener('scroll', () => {
-      scrollPos = window.scrollY;
-      if (scrollPos > 60) {
-        that.setState({ coloredNav: true });
-      } else {
-        that.setState({ coloredNav: false });
-      }
-    });
+    if (this.props.dark) {
+      this.setState({
+        coloredNav: true,
+      });
+    } else {
+      window.addEventListener('scroll', () => {
+        scrollPos = window.scrollY;
+        if (scrollPos > 60) {
+          that.setState({ coloredNav: true });
+        } else {
+          that.setState({ coloredNav: false });
+        }
+      });
+    }
   }
+  componentDidMount() {}
   render() {
     return (
       <nav id="topNav" className={this.state.coloredNav ? 'scroll' : ''}>
@@ -63,6 +71,8 @@ class TopNavMenu extends React.PureComponent {
   }
 }
 
-TopNavMenu.propTypes = {};
+TopNavMenu.propTypes = {
+  dark: PropTypes.bool,
+};
 
 export default TopNavMenu;
