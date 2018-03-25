@@ -25,6 +25,9 @@ export class ProjectPage extends React.PureComponent {
     return (
       <div>
         <TopNavMenu dark />
+        <div id="projectPageContainer">
+          <h1>Project Title:</h1>
+        </div>
       </div>
     );
   }

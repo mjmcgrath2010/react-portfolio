@@ -74,6 +74,7 @@
 
 #topNav.dark {
   background: $primary-color;
+  top: 0;
   animation: none;
   #mainNavMenu {
     padding: 0;
@@ -243,7 +244,6 @@ img.logo {
 }
 
 //Charts
-
 .chartContainer {
   position: relative;
   height: 100%;
@@ -253,4 +253,12 @@ img.logo {
 
 #myChart {
   max-height: 500px;
+}
+
+
+// My Work Section
+
+#projectPageContainer {
+  margin: 120px auto 0;
+  width: 80%
 }
