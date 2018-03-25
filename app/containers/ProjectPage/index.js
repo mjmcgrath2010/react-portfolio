@@ -1,7 +1,7 @@
 /**
  *
- * ProjectPage
- *
+ * ProjectPage - I chose to use Redux Saga as I intend to author a backend that will let me add projects to a DB. This container
+ * can be used for fetching that data from the API.
  */
 
 import React from 'react';
