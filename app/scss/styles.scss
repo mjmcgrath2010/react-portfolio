@@ -72,6 +72,31 @@
   }
 }
 
+#topNav.dark {
+  background: $primary-color;
+  animation: none;
+  #mainNavMenu {
+    padding: 0;
+    #menuContainer {
+      float: right;
+    }
+    #navLogo {
+      li {
+        svg {
+          fill: #FFF;
+        }
+      }
+    }
+  }
+  @include box-shadow;
+  li{
+    color: #FFF;
+    a {
+      color: #FFF;
+    }
+  }
+}
+
 // Hero Styles
 .hero-text {
   text-align: center;
