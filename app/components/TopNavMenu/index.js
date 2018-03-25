@@ -13,6 +13,7 @@ class TopNavMenu extends React.PureComponent {
     super(props);
     this.state = {
       coloredNav: false,
+      className: '',
     };
   }
   componentWillMount() {
@@ -22,22 +23,22 @@ class TopNavMenu extends React.PureComponent {
     if (this.props.dark) {
       this.setState({
         coloredNav: true,
+        className: 'dark',
       });
     } else {
       window.addEventListener('scroll', () => {
         scrollPos = window.scrollY;
         if (scrollPos > 60) {
-          that.setState({ coloredNav: true });
+          that.setState({ coloredNav: true, className: 'scroll' });
         } else {
-          that.setState({ coloredNav: false });
+          that.setState({ coloredNav: false, className: '' });
         }
       });
     }
   }
-  componentDidMount() {}
   render() {
     return (
-      <nav id="topNav" className={this.state.coloredNav ? 'scroll' : ''}>
+      <nav id="topNav" className={this.state.className}>
         <ul id="mainNavMenu">
           <span id="navLogo">
             <li>
