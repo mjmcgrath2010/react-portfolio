@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Grid, Image } from 'semantic-ui-react';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -19,26 +20,55 @@ import saga from './saga';
 // Components
 import TopNavMenu from '../../components/TopNavMenu/index';
 
+// Assets
+import HapYakControlBar from '../../images/projects/hapyak/control_bar/control_bar_after.png';
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class ProjectPage extends React.PureComponent {
   render() {
     return (
-      <div>
+      <Grid id="projectPageContainer" centered>
         <TopNavMenu dark />
-        <div id="projectPageContainer">
-          <h1>Project Title:</h1>
-        </div>
-      </div>
+        <Grid.Row padded verticalAlign="middle">
+          <Grid.Column width={5}>
+            <h1>HapYak Editor Control Bar:</h1>
+            <Image src={HapYakControlBar} />
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <h2>Project Description:</h2>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
+              of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+              like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={3}>
+          <Grid.Column>
+            <Image centered size="medium" src={HapYakControlBar} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image centered size="medium" src={HapYakControlBar} />
+          </Grid.Column>
+          <Grid.Column>
+            <Image centered size="medium" src={HapYakControlBar} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
 
 ProjectPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
+  image: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
-  projectpage: makeSelectProjectPage(),
+  projectPage: makeSelectProjectPage(),
 });
 
 function mapDispatchToProps(dispatch) {
