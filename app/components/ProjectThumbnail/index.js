@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Image } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 // import styled from 'styled-components';
 
 // import { FormattedMessage } from 'react-intl';
@@ -18,7 +19,9 @@ class ProjectThumbnail extends React.Component {
   render() {
     return (
       <div className="project-container">
-        <Image src={this.props.thumbnail} as="a" size="medium" href={this.props.projectPage} alt={this.props.altTag} />
+        <Link to={this.props.projectPage}>
+          <Image src={this.props.thumbnail} size="medium" alt={this.props.altTag} />
+        </Link>
       </div>
     );
   }

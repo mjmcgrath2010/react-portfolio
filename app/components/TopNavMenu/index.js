@@ -20,26 +20,34 @@ class TopNavMenu extends React.PureComponent {
       className: '',
     };
   }
-  componentWillMount() {
-    const that = this;
-    let scrollPos = window.scrollY;
-
-    if (this.props.pathName !== '/') {
+  componentDidMount() {
+    this.renderNav();
+  }
+  componentWillUpdate(nextProps) {
+    if (nextProps.pathName !== this.props.pathName) {
+      this.renderNav(nextProps.pathName);
+    }
+  }
+  handleScroll = () => {
+    const scrollPos = window.scrollY;
+    if (scrollPos > 60) {
+      this.setState({ coloredNav: true, className: 'scroll' });
+    } else {
+      this.setState({ coloredNav: false, className: '' });
+    }
+  };
+  renderNav = nextPath => {
+    const path = nextPath || this.props.pathName;
+    window.removeEventListener('scroll', this.handleScroll);
+    if (path !== '/') {
       this.setState({
         coloredNav: true,
         className: 'dark',
       });
     } else {
-      window.addEventListener('scroll', () => {
-        scrollPos = window.scrollY;
-        if (scrollPos > 60) {
-          that.setState({ coloredNav: true, className: 'scroll' });
-        } else {
-          that.setState({ coloredNav: false, className: '' });
-        }
-      });
+      window.addEventListener('scroll', this.handleScroll);
     }
-  }
+  };
   render() {
     return (
       <nav id="topNav" className={this.state.className}>
