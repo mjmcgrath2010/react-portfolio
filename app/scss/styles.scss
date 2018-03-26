@@ -72,6 +72,11 @@
   }
 }
 
+#topNav.active {
+  top: 0;
+  animation: none;
+}
+
 #topNav.dark {
   background: $primary-color;
   top: 0;

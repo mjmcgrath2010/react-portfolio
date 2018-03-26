@@ -27,19 +27,20 @@ class TopNavMenu extends React.PureComponent {
   }
   componentWillUpdate(nextProps) {
     if (nextProps.pathName !== this.props.pathName) {
-      this.renderNav(nextProps.pathName);
+      this.renderNav(nextProps.pathName, true);
     }
   }
   handleScroll = () => {
     const scrollPos = window.scrollY;
     if (scrollPos > 60) {
-      this.setState({ coloredNav: true, className: 'scroll' });
+      this.setState({ coloredNav: true, className: 'scroll active' });
     } else {
-      this.setState({ coloredNav: false, className: '' });
+      this.setState();
     }
   };
-  renderNav = nextPath => {
+  renderNav = (nextPath, active) => {
     const path = nextPath || this.props.pathName;
+
     window.removeEventListener('scroll', this.handleScroll);
     if (path !== '/') {
       this.setState({
@@ -47,6 +48,9 @@ class TopNavMenu extends React.PureComponent {
         className: 'dark',
       });
     } else {
+      if (active) {
+        this.setState({ className: 'active' });
+      }
       window.addEventListener('scroll', this.handleScroll);
     }
   };
