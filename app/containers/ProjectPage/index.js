@@ -29,7 +29,7 @@ export class ProjectPage extends React.PureComponent {
     return (
       <Grid id="projectPageContainer" centered>
         <TopNavMenu dark />
-        <Grid.Row padded verticalAlign="middle">
+        <Grid.Row verticalAlign="middle">
           <Grid.Column width={5}>
             <h1>HapYak Editor Control Bar:</h1>
             <Image src={HapYakControlBar} />
