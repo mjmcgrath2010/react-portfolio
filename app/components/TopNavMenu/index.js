@@ -70,16 +70,16 @@ class TopNavMenu extends React.PureComponent {
           </span>
           <span id="menuContainer">
             <li>
-              <a href="/#about">About</a>
+              <Link to={{ pathname: '/', hash: '#about' }}>About</Link>
             </li>
             <li>
-              <a href="/#playground">Playground</a>
+              <Link to={{ pathname: '/', hash: '#playground' }}>Playground</Link>
             </li>
             <li>
-              <a href="/#mywork">My Work</a>
+              <Link to={{ pathname: '/', hash: '#mywork' }}>My Work</Link>
             </li>
             <li>
-              <a href="/#contact">Get in Touch</a>
+              <Link to={{ pathname: '/', hash: '#contact' }}>Get in Touch</Link>
             </li>
           </span>
         </ul>
