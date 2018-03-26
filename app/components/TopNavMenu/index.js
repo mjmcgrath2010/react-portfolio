@@ -6,6 +6,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { makeSelectPathName } from '../../containers/App/selectors';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class TopNavMenu extends React.PureComponent {
@@ -20,7 +24,7 @@ class TopNavMenu extends React.PureComponent {
     const that = this;
     let scrollPos = window.scrollY;
 
-    if (this.props.dark) {
+    if (this.props.pathName !== '/') {
       this.setState({
         coloredNav: true,
         className: 'dark',
@@ -73,7 +77,13 @@ class TopNavMenu extends React.PureComponent {
 }
 
 TopNavMenu.propTypes = {
-  dark: PropTypes.bool,
+  pathName: PropTypes.string,
 };
 
-export default TopNavMenu;
+const mapStateToProps = createStructuredSelector({
+  pathName: makeSelectPathName(),
+});
+
+const withConnect = connect(mapStateToProps);
+
+export default compose(withConnect)(TopNavMenu);

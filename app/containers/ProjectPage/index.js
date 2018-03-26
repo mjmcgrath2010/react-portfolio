@@ -18,7 +18,6 @@ import reducer from './reducer';
 import saga from './saga';
 
 // Components
-import TopNavMenu from '../../components/TopNavMenu/index';
 
 // Assets
 import HapYakControlBar from '../../images/projects/hapyak/control_bar/control_bar_after.png';
@@ -28,7 +27,6 @@ export class ProjectPage extends React.PureComponent {
   render() {
     return (
       <Grid id="projectPageContainer" centered>
-        <TopNavMenu dark />
         <Grid.Row verticalAlign="middle">
           <Grid.Column width={5}>
             <h1>HapYak Editor Control Bar:</h1>

@@ -18,10 +18,13 @@ import Home from 'containers/Home/Loadable';
 import ProjectPage from 'containers/ProjectPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import 'scss/styles.scss';
+// Components
+import TopNavMenu from '../../components/TopNavMenu/index';
 
 export default function App() {
   return (
     <div>
+      <TopNavMenu />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/projects/*" component={ProjectPage} />
