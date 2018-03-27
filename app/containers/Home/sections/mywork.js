@@ -22,7 +22,7 @@ function MyWork() {
           </Grid.Column>
         </Grid.Row>
         <img className="logo" alt="hapyak-logo" src={HapYakLogo} />
-        <Grid.Row className="projects-row" columns={3}>
+        <Grid.Row className="projects-row" columns={3} centered>
           <Grid.Column>
             <ProjectThumbnail
               projectPage="/projects/hapyak-reporting"
@@ -41,7 +41,7 @@ function MyWork() {
         <Grid.Row>
           <img className="logo" alt="Tolemi-Logo" src={TolemiLogo} />
         </Grid.Row>
-        <Grid.Row className="projects-row" columns={3}>
+        <Grid.Row className="projects-row" columns={3} centered>
           <Grid.Column>
             <ProjectThumbnail
               projectPage="/projects/opportunity-space-home-page"
