@@ -187,18 +187,6 @@ svg#animatedLogo {
   }
 }
 
-.project-container{
-  display: inline-block;
-  margin: 1em auto;
-  @include box-shadow;
-  height: 225px;
-  overflow: hidden;
-
-  .project-description{
-    text-align: center;
-  }
-}
-
 img.logo {
   height: 100%;
   width: 20em;
