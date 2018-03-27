@@ -1,11 +1,7 @@
-const mongoose = require('mongoose');
+const router = require('express').Router();
 
-module.exports = () => {
-  mongoose.connect('mongodb://localhost/test');
-  const db = mongoose.connection;
+// api router will mount other routers
+// for all our resources
+router.use('/projects', require('./projects/projectRoutes'));
 
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', () => {
-    console.log('Mongo DB Connected.');
-  });
-};
+module.exports = router;
