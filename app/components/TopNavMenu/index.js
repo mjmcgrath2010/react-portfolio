@@ -49,6 +49,7 @@ class TopNavMenu extends React.PureComponent {
         coloredNav: true,
         className: 'dark',
       });
+      window.scrollTo(0, 0);
     } else {
       window.addEventListener('scroll', this.handleScroll);
       if (active) {
