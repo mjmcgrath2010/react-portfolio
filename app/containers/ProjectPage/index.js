@@ -30,7 +30,7 @@ export class ProjectPage extends React.PureComponent {
         <Grid.Row verticalAlign="middle">
           <Grid.Column width={5}>
             <h1>HapYak Editor Control Bar:</h1>
-            <Image src={HapYakControlBar} />
+            <Image src={this.props.image || HapYakControlBar} />
           </Grid.Column>
           <Grid.Column width={10}>
             <h2>Project Description:</h2>
@@ -61,7 +61,6 @@ export class ProjectPage extends React.PureComponent {
 }
 
 ProjectPage.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
   image: PropTypes.string,
 };
 

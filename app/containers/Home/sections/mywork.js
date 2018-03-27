@@ -8,6 +8,7 @@ import ProjectThumbnail from '../../../components/ProjectThumbnail';
 import OSHome from '../../../images/projects/oppspace/opportunityspacehome.png';
 import Residential from '../../../images/projects/oppspace/residential.png';
 import HapYakControlBar from '../../../images/projects/hapyak/control_bar/control_bar_after.png';
+import GSKProServ from '../../../images/projects/hapyak/proserve-gsk.png';
 import CoreReports from '../../../images/projects/hapyak/core-reports.png';
 import HapYakLogo from '../../../images/logos/hapyak_logo_color.png';
 import TolemiLogo from '../../../images/logos/tolemi-logo.png';
@@ -30,6 +31,13 @@ function MyWork() {
               projectPage="/projects/hapyak-reporting"
               altTag="HapYak Core Reports"
               thumbnail={CoreReports}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <ProjectThumbnail
+              projectPage="/projects/gsk-isi-professional-services"
+              altTag="Important Safety Solution (ISI) Implantation"
+              thumbnail={GSKProServ}
             />
           </Grid.Column>
           <Grid.Column>
