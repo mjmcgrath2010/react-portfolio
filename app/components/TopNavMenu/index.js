@@ -32,10 +32,12 @@ class TopNavMenu extends React.PureComponent {
   }
   handleScroll = () => {
     const scrollPos = window.scrollY;
+    window.scroll();
     if (scrollPos > 60) {
       this.setState({ coloredNav: true, className: 'scroll active' });
     } else {
-      this.setState();
+      const className = this.state.className.replace('scroll', '');
+      this.setState({ coloredNav: true, className });
     }
   };
   renderNav = (nextPath, active) => {
@@ -48,10 +50,10 @@ class TopNavMenu extends React.PureComponent {
         className: 'dark',
       });
     } else {
+      window.addEventListener('scroll', this.handleScroll);
       if (active) {
         this.setState({ className: 'active' });
       }
-      window.addEventListener('scroll', this.handleScroll);
     }
   };
   render() {
