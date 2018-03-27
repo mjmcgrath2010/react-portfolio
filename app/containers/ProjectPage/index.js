@@ -21,6 +21,7 @@ import saga from './saga';
 
 // Assets
 import HapYakControlBar from '../../images/projects/hapyak/control_bar/control_bar_after.png';
+import { makeSelectLocation } from '../App/selectors';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class ProjectPage extends React.PureComponent {
@@ -66,6 +67,7 @@ ProjectPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   projectPage: makeSelectProjectPage(),
+  location: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {
