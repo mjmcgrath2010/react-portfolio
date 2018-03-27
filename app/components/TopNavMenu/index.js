@@ -43,8 +43,8 @@ class TopNavMenu extends React.PureComponent {
   renderNav = (nextPath, active) => {
     const path = nextPath || this.props.pathName;
 
-    window.removeEventListener('scroll', this.handleScroll);
     if (path !== '/') {
+      window.removeEventListener('scroll', this.handleScroll);
       this.setState({
         coloredNav: true,
         className: 'dark',
