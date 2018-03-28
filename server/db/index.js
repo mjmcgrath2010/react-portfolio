@@ -1,7 +1,9 @@
 const router = require('express').Router();
+require('mongoose').connect('mongodb://localhost/portfolio');
 
-// api router will mount other routers
-// for all our resources
+// setup the app db middleware
+require('./middleware/dbMiddleware')(router);
+
 router.use('/projects', require('./projects/projectRoutes'));
 
 module.exports = router;
