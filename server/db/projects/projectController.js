@@ -1,9 +1,9 @@
-const Post = require('./projectModel');
+const Project = require('./projectModel');
 const _ = require('lodash');
 // const logger = require('../../util/logger');
 
 exports.params = (req, res, next, id) => {
-  Post.findById(id)
+  Project.findById(id)
     .populate('author')
     .exec()
     .then(
@@ -22,12 +22,12 @@ exports.params = (req, res, next, id) => {
 };
 
 exports.get = (req, res, next) => {
-  Post.find({})
+  Project.find({})
     .populate('author categories')
     .exec()
     .then(
-      posts => {
-        res.json(posts);
+      projects => {
+        res.json(project);
       },
       err => {
         next(err);
@@ -36,18 +36,18 @@ exports.get = (req, res, next) => {
 };
 
 exports.getOne = (req, res) => {
-  const post = req.post;
-  res.json(post);
+  const project = req.post;
+  res.json(project);
 };
 
 exports.put = (req, res, next) => {
-  const post = req.post;
+  const project = req.post;
 
   const update = req.body;
 
-  _.merge(post, update);
+  _.merge(project, update);
 
-  post.save((err, saved) => {
+  project.save((err, saved) => {
     if (err) {
       next(err);
     } else {
@@ -57,10 +57,10 @@ exports.put = (req, res, next) => {
 };
 
 exports.post = (req, res, next) => {
-  const newpost = req.body;
-  Post.create(newpost).then(
-    post => {
-      res.json(post);
+  const newProject = req.body;
+  Project.create(newProject).then(
+    project => {
+      res.json(project);
     },
     err => {
       // logger.error(err);
