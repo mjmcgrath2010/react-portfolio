@@ -7,11 +7,11 @@ exports.params = (req, res, next, id) => {
     .populate('author')
     .exec()
     .then(
-      post => {
-        if (!post) {
+      project => {
+        if (!project) {
           next(new Error('No project with that id'));
         } else {
-          req.post = post;
+          req.post = project;
           next();
         }
       },
@@ -27,7 +27,7 @@ exports.get = (req, res, next) => {
     .exec()
     .then(
       projects => {
-        res.json(project);
+        res.json(projects);
       },
       err => {
         next(err);
