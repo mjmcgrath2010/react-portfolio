@@ -6,8 +6,11 @@ const ProjectSchema = new Schema({
     type: String,
     required: true,
   },
-
   description: {
+    type: String,
+    required: true,
+  },
+  tag: {
     type: String,
     required: true,
   },
