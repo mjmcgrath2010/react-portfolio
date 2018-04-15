@@ -34,12 +34,12 @@ exports.get = (req, res, next) => {
 };
 
 exports.getOne = (req, res) => {
-  const project = req.post;
+  const project = req.project;
   res.json(project);
 };
 
 exports.put = (req, res, next) => {
-  const project = req.post;
+  const project = req.project;
 
   const update = req.body;
 
