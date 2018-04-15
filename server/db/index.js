@@ -1,6 +1,7 @@
 const router = require('express').Router();
+const db = require('mongoose');
 
-require('mongoose').connect('mongodb://localhost/portfolio');
+db.connect('mongodb://localhost/portfolio');
 require('./middleware/dbMiddleware')(router);
 
 // Routes

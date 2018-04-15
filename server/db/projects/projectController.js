@@ -4,14 +4,13 @@ const _ = require('lodash');
 
 exports.params = (req, res, next, id) => {
   Project.findById(id)
-    .populate('author')
     .exec()
     .then(
       project => {
         if (!project) {
           next(new Error('No project with that id'));
         } else {
-          req.post = project;
+          req.project = project;
           next();
         }
       },
@@ -23,7 +22,6 @@ exports.params = (req, res, next, id) => {
 
 exports.get = (req, res, next) => {
   Project.find({})
-    .populate('author categories')
     .exec()
     .then(
       projects => {
@@ -63,14 +61,13 @@ exports.post = (req, res, next) => {
       res.json(project);
     },
     err => {
-      // logger.error(err);
       next(err);
     }
   );
 };
 
 exports.delete = (req, res, next) => {
-  req.post.remove((err, removed) => {
+  req.project.remove((err, removed) => {
     if (err) {
       next(err);
     } else {
