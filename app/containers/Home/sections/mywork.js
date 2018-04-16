@@ -7,7 +7,8 @@ import ProjectThumbnail from '../../../components/ProjectThumbnail';
 // Images
 import OSHome from '../../../images/projects/oppspace/opportunityspacehome.png';
 import Residential from '../../../images/projects/oppspace/residential.png';
-import HapYakAcademy from '../../../images/projects/hapyak/hapyak-academy.png';
+import HapYakControlBar from '../../../images/projects/hapyak/control_bar/control_bar_after.png';
+import GSKProServ from '../../../images/projects/hapyak/proserve-gsk.png';
 import CoreReports from '../../../images/projects/hapyak/core-reports.png';
 import HapYakLogo from '../../../images/logos/hapyak_logo_color.png';
 import TolemiLogo from '../../../images/logos/tolemi-logo.png';
@@ -21,8 +22,10 @@ function MyWork() {
             <h2>My Work</h2>
           </Grid.Column>
         </Grid.Row>
-        <img className="logo" alt="hapyak-logo" src={HapYakLogo} />
-        <Grid.Row className="projects-row" columns={3}>
+        <Grid.Row centered>
+          <img className="logo" alt="hapyak-logo" src={HapYakLogo} />
+        </Grid.Row>
+        <Grid.Row className="projects-row" columns={3} centered>
           <Grid.Column>
             <ProjectThumbnail
               projectPage="/projects/hapyak-reporting"
@@ -32,16 +35,23 @@ function MyWork() {
           </Grid.Column>
           <Grid.Column>
             <ProjectThumbnail
-              projectPage="/projects/hapyak-academy"
-              altTag="HapYak Academy"
-              thumbnail={HapYakAcademy}
+              projectPage="/projects/gsk-isi-professional-services"
+              altTag="Important Safety Solution (ISI) Implantation"
+              thumbnail={GSKProServ}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <ProjectThumbnail
+              projectPage="/projects/hapyak-editor"
+              altTag="HapYak Editor"
+              thumbnail={HapYakControlBar}
             />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
+        <Grid.Row centered>
           <img className="logo" alt="Tolemi-Logo" src={TolemiLogo} />
         </Grid.Row>
-        <Grid.Row className="projects-row" columns={3}>
+        <Grid.Row className="projects-row" columns={3} centered>
           <Grid.Column>
             <ProjectThumbnail
               projectPage="/projects/opportunity-space-home-page"

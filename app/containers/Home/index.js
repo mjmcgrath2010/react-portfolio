@@ -24,7 +24,6 @@ import MyWork from './sections/mywork';
 import Contact from './sections/contact';
 import Playground from './sections/playground';
 import Logo from '../../components/Logo';
-import TopNavMenu from '../../components/TopNavMenu';
 
 import { EvenSection, HeroContainer, OddSection, Footer, AccentSection } from './styles';
 import { FETCH_TICKERS, FETCH_MARKET_DATA } from './constants';
@@ -40,7 +39,6 @@ export class Home extends React.Component {
     return (
       <div id="homeContainer">
         <HeroContainer>
-          <TopNavMenu />
           <div className="hero-text">
             <Logo />
           </div>

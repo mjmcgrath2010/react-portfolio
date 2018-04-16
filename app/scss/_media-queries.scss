@@ -1,0 +1,63 @@
+@media only screen
+and (min-device-width: 250px)
+and (max-device-width: 736px) {
+  svg#animatedLogo {
+    width: 300px;
+  }
+  #topNav{
+    #mainNavMenu {
+      #mobileNav {
+        display: block;
+        position: absolute;
+        top: 16px;
+        right: 1em;
+        color: #FFF;
+        font-size: 25px;
+        &:focus {
+          outline: none;
+        }
+
+        &.active {
+          color: #000;
+          transition: .5s ease-in-out;
+        }
+      }
+      #menuContainer{
+        transform: translateX(100%);
+        transition: .5s ease-in-out;
+        text-align: center;
+        display: block;
+        background: #FFF;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 25% 0 0;
+        li {
+          display: block;
+          width: 100%;
+          padding: 2em;
+
+          a{
+            color: #000000;
+            font-size: 30px;
+          }
+        }
+        &.active {
+          transform: translateX(0%);
+          transition: .5s ease-in-out;
+        }
+      }
+    }
+    &.scroll {
+      #mainNavMenu {
+        #mobileNav {
+          color: #000;
+          display: block;
+        }
+      }
+    }
+  }
+}
+

@@ -62,12 +62,46 @@
         }
       }
     }
+    #mobileNav {
+      display:none;
+    }
   }
   @include box-shadow;
   li{
     color: #000;
     a {
       color: #000;
+    }
+  }
+}
+
+#topNav.active {
+  top: 0;
+  animation: none;
+}
+
+#topNav.dark {
+  background: $primary-color;
+  top: 0;
+  animation: none;
+  #mainNavMenu {
+    padding: 0;
+    #menuContainer {
+      float: right;
+    }
+    #navLogo {
+      li {
+        svg {
+          fill: #FFF;
+        }
+      }
+    }
+  }
+  @include box-shadow;
+  li{
+    color: #FFF;
+    a {
+      color: #FFF;
     }
   }
 }
@@ -156,18 +190,6 @@ svg#animatedLogo {
   }
 }
 
-.project-container{
-  display: inline-block;
-  margin: 1em auto;
-  @include box-shadow;
-  height: 225px;
-  overflow: hidden;
-
-  .project-description{
-    text-align: center;
-  }
-}
-
 img.logo {
   height: 100%;
   width: 20em;
@@ -218,7 +240,6 @@ img.logo {
 }
 
 //Charts
-
 .chartContainer {
   position: relative;
   height: 100%;
@@ -228,4 +249,11 @@ img.logo {
 
 #myChart {
   max-height: 500px;
+}
+
+/////////////////////////////////////////////////////////////////////
+//                          My Work Section                       //
+////////////////////////////////////////////////////////////////////
+#projectPageContainer {
+  margin: 85px 0 0;
 }
