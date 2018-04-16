@@ -62,6 +62,9 @@
         }
       }
     }
+    #mobileNav {
+      display:none;
+    }
   }
   @include box-shadow;
   li{

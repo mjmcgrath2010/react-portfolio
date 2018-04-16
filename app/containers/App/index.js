@@ -17,7 +17,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from 'containers/Home/Loadable';
 import ProjectPage from 'containers/ProjectPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import 'scss/styles.scss';
+import 'scss/portfolio.scss';
 // Components
 import TopNavMenu from '../../components/TopNavMenu/index';
 

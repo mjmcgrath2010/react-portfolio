@@ -20,6 +20,7 @@ class TopNavMenu extends React.PureComponent {
     this.state = {
       coloredNav: false,
       className: '',
+      active: '',
     };
   }
   componentDidMount() {
@@ -39,6 +40,12 @@ class TopNavMenu extends React.PureComponent {
       const className = this.state.className.replace('scroll', '');
       this.setState({ coloredNav: true, className });
     }
+  };
+  toggleNav = () => {
+    const navClass = this.state.active === 'active' ? '' : 'active';
+    this.setState({
+      active: navClass,
+    });
   };
   renderNav = (nextPath, active) => {
     const path = nextPath || this.props.pathName;
@@ -75,7 +82,7 @@ class TopNavMenu extends React.PureComponent {
               </Link>
             </li>
           </span>
-          <span id="menuContainer">
+          <span id="menuContainer" className={this.state.active}>
             <li>
               <Link to={{ pathname: '/', hash: '#about' }}>About</Link>
             </li>
@@ -89,6 +96,9 @@ class TopNavMenu extends React.PureComponent {
               <Link to={{ pathname: '/', hash: '#contact' }}>Get in Touch</Link>
             </li>
           </span>
+          <button onClick={this.toggleNav} className={this.state.active} id="mobileNav">
+            X
+          </button>
         </ul>
       </nav>
     );
