@@ -4,17 +4,17 @@ import { handleTickers, updateMarketData, handleStockData } from './actions';
 import request from '../../utils/request';
 
 export function* getTickerSymbols() {
-  const tickers = yield call(request, '/symbols');
+  const tickers = yield call(request, '/services/symbols');
   yield put(handleTickers(tickers));
 }
 
 export function* getMarketData() {
-  const marketData = yield call(request, '/current-market-stats');
+  const marketData = yield call(request, '/services/current-market-stats');
   yield put(updateMarketData(marketData));
 }
 
 export function* getStockData(action) {
-  const stockData = yield call(request, `/stock-data?symbol=${action.ticker}&interval=${action.interval}`);
+  const stockData = yield call(request, `/services/stock-data?symbol=${action.ticker}&interval=${action.interval}`);
   yield put(handleStockData(stockData));
 }
 
