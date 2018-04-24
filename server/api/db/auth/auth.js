@@ -15,6 +15,10 @@ exports.decodeToken = () => (req, res, next) => {
     req.headers.authorization = `Bearer ${req.query.access_token}`;
   }
 
+  if (req.body.access_token) {
+    req.headers.authorization = `Bearer ${req.body.access_token}`;
+  }
+
   // this will call next if token is valid
   // and send error if its not. It will attached
   // the decoded token to req.user
