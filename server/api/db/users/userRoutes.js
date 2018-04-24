@@ -11,12 +11,12 @@ router.get('/me', checkUser, controller.me);
 
 router
   .route('/')
-  .get(controller.get)
-  .post(controller.post);
+  .get(checkUser, controller.get)
+  .post(auth.checkMasterToken, controller.post);
 
 router
   .route('/:id')
-  .get(controller.getOne)
+  .get(checkUser, controller.getOne)
   .put(checkUser, controller.put)
   .delete(checkUser, controller.delete);
 

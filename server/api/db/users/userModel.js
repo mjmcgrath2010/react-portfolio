@@ -16,8 +16,10 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.pre('save', next => {
-  if (!this.isModified('password')) return next();
+UserSchema.pre('save', function(next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
 
   this.password = this.encryptPassword(this.password);
   return next();
@@ -25,15 +27,16 @@ UserSchema.pre('save', next => {
 
 UserSchema.methods = {
   // check the passwords on signin
-  authenticate: plainTextPword => bcrypt.compareSync(plainTextPword, this.password),
+  authenticate: function(plainTextPword) {
+    return bcrypt.compareSync(plainTextPword, this.password);
+  },
   // hash the passwords
   encryptPassword: plainTextPword => {
     if (!plainTextPword) {
       return '';
-    } else {
-      const salt = bcrypt.genSaltSync(10);
-      return bcrypt.hashSync(plainTextPword, salt);
     }
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(plainTextPword, salt);
   },
 
   toJson: () => {

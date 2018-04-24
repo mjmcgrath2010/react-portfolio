@@ -63,6 +63,7 @@ exports.verifyUser = () => (req, res, next) => {
         res.status(401).send('No user with the given username');
       }
       // checking the passowords here
+
       if (!user.authenticate(password)) {
         res.status(401).send('Wrong password');
       } else {
@@ -82,4 +83,15 @@ exports.verifyUser = () => (req, res, next) => {
 
 // util method to sign tokens on signup
 // eslint-disable-next-line no-underscore-dangle
-exports.signToken = id => jwt.sign({ _id: id }, config.secrets.jwt, { expiresInMinutes: config.expireTime });
+exports.signToken = id => jwt.sign({ _id: id }, config.secrets.jwt, { expiresIn: config.expireTime });
+
+exports.checkMasterToken = (req, res, next) => {
+  if (!req.body.master_token) {
+    res.status(404).send('No Master Token Supplied');
+  }
+  if (req.body.master_token === config.master_token) {
+    next();
+  } else {
+    res.status(401).send('Not Authorized');
+  }
+};

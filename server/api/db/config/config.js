@@ -4,8 +4,9 @@ const config = {
   dev: 'development',
   test: 'testing',
   prod: 'production',
+  master_token: process.env.MASTER_TOKEN || 'testing',
   // 10 days in minutes
-  expireTime: 24 * 60 * 10,
+  expireTime: '10d',
   secrets: {
     jwt: process.env.JWT || 'gumball',
   },
