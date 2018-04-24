@@ -12,7 +12,6 @@ router.use('/auth', auth);
 router.use('/projects', projectRoutes);
 
 // Error Handling
-
 router.use((err, req, res) => {
   // if error thrown from jwt validation check
   if (err.name === 'UnauthorizedError') {
