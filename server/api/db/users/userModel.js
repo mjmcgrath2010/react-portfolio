@@ -39,7 +39,7 @@ UserSchema.methods = {
     return bcrypt.hashSync(plainTextPword, salt);
   },
 
-  toJson: () => {
+  toJson: function() {
     const obj = this.toObject();
     delete obj.password;
     return obj;
