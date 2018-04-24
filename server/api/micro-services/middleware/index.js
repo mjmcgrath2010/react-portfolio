@@ -4,7 +4,7 @@
 const fetch = require('node-fetch');
 const baseStockUrl = 'https://api.iextrading.com/1.0';
 const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U',
+  key: process.env.GOOGLE_MAPS_KEY,
 });
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     fetch(
       `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
         req.query.keyword
-      }&types=address&location=42.342813,-71.0976066&radius=80467&strictbounds&key=AIzaSyCjXddPanpmLwtsDoXLHNqwhiEmCtMlc0U`
+      }&types=address&location=42.342813,-71.0976066&radius=80467&strictbounds&key=${process.env.GOOGLE_MAPS_KEY}`
     )
       .then(resp => resp.json())
       .then(json => res.status(200).send(json))
