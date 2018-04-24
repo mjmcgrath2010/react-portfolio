@@ -2,6 +2,6 @@ module.exports = {
   // enabled logging for development
   logging: true,
   db: {
-    url: 'mongodb://localhost/portfolio',
+    url: process.env.MONGODB_URI,
   },
 };
