@@ -1,6 +1,6 @@
 const Project = require('./projectModel');
 const _ = require('lodash');
-// const logger = require('../../util/logger');
+// const logger = require('../../utils/logger');
 
 exports.params = (req, res, next, id) => {
   Project.findById(id)

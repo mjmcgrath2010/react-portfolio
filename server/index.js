@@ -10,17 +10,10 @@ const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
 const resolve = require('path').resolve;
 const app = express();
-const api = require('./api/index');
-// const database = require('./db/index');
+const apiRoutes = require('./api/index');
 
-// Backend api and middleware
-app.use('/api/autocomplete', api.autoComplete);
-app.use('/api/geocode', api.geocode);
-app.use('/api/directions', api.directions);
-app.use('/api/stock-data', api.getStockData);
-app.use('/api/symbols', api.getTickerSymbols);
-app.use('/api/current-market-stats', api.getCurrentMarketData);
-// app.use('/api/db', database);
+// API Routes
+app.use('/api', apiRoutes);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

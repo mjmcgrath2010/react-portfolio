@@ -24,7 +24,7 @@
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
-    "start": "cross-env NODE_ENV=development node server",
+    "start": "cross-env NODE_ENV=development nodemon server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
@@ -105,7 +105,7 @@
     },
     "rules": {
       "arrow-parens": [
-        1,
+        0,
         "always"
       ],
       "arrow-body-style": [
@@ -176,7 +176,15 @@
       "express",
       "ip",
       "minimist",
-      "sanitize.css"
+      "sanitize.css",
+      "bcrypt",
+      "body-parser",
+      "cors",
+      "express-jwt",
+      "method-override",
+      "mongoose",
+      "morgan",
+      "locale"
     ],
     "include": [
       "core-js",
@@ -222,6 +230,7 @@
     "compression": "1.6.2",
     "cors": "^2.8.4",
     "cross-env": "5.0.0",
+    "dotenv": "^5.0.1",
     "express": "4.15.3",
     "express-jwt": "^5.3.1",
     "fontfaceobserver": "2.0.9",
@@ -302,6 +311,7 @@
     "ngrok": "2.2.9",
     "node-plop": "0.7.0",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.17.3",
     "null-loader": "0.1.1",
     "offline-plugin": "4.8.1",
     "plop": "1.8.0",

@@ -103,7 +103,7 @@ class MapSearch extends React.PureComponent {
 
   handleSearchChange = e => {
     const that = this;
-    request(`/autocomplete?keyword=${e.target.value}`)
+    request(`/services/autocomplete?keyword=${e.target.value}`)
       .then(response => {
         const predictions = [];
         _.each(response.predictions, item => {
@@ -126,13 +126,13 @@ class MapSearch extends React.PureComponent {
 
   handleResultSelect = (e, { result }) => {
     const that = this;
-    request(`/geocode?address=${result.title}`)
+    request(`/services/geocode?address=${result.title}`)
       .then(response => response.json.results[0].geometry.location)
       .then(response => {
         const location = { lat: response.lat, lng: response.lng };
         that.mapLocation(location);
-        const transit = request(`/directions?lat=${response.lat}&lng=${response.lng}&mode=transit`);
-        const driving = request(`/directions?lat=${response.lat}&lng=${response.lng}&mode=driving`);
+        const transit = request(`/services/directions?lat=${response.lat}&lng=${response.lng}&mode=transit`);
+        const driving = request(`/services/directions?lat=${response.lat}&lng=${response.lng}&mode=driving`);
         return { transit, driving };
       })
       .then(directions => {
