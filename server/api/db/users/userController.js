@@ -1,8 +1,8 @@
 const User = require('./userModel');
 const _ = require('lodash');
-const signToken = require('../../auth/auth').signToken;
+const signToken = require('../auth/auth').signToken;
 
-exports.params = function(req, res, next, id) {
+exports.params = (req, res, next, id) => {
   User.findById(id)
     .select('-password')
     .exec()
@@ -27,11 +27,7 @@ exports.get = (req, res, next) => {
     .exec()
     .then(
       users => {
-        res.json(
-          users.map(user => {
-            return user.toJson();
-          })
-        );
+        res.json(users.map(user => user.toJson()));
       },
       err => {
         next(err);
@@ -39,7 +35,7 @@ exports.get = (req, res, next) => {
     );
 };
 
-exports.getOne = (req, res, next) => {
+exports.getOne = (req, res) => {
   const user = req.user.toJson();
   res.json(user.toJson());
 };
@@ -67,7 +63,7 @@ exports.post = (req, res, next) => {
     if (err) {
       return next(err);
     }
-
+    // eslint-disable-next-line no-underscore-dangle
     const token = signToken(user._id);
     return res.json({ token });
   });

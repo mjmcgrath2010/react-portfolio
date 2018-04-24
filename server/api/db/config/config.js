@@ -1,49 +1,35 @@
-// no var needed here, colors will attached colors
-// to String.prototype
-require('colors');
 const _ = require('lodash');
 
-const config = require('../config/config');
-
-// create a noop (no operation) function for when loggin is disabled
-const noop = () => {};
-// check if loggin is enabled in the config
-// if it is, then use console.log
-// if not then noop
-const consoleLog = config.logging ? console.log.bind(console) : noop;
-
-const logger = {
-  log: () => {
-    const tag = '[ ✨ LOG ✨ ]'.green;
-    // arguments is an array like object with all the passed
-    // in arguments to this function
-    const args = _.toArray(arguments).map(arg => {
-      if (typeof arg === 'object') {
-        // turn the object to a string so we
-        // can log all the properties and color it
-        const string = JSON.stringify(arg, null, 2);
-        return tag + '  ' + string.cyan;
-      } else {
-        return tag + '  ' + arg.cyan;
-      }
-    });
-
-    // call either console.log or noop here
-    // with the console object as the context
-    // and the new colored args :)
-    consoleLog.apply(console, args);
-  },
-
-  error: () => {
-    const args = _.toArray(arguments).map(arg => {
-      arg = arg.stack || arg;
-      const name = arg.name || '[ ❌ ERROR ❌ ]';
-      const log = name.yellow + '  ' + arg.red;
-      return log;
-    });
-
-    consoleLog.apply(console, args);
+const config = {
+  dev: 'development',
+  test: 'testing',
+  prod: 'production',
+  port: process.env.PORT || 3000,
+  // 10 days in minutes
+  expireTime: 24 * 60 * 10,
+  secrets: {
+    jwt: process.env.JWT || 'gumball',
   },
 };
 
-module.exports = logger;
+let envConfig;
+
+process.env.NODE_ENV = process.env.NODE_ENV || config.dev;
+config.env = process.env.NODE_ENV;
+// require could error out if
+// the file don't exist so lets try this statement
+// and fallback to an empty object if it does error out
+try {
+  // eslint-disable-next-line global-require
+  envConfig = require(`./${config.env}`);
+  // just making sure the require actually
+  // got something back :)
+  envConfig = envConfig || {};
+} catch (e) {
+  envConfig = {};
+}
+
+// merge the two config files together
+// the envConfig file will overwrite properties
+// on the config object
+module.exports = _.merge(config, envConfig);

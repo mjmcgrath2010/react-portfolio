@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // const logger = require('../utils/logger');
 const controller = require('./userController');
-const auth = require('../../auth/auth');
+const auth = require('../auth/auth');
 const checkUser = [auth.decodeToken(), auth.getFreshUser()];
 
 // setup boilerplate route jsut to satisfy a request
